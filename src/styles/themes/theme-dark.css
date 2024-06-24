@@ -10,10 +10,51 @@
     --block-bg: #18181b !important;
     --block-fg: white !important;
 
+    /* UI */
+    --ui-bg: #18181b !important;
+    --ui-border-color: #3f3f46 !important;
+
     /* Btn */
     --btn-bg: #28282c !important;
     --btn-fg: white !important;
     --btn-border-color: #3f3f46 !important;
-
     transition: all var(--duration-color) ease !important;
+
+    /* Button PrimeVue */
+    --p-button-primary-background: var(--btn-bg) !important;
+    --p-button-primary-hover-background: var(--btn-hover-bg) !important;
+    --p-button-primary-active-background: var(--btn-active-bg) !important;
+    --p-button-primary-border-color: var(--btn-border-color) !important;
+    --p-button-primary-hover-border-color: var(--btn-border-color) !important;
+    --p-button-primary-active-border-color: var(--btn-border-color) !important;
+    --p-button-primary-color: var(--btn-fg) !important;
+    --p-button-primary-hover-color: var(--btn-hover-fg) !important;
+    --p-button-primary-active-color: var(--btn-hover-fg) !important;
+
+    /* Switch Toggle PrimeVue */
+    --p-toggleswitch-focus-ring-color: var(--ui-focus-color) !important;
+    --p-toggleswitch-background: var(--ui-bg) !important;
+    --p-toggleswitch-border-color: var(--ui-border-color) !important;
+    --p-toggleswitch-handle-background: var(--p-zinc-600) !important;
+    --p-toggleswitch-checked-background: var(--p-zinc-600) !important;
+    --p-toggleswitch-handle-checked-background: var(--p-zinc-300) !important;
+    --p-toggleswitch-hover-background: var(--p-zinc-600) !important;
+    --p-toggleswitch-handle-hover-background: var(--p-zinc-900) !important;
+    --p-toggleswitch-handle-checked-hover-background: var(--p-zinc-400) !important;
+    --p-toggleswitch-checked-hover-background: var(--p-zinc-700) !important;
+
+    /* Checkbox PrimeVue */
+    --p-checkbox-background: var(--p-zinc-200) !important;
+    --p-checkbox-checked-background: var(--p-zinc-800) !important;
+    --p-checkbox-icon-checked-color: var(--p-zinc-300) !important;
+    --p-checkbox-checked-border-color: var(--p-zinc-300) !important;
+    --p-checkbox-border-color: var(--p-zinc-500) !important;
+    --p-checkbox-checked-hover-background: var(--p-zinc-700) !important;
+    --p-checkbox-hover-border-color: var(--p-zinc-700) !important;
+    --p-checkbox-checked-hover-border-color: var(--p-zinc-500) !important;
+    --p-checkbox-disabled-background: var(--p-zinc-600) !important;
+    --p-checkbox-focus-ring-color: var(--ui-focus-color) !important;
+    --p-checkbox-checked-focus-border-color: var(--ui-focus-color) !important;
+    --p-checkbox-icon-color: var(--p-zinc-700) !important;
+    --p-checkbox-icon-checked-hover-color: var(--p-zinc-50) !important;
 }
