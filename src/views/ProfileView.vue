@@ -52,6 +52,22 @@
     box-shadow: 2px 2px 10px rgba(0,0,0,.2);
     border-radius: 10px;
 }
+@keyframes rotate-right {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotate-left {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
 .header__avatar-layout {
     display: flex;
     align-items: center;
@@ -61,12 +77,15 @@
     width: 200px;
     height: 200px;
     border: 2px dashed rgba(0,0,0,.3);
+    animation: rotate-right 60s linear infinite;
 }
 .avatar-stub {
     font-size: 120px;
     transition: all 0.6s ease;
     cursor: pointer;
     color: var(--main-fg-light);
+    animation: rotate-left 60s linear infinite;
+
 }
 .avatar-stub:hover {
     scale: 1.02;

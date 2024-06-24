@@ -1,0 +1,7 @@
+@import url(./navdrawer.css);
+@import url(./btn.css);
+
+/* Стили которые могут применятся ко всем компонентам */
+.none {
+    display: none !important;
+}

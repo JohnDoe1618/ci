@@ -1,5 +1,8 @@
 <template>
-    <button class="btn">
+    <button 
+    class="btn ci-btn cursor-pointer flex align-items-center justify-content-end text-base outline-none shadow-2"
+    :class="(props.show === false)? 'none' : ''"
+    >
         <i v-if="props.icon" class="btn__icon" :class="props.icon"></i>
         <p v-if="hasLabel" ref="btnLabel" class="btn__label" :class="props.icon ? 'with-icon': ''">
             <slot></slot>
@@ -14,6 +17,11 @@ const props = defineProps({
     icon: {
         type: String,
         required: false,
+    },
+    show: {
+        type: Boolean,
+        required: false,
+        default: true,
     }
 })
 
@@ -31,29 +39,9 @@ onMounted(() => {
 
 <style scoped>
 .btn {
-    background-color: #252525;
-    color: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
     font-family: var(--font);
     padding: 0.4rem 0.7rem;
-    outline: rgba(0,0,0,0);
-    border: 1px solid black;
-    transition: all 0.2s ease;
     border-radius: 5px;
-    box-shadow: 1px 1px 5px rgba(0,0,0, .2);
-}
-.btn:hover {
-    background-color: #464646;
-    transition: all 0.2s ease;
-}
-.btn:active {
-    background-color: #797777;
-    transition: all 0.1s ease;
-    border: 1px solid rgb(136, 136, 136);
 }
 .btn__icon {
     font-size: 15px;

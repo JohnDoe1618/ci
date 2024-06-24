@@ -1,0 +1,12 @@
+.theme-dark-contrast {
+    /* PrimeVue Tokens */
+    /* --primary-color: #ff5722;
+    --background-color: #ffeb3b;
+    --text-color: #4caf50; */
+
+    /* Custom Tokens */
+    --block-bg: #000000 !important;
+    --block-fg: rgb(255, 255, 255) !important;
+    transition: all var(--duration-color) ease !important;
+
+}

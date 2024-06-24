@@ -1,0 +1,19 @@
+.theme-dark {
+    /* PrimeVue Tokens */
+    --primary-color: #343a40 !important;
+    --background-color: #212529 !important;
+    --text-color: #ffffff !important;
+    --p-button-primary-background: #343a40 !important;
+
+    /* Custom Tokens */
+    /* Blocks */
+    --block-bg: #18181b !important;
+    --block-fg: white !important;
+
+    /* Btn */
+    --btn-bg: #28282c !important;
+    --btn-fg: white !important;
+    --btn-border-color: #3f3f46 !important;
+
+    transition: all var(--duration-color) ease !important;
+}

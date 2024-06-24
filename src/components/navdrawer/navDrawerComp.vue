@@ -21,7 +21,8 @@
                     </PanelMenu>
                     <btn-comp 
                     class="absolute right-0" 
-                    style="bottom: -40px; z-index: 99999;" v-show="isShowCollapseBtn" 
+                    style="bottom: -40px; z-index: 99999;" 
+                    :show="isShowCollapseBtn" 
                     :icon="'pi pi-minus'" 
                     @click="collapseAll"
                     ></btn-comp>

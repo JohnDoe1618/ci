@@ -1,7 +1,0 @@
-.ci-block {
-    background-color: var(--block-bg) !important;
-    color: var(--block-fg) !important;
-    font-family: var(--font) !important;
-    transition: all var(--duration-color) ease !important;
-}
-
