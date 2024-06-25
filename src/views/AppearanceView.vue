@@ -19,13 +19,13 @@
                 </div>
             </div>
         </div>
+        <!-- Terminal -->
         <terminal-comp></terminal-comp>
     </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
-import TerminalService from "primevue/terminalservice";
+import { ref } from 'vue';
 const lightMode = ref(false);
 function setTheme(theme) {
     document.documentElement.classList = theme;
@@ -45,30 +45,7 @@ function toggleLightTheme(isChecked) {
         setTheme('theme-light');
     }
 }
-
-onMounted(() => {
-    TerminalService.on('command', commandHandler);
-})
-
-onBeforeUnmount(() => {
-    TerminalService.off('command', commandHandler);
-})
-
-function commandHandler(text) {
-    let response;
-    let argsIndex = text.indexOf(' ');
-    let command = argsIndex !== -1 ? text.substring(0, argsIndex) : text;
-    if (command === "date") {
-        response = 'Today is ' + new Date().toDateString();
-    } else if (command === "greet") {
-        response = 'Hola ' + text.substring(argsIndex + 1);
-    } else if (command === "random") {
-        response = Math.floor(Math.random() * 100);
-    } else {
-        response = "Unknown command: " + command;
-    }
-    TerminalService.emit('response', response);
-}
+toggleLightTheme(true)
 </script>
 
 <style scoped>
