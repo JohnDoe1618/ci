@@ -1,5 +1,5 @@
 <template>
-    <div class="statistics-view">
+    <div class="ci-view ci-block w-full">
         STATISTICS PAGE
     </div>
 </template>

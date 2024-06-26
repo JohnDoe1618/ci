@@ -1,5 +1,5 @@
 <template>
-    <div class="employees-view">
+    <div class="ci-view ci-block w-full">
         EMPLOYEES VIEW
     </div>
 </template>

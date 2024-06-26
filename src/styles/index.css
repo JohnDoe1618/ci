@@ -19,6 +19,7 @@
     --btn-hover-bg: #464646;
     --btn-hover-fg: white;
     --btn-active-bg: #797777;
+    --border-color-view: #0000004d;
 }
 
 * {
