@@ -10,6 +10,18 @@
     --block-bg: #18181b !important;
     --block-fg: white !important;
     --border-color-view: #8888883b !important;
+    --scrollbar-thumb-color: #707070 !important;
+
+    --table-bg: #18181b !important;
+    --table-fg: rgb(230, 230, 230) !important;
+    --table-cell-bg-active: rgb(128, 126, 126) !important;
+    --table-cell-striped-bg: #242424 !important;
+    --table-cell-bg: #3a3a3b !important;
+    --table-cell-hover-color: rgb(58, 58, 58) !important;
+    --table-header-cell-hover-color-bg: rgb(192, 192, 192) !important;
+    --table-cell-body-border-color: rgb(141, 140, 140) !important;
+    --paginator-nav-btn-bg: rgb(122, 122, 122) !important;
+    --paginator-focus-border-color: rgb(87, 87, 87) !important;
 
     /* UI */
     --ui-bg: #18181b !important;

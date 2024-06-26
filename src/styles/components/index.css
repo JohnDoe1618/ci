@@ -1,6 +1,7 @@
 @import url(./navdrawer.css);
 @import url(./btn.css);
 @import url(./terminal.css);
+@import url(./table.css);
 
 /* Стили которые могут применятся ко всем компонентам */
 .ci-block {
