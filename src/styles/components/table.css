@@ -1,0 +1,54 @@
+:root {
+    --table-bg: rgb(236, 236, 236);
+    --table-fg: rgb(51, 51, 51);
+    --table-cell-bg-active: rgb(105, 105, 105);
+    --table-cell-striped-bg: rgb(211, 210, 210);
+    --table-cell-bg: white;
+    --table-cell-hover-color: white;
+    --table-cell-body-border-color: rgb(141, 140, 140);
+    --table-header-cell-hover-color-bg: rgb(51, 51, 51);
+    --paginator-nav-btn-bg: rgb(122, 122, 122);
+    --paginator-focus-border-color: rgb(87, 87, 87);
+
+
+
+    --p-paginator-border-radius: none !important;
+    --p-datatable-border-color: var(--table-bg) !important;
+    --p-datatable-header-background: var(--table-bg) !important;
+    --p-datatable-header-color: var(--table-fg) !important;
+    --p-datatable-header-cell-background: var(--table-cell-bg) !important;
+    --p-datatable-header-cell-hover-background: var(--table-header-cell-hover-color-bg) !important;
+    --p-datatable-header-cell-selected-background: var(--table-cell-bg-active) !important;
+    --p-datatable-header-cell-color: var(--table-fg) !important;
+    --p-datatable-header-cell-hover-color: var(--table-cell-hover-color) !important;
+    --p-datatable-header-cell-focus-ring-color: var(--ui-focus-color) !important;
+    --p-datatable-sort-icon-hover-color: var(--table-cell-hover-color) !important;
+    
+
+    /* ROW */
+    --p-datatable-row-background: var(--table-cell-bg) !important;
+    --p-datatable-row-color: var(--table-fg) !important;
+    --p-datatable-row-striped-background: var(--table-cell-striped-bg) !important;
+    --p-datatable-body-cell-border-color: var(--table-cell-body-border-color) !important;
+
+    /* FOOTER */
+    --p-datatable-footer-background: var(--table-bg) !important;
+    --p-datatable-footer-color: var(--table-fg) !important;
+    --p-datatable-footer-border-color: var(--table-cell-bg) !important;
+
+    /* PAGINATOR */
+    --p-paginator-background: var(--table-bg) !important;
+    --p-paginator-color: var(--table-fg) !important;
+    --p-paginator-nav-button-selected-background: var(--paginator-nav-btn-bg) !important;
+    --p-select-background: var(--table-cell-bg) !important;
+    --p-select-border-color: var(--table-cell-body-border-color) !important;
+    --p-select-focus-border-color: var(--paginator-focus-border-color) !important;
+    --p-select-overlay-background: var(--table-bg) !important;
+    --p-select-color: var(--table-fg) !important;
+    --p-select-overlay-border-color: var(--table-cell-body-border-color) !important;
+    --p-select-option-focus-background: var(--table-cell-bg-active) !important;
+    --p-select-option-selected-background: rgb(172, 201, 218)!important;
+    --p-select-option-selected-focus-color: var(--table-fg) !important;
+    --p-select-option-color: var(--table-fg) !important;
+
+}

@@ -12,10 +12,12 @@ import navDrawerComp from "./components/navdrawer/navDrawerComp.vue";
 import { onMounted } from "vue";
 
 onMounted(() => {
-    document.documentElement.classList = 'theme-light';    
+    document.documentElement.classList = 'theme-dark';    
+
 })
 
 </script>
+
 
 <style scoped>
 .app {
