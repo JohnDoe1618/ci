@@ -1,5 +1,5 @@
 <template>
-    <div class="security-view">
+    <div class="ci-view ci-block w-full">
         SECURITY VIEW
     </div>
 </template>

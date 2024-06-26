@@ -1,5 +1,5 @@
 <template>
-    <div class="auth-view">
+    <div class="ci-view ci-block w-full">
         AUTH
     </div>
 </template>

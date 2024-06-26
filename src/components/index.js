@@ -5,6 +5,8 @@ import PanelMenu from 'primevue/panelmenu';
 import ToggleSwitch from 'primevue/toggleswitch';
 import Checkbox from 'primevue/checkbox';
 import Terminal from 'primevue/terminal';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
 
 export default [
     Drawer,
@@ -14,4 +16,6 @@ export default [
     ToggleSwitch,
     Checkbox,
     Terminal,
+    DataTable,
+    Column,
 ]

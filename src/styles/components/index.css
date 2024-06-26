@@ -3,6 +3,17 @@
 @import url(./terminal.css);
 
 /* Стили которые могут применятся ко всем компонентам */
+.ci-block {
+    background-color: var(--block-bg) !important;
+    color: var(--block-fg) !important;
+    font-family: var(--font) !important;
+    transition: all var(--duration-color) ease !important;
+}
+
+.ci-view {
+    border-left: 1px solid var(--border-color-view);
+}
+
 .none {
     display: none !important;
 }

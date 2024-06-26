@@ -1,5 +1,5 @@
 <template>
-    <div class="profile-view">
+    <div class="ci-view ci-block w-full profile-view">
         <header class="profile-view__header">
             <div class="header__avatar-layout">
                 <label for="avatar">
@@ -36,7 +36,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid black;
     padding: 2rem;
 }
 /* HEADER */

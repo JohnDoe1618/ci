@@ -1,5 +1,5 @@
 <template>
-    <div class="ci-block w-full">
+    <div class="ci-view ci-block w-full">
         <Button @click="setTheme('theme-dark')" class="ci-block m-3">Dark Theme</Button>
         <Button @click="setTheme('theme-dark-contrast')">Colorful Theme</Button>
         <Button>Example Btn</Button>
@@ -45,7 +45,6 @@ function toggleLightTheme(isChecked) {
         setTheme('theme-light');
     }
 }
-toggleLightTheme(true)
 </script>
 
 <style scoped>

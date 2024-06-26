@@ -1,5 +1,5 @@
 <template>
-    <div class="main-view">
+    <div class="ci-view ci-block w-full">
         MAIN
         <btn-comp :icon="'pi pi-check'">Toggle</btn-comp>
     </div>
