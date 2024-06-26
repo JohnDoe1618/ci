@@ -1,0 +1,26 @@
+:root {
+    --p-terminal-border-radius: none !important;
+}
+
+.p-terminal-prompt-value {
+    flex: 1 1 auto !important;
+    border: 0 none !important;
+    background: transparent !important;
+    color: rgb(166, 136, 236) !important;
+    padding: 0 !important;
+    outline: 0 none !important;
+    font-family: inherit !important;
+    font-feature-settings: inherit !important;
+    font-size: 1rem !important;
+    letter-spacing: 0.05rem;
+}
+
+.p-terminal-welcome-message {
+    color: rgb(235, 235, 235) !important;
+    font-size: .9rem !important;
+    font-family: monospace !important;
+}
+
+.p-terminal-prompt-label {
+    color: rgb(228, 220, 74) !important;
+}
