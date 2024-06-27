@@ -2,8 +2,13 @@
 @import url(./btn.css);
 @import url(./terminal.css);
 @import url(./table.css);
+@import url(./tableSettingDrawer.css);
 
 /* Стили которые могут применятся ко всем компонентам */
+:root {
+    --p-select-option-selected-color: var(--block-fg) !important;
+}
+
 .ci-block {
     background-color: var(--block-bg) !important;
     color: var(--block-fg) !important;
@@ -13,6 +18,14 @@
 
 .ci-view {
     border-left: 1px solid var(--border-color-view);
+}
+
+.ci-text {
+    font-family: var(--font);
+}
+
+.p-select-option-check-icon {
+    color: var(--block-fg) !important;
 }
 
 .none {

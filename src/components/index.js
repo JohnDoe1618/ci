@@ -7,6 +7,7 @@ import Checkbox from 'primevue/checkbox';
 import Terminal from 'primevue/terminal';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
+import Select from 'primevue/select';
 
 export default [
     Drawer,
@@ -18,4 +19,5 @@ export default [
     Terminal,
     DataTable,
     Column,
+    Select,
 ]
