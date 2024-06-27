@@ -30,21 +30,41 @@
         >
             <template #header>
                 <div class="flex flex-wrap items-center justify-between gap-2">
-                    <span class="text-xl font-bold">Projects</span>
+                    <!-- Back page -->
+                    <Button 
+                    class="ci-btn mr-2"
+                    icon="pi pi-angle-left" 
+                    rounded 
+                    raised 
+                    @click="router.go(-1)"
+                    title="go to back" />
+                    <h1 class="ci-text text-2xl mr-auto font-normal align-self-center">Projects</h1>
+
+                    <!-- New Project -->
+                    <Button 
+                    class="ci-btn ml-auto" 
+                    icon="pi pi-plus" 
+                    rounded 
+                    @click="router.push({ name: 'new-project' })"
+                    raised 
+                    title="create new project" />
 
                     <!-- Settings -->
                     <Button 
-                    class="ml-auto" 
+                    class="ci-btn"
                     icon="pi pi-cog" 
                     rounded 
                     @click="isShowSettingDrawer = true"
-                    raised />
+                    raised 
+                    title="settings"/>
 
                     <!-- Updatte Table -->
                     <Button 
+                    class="ci-btn"
                     icon="pi pi-refresh" 
                     rounded 
-                    raised />
+                    raised 
+                    title="reload list"/>
                 </div>
             </template>
             <Column field="id" header="ID" sortable></Column>
@@ -74,7 +94,9 @@ import { onMounted, ref } from 'vue';
 import ProjectService from '@/services/projectService';
 import { formatedDateTimeTemplate, dateFromNow } from '@/utils/maskUtils';
 import { useToast } from 'primevue/usetoast';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const toast = useToast();
 
 const projects = ref();

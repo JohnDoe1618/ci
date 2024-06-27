@@ -11,6 +11,11 @@ import Select from 'primevue/select';
 import InputText from 'primevue/inputtext';
 import FloatLabel from 'primevue/floatlabel';
 import Toast from 'primevue/toast';
+import InputGroup from 'primevue/inputgroup';
+import InputGroupAddon from 'primevue/inputgroupaddon';
+import SelectButton from 'primevue/selectbutton';
+import InputMask from 'primevue/inputmask';
+import Textarea from 'primevue/textarea';
 
 export default [
     Drawer,
@@ -26,4 +31,9 @@ export default [
     FloatLabel,
     InputText,
     Toast,
+    InputGroup,
+    InputGroupAddon,
+    SelectButton,
+    InputMask,
+    Textarea,
 ]

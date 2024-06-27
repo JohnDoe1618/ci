@@ -9,6 +9,7 @@
 /* Стили которые могут применятся ко всем компонентам */
 :root {
     --p-select-option-selected-color: var(--block-fg) !important;
+
 }
 
 .ci-block {
@@ -24,6 +25,7 @@
 
 .ci-text {
     font-family: var(--font);
+    color: var(--block-fg);
 }
 
 .p-select-option-check-icon {

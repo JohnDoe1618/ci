@@ -14,4 +14,19 @@
 
     /* FLOAT LABEL */
     --p-floatlabel-color: var(--input-placeholder-color) !important;
+
+    /* ----  InputGroupAddon ---- */
+    --p-inputgroup-addon-background: var(--block-bg) !important;   
+    --p-inputgroup-addon-color: var(--ui-hint-color) !important;
+
+    /* TEXT AREA */
+    --p-textarea-background: var(--block-bg) !important;
+    --p-textarea-color: var(--block-fg) !important;
+    --p-textarea-border-color: var(--input-border-color) !important;
+    --p-textarea-hover-border-color: var(--input-hover-border-color) !important;
+    --p-textarea-focus-border-color: var(--input-focus-border-color) !important;
+}
+
+.p-inputmask {
+    width: 83.3333% !important;
 }
