@@ -35,7 +35,7 @@ import { ref } from 'vue';
 
                 <!-- Show Grid Lines -->
                 <div class="flex align-items-center mt-3">
-                    <label class="ci-text font-light mr-3 text-xl w-5" for="checkbox-show-grid-lines">Show Grid Lines</label>
+                    <label class="ci-text font-light mr-3 text-xl w-5 cursor-pointer" for="checkbox-show-grid-lines">Show Grid Lines</label>
                     <Checkbox
                     :inputId="'checkbox-show-grid-lines'"
                     @update:modelValue="(value) => updateShowGridLines(value)"
@@ -47,7 +47,7 @@ import { ref } from 'vue';
 
                 <!-- Striped Rows -->
                 <div class="flex align-items-center mt-3">
-                    <label class="ci-text font-light mr-3 text-xl w-5" for="checkbox-striped-rows">Striped Rows</label>
+                    <label class="ci-text font-light mr-3 text-xl w-5 cursor-pointer" for="checkbox-striped-rows">Striped Rows</label>
                     <Checkbox
                     :inputId="'checkbox-striped-rows'"
                     @update:modelValue="(value) => updateStripedRows(value)"
@@ -59,7 +59,7 @@ import { ref } from 'vue';
 
                 <!-- Paginator -->
                 <div class="flex align-items-center mt-3">
-                    <label class="ci-text font-light mr-3 text-xl w-5" for="paginator">Paginator</label>
+                    <label class="ci-text font-light mr-3 text-xl w-5 cursor-pointer" for="paginator">Paginator</label>
                     <Checkbox
                     :inputId="'paginator'"
                     @update:modelValue="(value) => updatePaginatorSelect(value)"
@@ -71,7 +71,7 @@ import { ref } from 'vue';
 
                 <!-- Date Template -->
                 <div class="flex align-items-center mt-3">
-                    <h3 class="ci-text font-light mr-3 text-xl w-5">Date Template</h3>
+                    <h3 class="ci-text font-light mr-3 text-xl w-5">Date Templates</h3>
                     <Select 
                     class="ci-text w-5"
                     v-model="selectedDateTemplate" 
@@ -85,6 +85,24 @@ import { ref } from 'vue';
                             <p class="ci-text font-light">{{ option }}</p>
                         </template>
                     </Select>
+                </div>
+
+                <!-- Add New Date Template -->
+                <div class="flex align-items-center mt-5">
+                    <h3 class="ci-text font-light mr-3 text-xl w-5">Add Date Template</h3>
+                    <FloatLabel>
+                        <InputText id="new-date-template" v-model="newDateTemplate" />
+                        <label for="new-date-template">New template (DD:MM:YYY)</label>
+                    </FloatLabel>
+                    <!-- + -->
+                    <Button class="ml-2" icon="pi pi-plus" aria-label="Save" @click="addNewDateTemplate"/>
+                    <i 
+                    class="pi pi-question-circle ml-2 cursor-pointer" 
+                    style="font-size: 1.5rem; color: gray;" 
+                    v-tooltip.bottom="'D - days \n M - months \n Y - years \n H - hours \n m - minutes \n s - seconds'"
+
+                    ></i>
+                    
                 </div>
 
             </div>
@@ -120,7 +138,8 @@ const emit = defineEmits([
     'update:showGridLines', 
     'update:stripedRows', 
     'update:paginatorSelect', 
-    'update:dateTemplate'
+    'update:dateTemplate',
+    'addDateTemplate'
 ]);
 
 const selectedSizeTable = ref('Large');
@@ -129,6 +148,14 @@ const stripedRows = ref([]);
 const selectedPaginator = ref([]);
 const selectedDateTemplate = ref(null);
 const dateTemplates = ref([]);
+const newDateTemplate = ref('');
+
+function addNewDateTemplate() {
+    if(newDateTemplate.value && newDateTemplate.value.length) {
+        emit('addDateTemplate', newDateTemplate.value);
+        newDateTemplate.value = '';
+    }
+}
 
 function handlerVisible(state) {
     if(state === false) return emit('close');

@@ -1,0 +1,15 @@
+
+:root {
+    --toast-detail-color: rgb(77, 77, 77);
+
+    --p-toast-info-color: black !important;
+    --p-toast-success-color: rgb(40, 164, 40) !important;
+    --p-toast-success-detail-color: var(--toast-detail-color) !important;
+    --p-toast-info-detail-color: var(--toast-detail-color) !important;
+    --p-toast-warn-detail-color: var(--toast-detail-color) !important;
+    --p-toast-error-detail-color: var(--toast-detail-color) !important;
+}
+
+.p-toast {
+    font-family: var(--font) !important;
+}

@@ -3,6 +3,8 @@
 @import url(./terminal.css);
 @import url(./table.css);
 @import url(./tableSettingDrawer.css);
+@import url(./input.css);
+@import url(./toast.css);
 
 /* Стили которые могут применятся ко всем компонентам */
 :root {
@@ -26,6 +28,18 @@
 
 .p-select-option-check-icon {
     color: var(--block-fg) !important;
+}
+
+.p-floatlabel {
+    font-family: var(--font) !important;
+}
+
+.p-tooltip { 
+    font-family: var(--font) !important;
+}
+
+.p-inputtext {
+    font-family: var(--font) !important;
 }
 
 .none {

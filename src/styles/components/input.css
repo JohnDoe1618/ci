@@ -1,0 +1,17 @@
+
+:root {
+    --input-border-color: rgb(141, 140, 140);
+    --input-hover-border-color: rgb(84, 84, 84);
+    --input-focus-border-color: rgb(61, 61, 61);
+    --input-placeholder-color: rgba(86, 86, 86, 0.886);
+
+    --p-inputtext-background: var(--block-bg) !important;
+    --p-inputtext-border-color: var(--input-border-color) !important;
+    --p-inputtext-hover-border-color: var(--input-hover-border-color) !important;
+    --p-inputtext-focus-border-color: var(--input-focus-border-color) !important;
+    --p-inputtext-color: var(--block-fg) !important;
+    --p-inputtext-placeholder-color: var(--input-placeholder-color) !important;
+
+    /* FLOAT LABEL */
+    --p-floatlabel-color: var(--input-placeholder-color) !important;
+}

@@ -8,6 +8,9 @@ import Terminal from 'primevue/terminal';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Select from 'primevue/select';
+import InputText from 'primevue/inputtext';
+import FloatLabel from 'primevue/floatlabel';
+import Toast from 'primevue/toast';
 
 export default [
     Drawer,
@@ -20,4 +23,7 @@ export default [
     DataTable,
     Column,
     Select,
+    FloatLabel,
+    InputText,
+    Toast,
 ]

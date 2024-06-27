@@ -10,6 +10,8 @@ import 'primeicons/primeicons.css';
 import '../node_modules/primeflex/primeflex.css';
 import './styles/index.css';
 import Aura from '@primevue/themes/aura';
+import Tooltip from 'primevue/tooltip';
+import ToastService from 'primevue/toastservice';
 
 
 const app = createApp(App)
@@ -20,9 +22,11 @@ components.forEach((component) => {
 ui.forEach((component) => {
     app.component(component.name, component);
 })
+app.directive('tooltip', Tooltip);
 
 app.use(createPinia())
 app.use(router)
+app.use(ToastService)
 app.use(PrimeVue, {
     theme: {
         preset: Aura,

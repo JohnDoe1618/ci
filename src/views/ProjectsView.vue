@@ -1,6 +1,6 @@
 <template>
     <div class="ci-view ci-block w-full">
-        
+        <Toast />
         <tableSettingDrawer 
         :show="isShowSettingDrawer"
         @close="isShowSettingDrawer = false"
@@ -9,6 +9,7 @@
         @update:stripedRows="handlerUpdateStripedRows"
         @update:paginatorSelect="handlerUpdatePaginatorState"
         @update:dateTemplate="handlerUpdateDateTemplate"
+        @add-date-template="addDateTemplate"
         :settings="tableSettings"
         ></tableSettingDrawer>
 
@@ -62,7 +63,7 @@
                 </template>
             </Column>
  
-            <template #footer> In total there are 0 products. </template>
+            <template #footer> In total there are <strong>{{ projects?.length }}</strong> projects. </template>
         </DataTable>
     </div>
 </template>
@@ -72,12 +73,13 @@ import tableSettingDrawer from '@/components/UI/tableSettingDrawer.vue';
 import { onMounted, ref } from 'vue';
 import ProjectService from '@/services/projectService';
 import { formatedDateTimeTemplate, dateFromNow } from '@/utils/maskUtils';
+import { useToast } from 'primevue/usetoast';
+
+const toast = useToast();
 
 const projects = ref();
 const loadingData = ref(false);
 const isShowSettingDrawer = ref(false);
-const updatedAt = ref(null);
-const createdAt = ref(null);
 const tableSettings = ref({
     sizeTable: 'large',
     showGridLines: false,
@@ -86,6 +88,13 @@ const tableSettings = ref({
     dateTemplates: ['HH:mm / DD-MM-YYYY', 'HH:mm | DD/MM/YY'],
     selectDateTemplate: 'HH:mm / DD-MM-YYYY',
 });
+
+// Добавление пользовательского шаблона времени
+function addDateTemplate(template) {
+    tableSettings.value.dateTemplates.push(template);
+    localStorage.setItem('table_projects_settings', JSON.stringify(tableSettings.value));
+    toast.add({ severity: 'success', summary: 'Success!', detail: 'A new date template has been added', life: 3000 });
+}
 
 // Изменение размера таблицы
 function handlerUpdateSizeTable(value) {
