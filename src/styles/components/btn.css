@@ -3,6 +3,8 @@
     --btn-success-color: rgb(255, 254, 254);
     --toggle-button-checked-bg: rgb(95, 94, 94);
     --toggle-button-checked-content-bg: rgb(62, 62, 62);
+    --btn-secondary-bg: rgb(255, 255, 255);
+    --btn-secondary-color: rgb(102, 101, 101);
 
 
     --p-togglebutton-color: var(--block-fg) !important;
@@ -12,6 +14,13 @@
     --p-togglebutton-checked-border-color: var(--ui-border-color) !important;
     --p-togglebutton-border-color: var(--ui-border-color) !important;
     --p-togglebutton-padding: 0.2rem .7rem !important;
+
+    /* SECONDARY */
+    --p-button-secondary-background: var(--btn-secondary-bg) !important;
+    --p-button-outlined-secondary-border-color: var(--btn-border-color) !important;
+    --p-button-outlined-secondary-color: var(--btn-secondary-color) !important;
+    --p-button-secondary-hover-color: var(--btn-secondary-hover-color) !important;
+    --p-button-text-secondary-color: white!important;
 }
 
 .ci-btn {

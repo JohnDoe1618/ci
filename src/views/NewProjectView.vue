@@ -1,6 +1,6 @@
 <template>
     <div class="ci-view ci-block w-full flex flex-column align-items-stretch justify-content-start">
-
+        <Toast />
         <!-- HEADER -->
         <header class="new-project__header w-full h-4rem flex align-items-center px-4">
             <!-- Back page -->
@@ -17,13 +17,19 @@
         
         <!-- MAIN -->
         <form class="ci-block w-full h-full flex flex-column align-items-center overflow-auto px-8 py-6" @submit.prevent>
-            <!---------------------   PROJECT NAME   ----------------------->
 
+            <!---------------------   PROJECT NAME   ----------------------->
             <div class="new-project-block w-8 p-1 pb-3 flex flex-column align-items-center justify-content-center">
                 <label class="w-10 mr-5" for="project-name">
                     <h3 class="ci-text text-xl font-normal mb-2">> Project name <span style="color: red;">*</span></h3>
                 </label>
-                <InputText class="w-10" v-model="projectName" id="project-name" type="text" placeholder="Enter a project name"/>
+                <InputText 
+                class="w-10" 
+                v-model="creationForm.projectName" 
+                id="project-name" 
+                type="text" 
+                placeholder="Enter a project name"
+                />
 
                 <!-- Default Signature-->
                 <small v-if="true" class="w-10 mt-2 ml-5 flex align-items-center">
@@ -49,7 +55,7 @@
                 <label class="w-10 mr-5" for="project-description">
                     <h3 class="ci-text text-xl font-normal mb-2">> Description</h3>
                 </label>
-                <Textarea class="w-10" v-model="projectDescription" id="project-description" autoResize rows="5" cols="30" placeholder="Enter a description" />
+                <Textarea class="w-10" v-model="creationForm.projectDescription" id="project-description" autoResize rows="5" cols="30" placeholder="Enter a description" />
 
                 <!-- Default Signature-->
                 <small class="w-10 mt-2 ml-5 flex align-items-center">
@@ -65,11 +71,11 @@
             <div class="new-project-block w-8 p-1 pb-3 flex flex-column align-items-center justify-content-center">
                 <label class="w-10 mr-5 flex align-items-center" for="project-host">
                     <h3 class="ci-text text-xl font-normal mb-2">> Host <span style="color: red;">*</span></h3>
-                    <SelectButton class="align-self-center mb-2 ml-auto" v-model="hostProtocol" :options="['http://', 'https://']" aria-labelledby="basic" />
+                    <SelectButton class="align-self-center mb-2 ml-auto" v-model="creationForm.hostProtocol" :options="['http://', 'https://']" aria-labelledby="basic" />
                 </label>
                 <InputGroup class="w-10">
-                    <InputGroupAddon>{{ hostProtocol }}</InputGroupAddon>
-                    <InputText v-model="projectHost" id="project-host" placeholder="example-host" />
+                    <InputGroupAddon>{{ creationForm.hostProtocol }}</InputGroupAddon>
+                    <InputText v-model="creationForm.projectHost" id="project-host" placeholder="example-host" />
                 </InputGroup>
 
                 <!-- Default Signature-->
@@ -96,7 +102,7 @@
                 <label class="w-10 mr-5 flex align-items-center" for="project-port">
                     <h3 class="ci-text text-xl font-normal mb-2">> Port <span style="color: red;">*</span></h3>
                 </label>
-                <InputMask v-model="projectPort" id="project-port" mask="9999?9" placeholder="65535"/>
+                <InputMask v-model="creationForm.projectPort" id="project-port" mask="9999?9" placeholder="65535"/>
 
                 <!-- Default Signature-->
                 <small v-if="true" class="w-10 mt-2 ml-5 flex align-items-center">
@@ -122,7 +128,7 @@
                 <label class="w-10 mr-5" for="handshake-token">
                     <h3 class="ci-text text-xl font-normal mb-2">> Handshake Token <span style="color: red;">*</span></h3>
                 </label>
-                <InputText class="w-10" v-model="handshakeToken" id="handshake-token" type="password" placeholder="any"/>
+                <InputText class="w-10" v-model="creationForm.handshakeToken" id="handshake-token" type="password" placeholder="any"/>
 
                 <!-- Default Signature-->
                 <small v-if="true" class="w-10 mt-2 ml-5 flex align-items-center">
@@ -143,8 +149,9 @@
                 </small>
             </div>
 
+            <ConfirmPopup></ConfirmPopup>
             <div class="w-8 flex justify-content-end align-items-center mt-3">
-                <Button class="mr-2" @click="resetForm" icon="pi pi-undo" aria-label="Save" title="reset form" />
+                <Button class="mr-2" @click="handlerReset($event)" :disabled="isResetDisabled" icon="pi pi-undo" aria-label="Save" title="reset form" />
                 <Button class="btn-success w-10rem" @click="confirmCreationForm" label="Save" icon="pi pi-check" iconPos="right" severity="success"/>
             </div>
         </form>
@@ -153,30 +160,19 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import useNewProject from '@/composables/newProjectComposables/newProjectComposable';
+
 const router = useRouter();
 
-const hostProtocol = ref('http://');
-const projectName = ref('');
-const projectDescription = ref('');
-const projectHost = ref('');
-const projectPort = ref('');
-const handshakeToken = ref('');
-
-// Очистить поля формы
-function resetForm() {
-    projectName.value = '';
-    projectDescription.value = '';
-    projectHost.value = '';
-    projectPort.value = '';
-    handshakeToken.value = '';
-}
-
-// Подтвердить форму
-function confirmCreationForm() {
-    // 
-}
+const {
+    // State
+    isResetDisabled,
+    creationForm,
+    // Actions
+    handlerReset,
+    confirmCreationForm,
+} = useNewProject();
 
 </script>
 

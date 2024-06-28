@@ -1,0 +1,14 @@
+
+
+:root {
+
+
+    --p-confirmpopup-background: var(--block-bg) !important;
+    --p-confirmpopup-border-color: var(--btn-border-color) !important;
+    --p-confirmpopup-color: var(--block-fg) !important;
+    --p-confirmpopup-icon-color: var(--block-fg) !important;
+}
+
+.p-confirmpopup {
+    font-family: var(--font) !important;
+}

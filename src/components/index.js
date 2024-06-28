@@ -16,6 +16,7 @@ import InputGroupAddon from 'primevue/inputgroupaddon';
 import SelectButton from 'primevue/selectbutton';
 import InputMask from 'primevue/inputmask';
 import Textarea from 'primevue/textarea';
+import ConfirmPopup from 'primevue/confirmpopup';
 
 export default [
     Drawer,
@@ -36,4 +37,5 @@ export default [
     SelectButton,
     InputMask,
     Textarea,
+    ConfirmPopup,
 ]

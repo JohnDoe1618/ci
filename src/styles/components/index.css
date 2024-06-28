@@ -5,6 +5,7 @@
 @import url(./tableSettingDrawer.css);
 @import url(./input.css);
 @import url(./toast.css);
+@import url(./confirmPopup.css);
 
 /* Стили которые могут применятся ко всем компонентам */
 :root {
