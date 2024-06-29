@@ -57,13 +57,16 @@ const isShowCollapseBtn = ref(false);
 const items = ref([
     { key: null, label: 'Statistics', icon: 'pi pi-chart-bar', command: followStatistics },
     { key: null, label: 'Profile', icon: 'pi pi-user', command: followProfile },
-    { key: null, label: 'Projects', icon: 'pi pi-server', command: followProjects },
+    { key: '1', label: 'Projects', icon: 'pi pi-server', items: [
+        { key: null, label: 'New Project', icon: 'pi pi-folder-plus', command: followProjectNew },
+        { key: null, label: 'Project List', icon: 'pi pi-list', command: followProjectList },
+    ]},
     { key: null, label: 'Tasks', icon: 'pi pi-list-check', command: followTasks },
     { key: null, label: 'Employess', icon: 'pi pi-users', command: followEmployees },
-    { key: '1', label: 'Setting', icon: 'pi pi-spin pi-cog', items: [
+    { key: '2', label: 'Setting', icon: 'pi pi-spin pi-cog', items: [
         { key: null, label: 'Appearance', icon: 'pi pi-image', command: followAppearance },
         { key: null, label: 'Security', icon: 'pi pi-shield', command: followSecurity },
-    ] },
+    ]},
 ]);
 
 // ==============================================   METHODS  =========================================
@@ -78,8 +81,13 @@ function followProfile() {
     visible.value = false;
 }
 
-function followProjects() {
+function followProjectList() {
     router.push({ name: 'projects' });
+    visible.value = false;
+}
+
+function followProjectNew() {
+    router.push({ name: 'new-project' });
     visible.value = false;
 }
 

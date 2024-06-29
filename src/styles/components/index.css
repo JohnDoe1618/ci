@@ -2,8 +2,17 @@
 @import url(./btn.css);
 @import url(./terminal.css);
 @import url(./table.css);
+@import url(./tableSettingDrawer.css);
+@import url(./input.css);
+@import url(./toast.css);
+@import url(./confirmPopup.css);
 
 /* Стили которые могут применятся ко всем компонентам */
+:root {
+    --p-select-option-selected-color: var(--block-fg) !important;
+
+}
+
 .ci-block {
     background-color: var(--block-bg) !important;
     color: var(--block-fg) !important;
@@ -13,6 +22,27 @@
 
 .ci-view {
     border-left: 1px solid var(--border-color-view);
+}
+
+.ci-text {
+    font-family: var(--font);
+    color: var(--block-fg);
+}
+
+.p-select-option-check-icon {
+    color: var(--block-fg) !important;
+}
+
+.p-floatlabel {
+    font-family: var(--font) !important;
+}
+
+.p-tooltip { 
+    font-family: var(--font) !important;
+}
+
+.p-inputtext {
+    font-family: var(--font) !important;
 }
 
 .none {
