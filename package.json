@@ -6,7 +6,18 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+
+    "actual": "npm run ci:check-status && npm run ci:pull && npm run ci:install && npm run ci:build",
+
+    "build:cus": "npm run ci:check-status && npm run ci:pull && npm run ci:install && npm run ci:stop && npm run ci:build && npm run ci:start",
+    
+    "ci:check-status": "git status",
+    "ci:pull": "git pull",
+    "ci:install": "npm install",
+    "ci:stop": "pm2 stop ci",
+    "ci:build": "vite build",
+    "ci:start": "pm2 start ecosystem.config.cjs --env production"
   },
   "dependencies": {
     "@primevue/themes": "^4.0.0-rc.2",
