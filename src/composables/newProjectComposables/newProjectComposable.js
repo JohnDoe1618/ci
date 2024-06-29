@@ -11,10 +11,22 @@ export default function useNewProject() {
     // Composable Of localStorage
     const { filledCreationFormOfStorage, recordCreationFormToStorage, removeFormFromStorage } = useHandlerFormLocalStorage();
     // Composable Validation Fields Form
-    const { validateProjectName } = useValidationFieldsForm()
+    const { 
+        errorsProjectName, 
+        errorsProjectHost, 
+        errorsProjectPort,
+        errorsHandshakeToken,
+        validateProjectName, 
+        validateProjectHost, 
+        validateProjectPort,
+        validateHandshakeToken,
+
+    } = useValidationFieldsForm()
     
     // Состояние активности кнопки сброса формы
     const isResetDisabled = ref(true);
+    // Состояние активности кнопки подтверждения формы
+    const isConfirmDisabled = ref(true);
 
     // Реактивное состояние формы создания нового проекта
     const creationForm = reactive({
@@ -32,6 +44,7 @@ export default function useNewProject() {
             if(key === 'hostProtocol') {
                 if(value !== 'http://') {
                     isResetDisabled.value = false;
+                    isConfirmDisabled.value = false;
                     // Запись актуальных данных в localStorage (creation_form)
                     recordCreationFormToStorage(newValue);
                     break;
@@ -40,6 +53,7 @@ export default function useNewProject() {
             else if(key === 'projectPort') {
                 if(value !== null) {
                     isResetDisabled.value = false;
+                    isConfirmDisabled.value = false;
                     // Запись актуальных данных в localStorage (creation_form)
                     recordCreationFormToStorage(newValue);
                     break;
@@ -47,9 +61,11 @@ export default function useNewProject() {
             }
             else if(value !== '') {
                 isResetDisabled.value = false;
+                isConfirmDisabled.value = false;
                 // Запись актуальных данных в localStorage (creation_form)
-                recordCreationFormToStorage(newValue);
+                // recordCreationFormToStorage(newValue);
             }
+            recordCreationFormToStorage(newValue);
         }
     }, { deep: true });
     
@@ -94,7 +110,7 @@ export default function useNewProject() {
     function confirmCreationForm() {
         try {
             // Проверка поля projectName
-            validateProjectName(creationForm.projectName);
+            // validateProjectName(creationForm.projectName);
         } catch (err) {
             console.error(err);
         }
@@ -110,6 +126,7 @@ export default function useNewProject() {
         confirm,
         toast,
         isResetDisabled,
+        isConfirmDisabled,
         creationForm,
         filledCreationFormOfStorage,
         recordCreationFormToStorage,
@@ -117,5 +134,12 @@ export default function useNewProject() {
         handlerReset,
         resetForm,
         confirmCreationForm,
+
+        // validators
+        validateProjectName, errorsProjectName,
+        validateProjectHost, errorsProjectHost,
+        validateProjectPort, errorsProjectPort,
+        validateHandshakeToken, errorsHandshakeToken,
+        
     }
 }

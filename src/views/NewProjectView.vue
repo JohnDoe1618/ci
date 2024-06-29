@@ -23,31 +23,25 @@
                 <label class="w-10 mr-5" for="project-name">
                     <h3 class="ci-text text-xl font-normal mb-2">> Project name <span style="color: red;">*</span></h3>
                 </label>
+
                 <InputText 
                 class="w-10" 
-                v-model="creationForm.projectName" 
+                v-model.trim="creationForm.projectName" 
+                @update:model-value="(value) => validateProjectName(value)"
+                @blur="({target: { value }}) => validateProjectName(value, true)"
+                @focus="({target: { value }}) => validateProjectName(value, true)"
                 id="project-name" 
                 type="text" 
                 placeholder="Enter a project name"
                 />
-
-                <!-- Default Signature-->
-                <small v-if="true" class="w-10 mt-2 ml-5 flex align-items-center">
-                    <i 
-                    class="pi pi-question-circle mr-2" 
-                    style="font-size: 1rem; color: gray;" 
-                    ></i>
-                    The name of the project does not affect anything, but it is necessary
-                </small>
-
-                <!-- ERROR:[Special Characters] -->
-                <small v-else class="w-10 mt-2 ml-5 flex align-items-center">
-                    <i 
-                    class="pi pi-exclamation-circle mr-2" 
-                    style="font-size: 1rem; color: red;" 
-                    ></i>
-                    <span style="color: red;">the <strong>name</strong> cannot contain special characters: !@#$%^&*()-=+_</span>
-                </small>
+                <!-- Сообщения об ошибках для инпута projectName -->
+                <inputErrorSignatures 
+                :default-signature="'The name of the project does not affect anything, but it is necessary'"
+                :empty-err="{ visible: errorsProjectName.empty.visible, msg: errorsProjectName.empty.msg }"
+                :length-err="{ visible: errorsProjectName.lgth.visible, msg: errorsProjectName.lgth.msg }"
+                :incorrect-err="{ visible: errorsProjectName.incorrect.visible, msg: errorsProjectName.incorrect.msg }"
+                :spec-chars-err="{ visible: errorsProjectName.specialSymbols.visible, msg: errorsProjectName.specialSymbols.msg }"
+                />
             </div>
 
             <!---------------------   PROJECT DESCRIPTION   ----------------------->
@@ -55,7 +49,7 @@
                 <label class="w-10 mr-5" for="project-description">
                     <h3 class="ci-text text-xl font-normal mb-2">> Description</h3>
                 </label>
-                <Textarea class="w-10" v-model="creationForm.projectDescription" id="project-description" autoResize rows="5" cols="30" placeholder="Enter a description" />
+                <Textarea class="w-10" v-model.trim="creationForm.projectDescription" id="project-description" autoResize rows="5" cols="30" placeholder="Enter a description" />
 
                 <!-- Default Signature-->
                 <small class="w-10 mt-2 ml-5 flex align-items-center">
@@ -75,26 +69,23 @@
                 </label>
                 <InputGroup class="w-10">
                     <InputGroupAddon>{{ creationForm.hostProtocol }}</InputGroupAddon>
-                    <InputText v-model="creationForm.projectHost" id="project-host" placeholder="example-host" />
+                    <InputText 
+                    v-model.trim="creationForm.projectHost" 
+                    @update:model-value="(value) => validateProjectHost(value)"
+                    @blur="({target: { value }}) => validateProjectHost(value, true)"
+                    @focus="({target: { value }}) => validateProjectHost(value, true)"
+                    id="project-host" 
+                    placeholder="example-host"
+                    />
                 </InputGroup>
-
-                <!-- Default Signature-->
-                <small v-if="true" class="w-10 mt-2 ml-5 flex align-items-center">
-                    <i 
-                    class="pi pi-question-circle mr-2" 
-                    style="font-size: 1rem; color: gray;" 
-                    ></i>
-                    A host is required for remote project management
-                </small>
-
-                <!-- ERROR:[Special Characters] -->
-                <small v-else class="w-10 mt-2 ml-5 flex align-items-center">
-                    <i 
-                    class="pi pi-exclamation-circle mr-2" 
-                    style="font-size: 1rem; color: red;" 
-                    ></i>
-                    <span style="color: red;">the <strong>host</strong> cannot contain special characters: !@#$%^&*()-=+_</span>
-                </small>
+                <!-- Сообщения об ошибках для инпута projectHost -->
+                <inputErrorSignatures 
+                :default-signature="'A host is required for remote project management'"
+                :empty-err="{ visible: errorsProjectHost.empty.visible, msg: errorsProjectHost.empty.msg }"
+                :length-err="{ visible: errorsProjectHost.lgth.visible, msg: errorsProjectHost.lgth.msg }"
+                :incorrect-err="{ visible: errorsProjectHost.incorrect.visible, msg: errorsProjectHost.incorrect.msg }"
+                :spec-chars-err="{ visible: errorsProjectHost.specialSymbols.visible, msg: errorsProjectHost.specialSymbols.msg }"
+                />
             </div>
 
             <!---------------------   PROJECT PORT   ----------------------->
@@ -102,25 +93,20 @@
                 <label class="w-10 mr-5 flex align-items-center" for="project-port">
                     <h3 class="ci-text text-xl font-normal mb-2">> Port <span style="color: red;">*</span></h3>
                 </label>
-                <InputMask v-model="creationForm.projectPort" id="project-port" mask="9999?9" placeholder="65535"/>
-
-                <!-- Default Signature-->
-                <small v-if="true" class="w-10 mt-2 ml-5 flex align-items-center">
-                    <i 
-                    class="pi pi-question-circle mr-2" 
-                    style="font-size: 1rem; color: gray;" 
-                    ></i>
-                    Port is a required server application identifier
-                </small>
-
-                <!-- ERROR:[Invalid Value] -->
-                <small v-else class="w-10 mt-2 ml-5 flex align-items-center">
-                    <i 
-                    class="pi pi-exclamation-circle mr-2" 
-                    style="font-size: 1rem; color: red;" 
-                    ></i>
-                    <span style="color: red;">invalid <strong>port</strong> </span>
-                </small>
+                <InputMask 
+                v-model="creationForm.projectPort" 
+                @update:model-value="(value) => validateProjectPort(value)"
+                @blur="({target: { value }}) => validateProjectPort(value, true)"
+                @focus="({target: { value }}) => validateProjectPort(value, true)"
+                id="project-port" 
+                mask="9999?9" placeholder="65535"
+                />
+                <!-- Сообщения об ошибках для инпута projectHost -->
+                <inputErrorSignatures 
+                :default-signature="'Port is a required server application identifier'"
+                :empty-err="{ visible: errorsProjectPort.empty.visible, msg: errorsProjectPort.empty.msg }"
+                :length-err="{ visible: errorsProjectPort.lgth.visible, msg: errorsProjectPort.lgth.msg }"
+                />
             </div>
 
             <!---------------------   HANDSHAKE TOKEN   ----------------------->
@@ -128,31 +114,43 @@
                 <label class="w-10 mr-5" for="handshake-token">
                     <h3 class="ci-text text-xl font-normal mb-2">> Handshake Token <span style="color: red;">*</span></h3>
                 </label>
-                <InputText class="w-10" v-model="creationForm.handshakeToken" id="handshake-token" type="password" placeholder="any"/>
+                <InputText 
+                class="w-10" 
+                v-model.trim="creationForm.handshakeToken" 
+                @update:model-value="(value) => validateHandshakeToken(value)"
+                @blur="({target: { value }}) => validateHandshakeToken(value, true)"
+                @focus="({target: { value }}) => validateHandshakeToken(value, true)"
+                id="handshake-token" 
+                type="password" 
+                placeholder="any"
+                />
 
-                <!-- Default Signature-->
-                <small v-if="true" class="w-10 mt-2 ml-5 flex align-items-center">
-                    <i 
-                    class="pi pi-question-circle mr-2" 
-                    style="font-size: 1rem; color: gray;" 
-                    ></i>
-                    The handshake token is required to establish a connection with the remote server
-                </small>
-
-                <!-- ERROR:[Field Empty] -->
-                <small v-else class="w-10 mt-2 ml-5 flex align-items-center">
-                    <i 
-                    class="pi pi-exclamation-circle mr-2" 
-                    style="font-size: 1rem; color: red;" 
-                    ></i>
-                    <span style="color: red;"><strong>handshake token</strong> cannot be empty</span>
-                </small>
+                <!-- Сообщения об ошибках для инпута handshakeToken -->
+                <inputErrorSignatures 
+                :default-signature="'The handshake token is required to establish a connection with the remote server'"
+                :empty-err="{ visible: errorsHandshakeToken.empty.visible, msg: errorsHandshakeToken.empty.msg }"
+                />
             </div>
 
             <ConfirmPopup></ConfirmPopup>
             <div class="w-8 flex justify-content-end align-items-center mt-3">
-                <Button class="mr-2" @click="handlerReset($event)" :disabled="isResetDisabled" icon="pi pi-undo" aria-label="Save" title="reset form" />
-                <Button class="btn-success w-10rem" @click="confirmCreationForm" label="Save" icon="pi pi-check" iconPos="right" severity="success"/>
+                <Button 
+                class="mr-2" 
+                @click="handlerReset($event)" 
+                :disabled="isResetDisabled" 
+                icon="pi pi-undo" 
+                aria-label="Save" 
+                title="reset form" 
+                />
+                <Button 
+                class="btn-success w-10rem" 
+                @click="confirmCreationForm" 
+                :disabled="isConfirmDisabled"
+                label="Save" 
+                icon="pi pi-check" 
+                iconPos="right" 
+                severity="success"
+                />
             </div>
         </form>
 
@@ -162,16 +160,24 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import useNewProject from '@/composables/newProjectComposables/newProjectComposable';
+import inputErrorSignatures from '@/components/projects/newProject/inputErrorSignatures.vue';
 
 const router = useRouter();
 
 const {
     // State
     isResetDisabled,
+    isConfirmDisabled,
     creationForm,
     // Actions
     handlerReset,
     confirmCreationForm,
+
+    // validators
+    validateProjectName, errorsProjectName,
+    validateProjectHost, errorsProjectHost,
+    validateProjectPort, errorsProjectPort,
+    validateHandshakeToken, errorsHandshakeToken,
 } = useNewProject();
 
 </script>
