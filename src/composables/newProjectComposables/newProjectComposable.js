@@ -102,7 +102,8 @@ export default function useNewProject() {
         creationForm.projectPort = null;
         creationForm.handshakeToken = '';
         await nextTick();
-        isResetDisabled.value = true; 
+        isResetDisabled.value = true;
+        isConfirmDisabled.value = true;
         removeFormFromStorage(); // Удаление creation_form из localStorage
     }
     
