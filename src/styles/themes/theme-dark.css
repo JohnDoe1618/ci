@@ -8,6 +8,7 @@
     /* Custom Tokens */
     /* Blocks */
     --block-bg: #18181b !important;
+    --block-bg-2: #252526 !important;
     --block-fg: white !important;
     --border-color-view: #8888883b !important;
     --scrollbar-thumb-color: #707070 !important;

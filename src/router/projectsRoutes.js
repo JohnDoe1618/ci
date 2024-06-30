@@ -1,5 +1,7 @@
-import ProjectsView from '@/views/ProjectsView.vue';
-import NewProjectView from '@/views/NewProjectView.vue';
+import ProjectsView from '@/views/projects/ProjectsView.vue';
+import NewProjectView from '@/views/projects/NewProjectView.vue';
+import ProjectView from '@/views/projects/ProjectView.vue';
+import ProjectLogin from '@/views/projects/ProjectLogin.vue';
 
 export default [
     {
@@ -13,5 +15,17 @@ export default [
         name: 'new-project',
         component: NewProjectView,
         meta: { requiredAuth: true },
-    }
+    },
+    {
+        path: '/projects/:id',
+        name: 'project',
+        component: ProjectView,
+        meta: { requiredAuth: true },
+    },
+    {
+        path: '/projects/project-login',
+        name: 'project-login',
+        component: ProjectLogin,
+        meta: { requiredAuth: true },
+    },
 ]

@@ -14,6 +14,10 @@
         ></tableSettingDrawer>
 
         <DataTable
+        :selectionMode="'single'"
+        v-model:selection="projectOpenning"
+        dataKey="id"
+        @row-select="(event) => handlerOpenProject(event.data.id)"
         :value="projects" 
         :size="tableSettings.sizeTable"
         :showGridlines="tableSettings.showGridLines"
@@ -67,6 +71,7 @@
                     title="reload list"/>
                 </div>
             </template>
+
             <Column field="id" header="ID" sortable></Column>
             <Column field="name" header="Name"></Column>
             <Column field="host" header="Host"></Column>
@@ -100,6 +105,7 @@ const router = useRouter();
 const toast = useToast();
 
 const projects = ref();
+const projectOpenning = ref();
 const loadingData = ref(false);
 const isShowSettingDrawer = ref(false);
 const tableSettings = ref({
@@ -110,6 +116,10 @@ const tableSettings = ref({
     dateTemplates: ['HH:mm / DD-MM-YYYY', 'HH:mm | DD/MM/YY'],
     selectDateTemplate: 'HH:mm / DD-MM-YYYY',
 });
+
+function handlerOpenProject(projectId) {
+    router.push({ name: 'project', params: { id: projectId } });
+}
 
 // Добавление пользовательского шаблона времени
 function addDateTemplate(template) {

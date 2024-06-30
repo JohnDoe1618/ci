@@ -20,6 +20,13 @@
     transition: all var(--duration-color) ease !important;
 }
 
+.ci-block-2 {
+    background-color: var(--block-bg-2) !important;
+    color: var(--block-fg) !important;
+    font-family: var(--font) !important;
+    transition: all var(--duration-color) ease !important;
+}
+
 .ci-view {
     border-left: 1px solid var(--border-color-view);
 }

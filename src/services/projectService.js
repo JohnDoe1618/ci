@@ -22,4 +22,14 @@ export default class ProjectService {
             console.error(`services/projectService: getProjects  => ${err}`);
         }
     }
+
+    // Авторизация в проекте
+    static async loginProject() {
+        try {
+            return true;
+        } catch (err) {
+            console.error(err);
+            console.error(`services/projectService: loginProject  => ${err}`);
+        }
+    }
 }

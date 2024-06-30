@@ -7,21 +7,42 @@ export default function useValidationFieldsForm() {
     const availableLength = {
         default: 3,
         port: 4,
+        password: 8,
     };
     const { 
         errorsProjectName, 
         errorsProjectHost, 
         errorsProjectPort, 
         errorsHandshakeToken,
+        errorsPassword,
     } = useErrorCreationForm(unacceptableSymbols, availableLength);
 
+    // Валидация password
+    function validatePassword(value, isResetValidation, callback) {
+        if(!value.length && isResetValidation === true) {
+            return errorsPassword.resetErrors();
+        }
+        // ERROR:[empty]
+        if(!value) {
+            if(callback) callback(true);
+            return errorsPassword.empty.visible = true;
+        } else errorsPassword.empty.visible = false;
+        // ERROR:[length]
+        if(value && value.length < availableLength.password) {
+            if(callback) callback(true);
+            return errorsPassword.lgth.visible = true;
+        } else errorsPassword.lgth.visible = false;
+        if(callback) return callback(false);
+    }
+
     // Валидация projectName
-    function validateProjectName(value, isResetValidation) {
+    function validateProjectName(value, isResetValidation, callback) {
         if(!value.length && isResetValidation === true) {
             return errorsProjectName.resetErrors();
         }
         // ERROR:[empty]
         if(!value) {
+            if(callback) callback(true);
             return errorsProjectName.empty.visible = true;
         } else errorsProjectName.empty.visible = false;
         // ERROR:[inccorect]
@@ -29,17 +50,20 @@ export default function useValidationFieldsForm() {
         const firstChar = value.trim().at(0);
         const firstCharNumber = Number(firstChar); // если не равно NaN то первый символ - число 
         if(firstChar === '-' || lastChar === '-' || (firstCharNumber === firstCharNumber /* NaN не равно самому себе */ && typeof firstCharNumber === 'number')) {
-            console.log('IF');
+            if(callback) callback(true);
             return errorsProjectName.incorrect.visible = true;
         } else errorsProjectName.incorrect.visible = false;
         // ERROR:[Special Symbols]
         if(unacceptableSymbols.includes(value.at(-1))) {
+            if(callback) callback(true);
             return errorsProjectName.specialSymbols.visible = true;
         } else errorsProjectName.specialSymbols.visible = false;
         // ERROR:[length]
         if(value && value.length < availableLength.default) {
+            if(callback) callback(true);
             return errorsProjectName.lgth.visible = true;
         } else errorsProjectName.lgth.visible = false;
+        if(callback) return callback(false);
     }
 
     // Валидация projectHost
@@ -103,11 +127,13 @@ export default function useValidationFieldsForm() {
         errorsProjectHost,
         errorsProjectPort,
         errorsHandshakeToken,
+        errorsPassword,
 
         // Validators
         validateProjectName,
         validateProjectHost,
         validateProjectPort,
         validateHandshakeToken,
+        validatePassword,
     }
 }

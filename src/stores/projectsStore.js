@@ -1,11 +1,13 @@
 import { defineStore } from "pinia";
+import { ref } from "vue";
 
 export const useProjectsStore = defineStore('projectsStore', () => {
 
+    const isAuthForCurrentProject = ref(true);
 
 
     return {
-
+        isAuthForCurrentProject,
     }
 })
 

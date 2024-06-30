@@ -16,11 +16,13 @@ export default function useNewProject() {
         errorsProjectHost, 
         errorsProjectPort,
         errorsHandshakeToken,
+        errorsPassword,
+
         validateProjectName, 
         validateProjectHost, 
         validateProjectPort,
         validateHandshakeToken,
-
+        validatePassword,
     } = useValidationFieldsForm()
     
     // Состояние активности кнопки сброса формы
@@ -141,6 +143,7 @@ export default function useNewProject() {
         validateProjectHost, errorsProjectHost,
         validateProjectPort, errorsProjectPort,
         validateHandshakeToken, errorsHandshakeToken,
+        validatePassword, errorsPassword
         
     }
 }
