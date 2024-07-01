@@ -1,4 +1,4 @@
-import testdata from "./testdata";
+import { testdata } from "./testdata";
 
 const projectDataDefault = {
     id: null,

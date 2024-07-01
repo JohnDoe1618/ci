@@ -17,6 +17,15 @@ import SelectButton from 'primevue/selectbutton';
 import InputMask from 'primevue/inputmask';
 import Textarea from 'primevue/textarea';
 import ConfirmPopup from 'primevue/confirmpopup';
+import Toolbar from 'primevue/toolbar';
+import IconField from 'primevue/iconfield';
+import InputIcon from 'primevue/inputicon';
+import Accordion from 'primevue/accordion';
+import AccordionPanel from 'primevue/accordionpanel';
+import AccordionHeader from 'primevue/accordionheader';
+import AccordionContent from 'primevue/accordioncontent';
+import Editor from 'primevue/editor';
+
 
 export default [
     Drawer,
@@ -38,4 +47,12 @@ export default [
     InputMask,
     Textarea,
     ConfirmPopup,
+    Toolbar,
+    IconField,
+    InputIcon,
+    Accordion,
+    AccordionPanel,
+    AccordionHeader,
+    AccordionContent,
+    Editor,
 ]

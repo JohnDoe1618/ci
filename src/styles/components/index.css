@@ -6,6 +6,8 @@
 @import url(./input.css);
 @import url(./toast.css);
 @import url(./confirmPopup.css);
+@import url(./accordion.css);
+@import url(./textEditor.css);
 
 /* Стили которые могут применятся ко всем компонентам */
 :root {

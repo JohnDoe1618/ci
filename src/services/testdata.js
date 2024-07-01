@@ -1,4 +1,4 @@
-export default [
+export const testdata = [
     {
         id: 1,
         name: 'first-project',
@@ -43,4 +43,278 @@ export default [
         createdAt: '2024-06-11T06:49:08.339+00:00',
         updatedAt: '2024-06-11T08:50:08.339+00:00',
     }
+];
+
+export const users = [
+    {
+        id: 1,
+        name: "Alex",
+        lastname: "Mercer",
+        surname: null,
+        role: 'superuser',
+        avatar: null,
+        phoneNumber: '9991231212',
+        email: 'mercer@vip.com',
+        projects: [],
+    },
+    {
+        id: 2,
+        name: "Bob",
+        lastname: "Person",
+        surname: null,
+        role: 'admin',
+        avatar: null,
+        phoneNumber: '9998883312',
+        email: 'person@vip.com',
+        projects: [
+            {
+                id: 1,
+                name: 'first-project',
+                host: 'localhost',
+                port: 3001,
+                handshakeHash: '3fsw2-123as-23fas-1q2das',
+                createdAt: '2024-06-03T17:24:08.339+00:00',
+                updatedAt: '2024-06-03T18:14:08.339+00:00',
+                operations: [
+                    {
+                        id: 1,
+                        projecId: 1,
+                        method: 'GET',
+                        endpoint: '/users',
+                        pathParams: [],
+                        queryParams: [
+                            { id: 1, title: 'Page',  key: 'page', typeValue: ['string', 'number'], description: 'example description' },
+                            { id: 2, title: 'Per Page',  key: 'per_page', typeValue: ['string', 'number'], description: 'example description' },
+                        ],
+                        requiestBody: null,
+                        title: 'Get Users',
+                        description: 'this is testing description for example. Not more..',
+                        forRole: '*',
+                    },
+                    {
+                        id: 2,
+                        projecId: 1,
+                        method: 'POST',
+                        endpoint: '/users/create',
+                        pathParams: [],
+                        queryParams: [],
+                        requiestBody: { 
+                            name: { id: 1, typeValue: ['string'], description: 'this is user name', required: true },
+                            lastname: { id: 2, typeValue: ['string'], description: 'this is user last name', required: true },
+                            email: { id: 3, typeValue: ['string'], description: 'this is user email', required: true },
+                            password: { id: 4, typeValue: ['string'], description: 'this is user password', required: true },
+                            age: { id: 5, typeValue: ['number'], description: 'this is user Age', required: false },
+                            avatar: { id: 6, typeValue: ['string'], description: 'this is user avatar image', required: false },
+                        },
+                        title: 'Create User',
+                        description: 'this is testing description for example. Not more..',
+                        forRole: 'admin',
+                    },
+                    {
+                        id: 3,
+                        projecId: 1,
+                        method: 'DELETE',
+                        endpoint: '/users/:id/delete',
+                        pathParams: [{ id: 1, title: 'User ID', key: 'id', typeValue: ['number'], description: 'example description' }],
+                        queryParams: [],
+                        requiestBody: null,
+                        title: 'Delete User',
+                        description: 'this is testing description for example. Not more..',
+                        forRole: 'admin',
+                    },
+                ]
+            },
+            {
+                id: 2,
+                name: 'second-project',
+                host: 'localhost',
+                port: 3002,
+                handshakeHash: 'agdas-723as-23fas-1q2das',
+                createdAt: '2024-06-17T18:54:08.339+00:00',
+                updatedAt: '2024-06-17T18:58:08.339+00:00',
+                operations: [
+                    {
+                        id: 4,
+                        projecId: 2,
+                        method: 'GET',
+                        endpoint: '/products',
+                        pathParams: [],
+                        queryParams: [
+                            { id: 1, title: 'Page',  key: 'page', typeValue: ['string', 'number'], description: 'example description' },
+                            { id: 2, title: 'Per Page',  key: 'per_page', typeValue: ['string', 'number'], description: 'example description' },
+                        ],
+                        requiestBody: null,
+                        title: 'Get Products',
+                        description: 'this is testing description for example. Not more..',
+                        forRole: '*',
+                    },
+                    {
+                        id: 5,
+                        projecId: 2,
+                        method: 'POST',
+                        endpoint: '/products/create',
+                        pathParams: [],
+                        queryParams: [],
+                        requiestBody: { 
+                            name: { id: 7, typeValue: ['string'], description: 'this is product name', required: true },
+                            tags: { id: 8, typeValue: ['string[]'], description: 'this is product tags', required: true },
+                            cover: { id: 9, typeValue: ['string'], description: 'this is product cover image', required: false },
+                        },
+                        title: 'Create Product',
+                        description: 'this is testing description for example. Not more..',
+                        forRole: 'admin',
+                    },
+                    {
+                        id: 6,
+                        projecId: 2,
+                        method: 'DELETE',
+                        endpoint: '/products/:id/delete',
+                        pathParams: [{ id: 1, title: 'Product ID', key: 'id', typeValue: ['number'], description: 'example description' }],
+                        queryParams: [],
+                        requiestBody: null,
+                        title: 'Delete Product',
+                        description: 'this is testing description for example. Not more..',
+                        forRole: 'admin',
+                    },
+                ]
+            },
+        ]
+    },
+    {
+        id: 3,
+        name: "Nick",
+        lastname: "Simpson",
+        surname: null,
+        role: 'moderator',
+        avatar: null,
+        phoneNumber: '9997732344',
+        email: 'simpson@vip.com',
+        projects: [
+            {
+                id: 2,
+                name: 'second-project',
+                host: 'localhost',
+                port: 3002,
+                handshakeHash: 'agdas-723as-23fas-1q2das',
+                createdAt: '2024-06-17T18:54:08.339+00:00',
+                updatedAt: '2024-06-17T18:58:08.339+00:00',
+                operations: [
+                    {
+                        id: 4,
+                        projecId: 2,
+                        method: 'GET',
+                        endpoint: '/products',
+                        pathParams: [],
+                        queryParams: [
+                            { id: 1, title: 'Page',  key: 'page', typeValue: ['string', 'number'], description: 'example description' },
+                            { id: 2, title: 'Per Page',  key: 'per_page', typeValue: ['string', 'number'], description: 'example description' },
+                        ],
+                        requiestBody: null,
+                        title: 'Get Products',
+                        description: 'this is testing description for example. Not more..',
+                        forRole: '*',
+                    },
+                ]
+            },
+        ]
+    },
+    {
+        id: 4,
+        name: "Oven",
+        lastname: "Clark",
+        surname: null,
+        role: 'moderator',
+        avatar: null,
+        phoneNumber: '9993548855',
+        email: 'clark@vip.com',
+        projects: [
+            {
+                id: 1,
+                name: 'first-project',
+                host: 'localhost',
+                port: 3001,
+                handshakeHash: '3fsw2-123as-23fas-1q2das',
+                createdAt: '2024-06-03T17:24:08.339+00:00',
+                updatedAt: '2024-06-03T18:14:08.339+00:00',
+                operations: [
+                    {
+                        id: 1,
+                        projecId: 1,
+                        method: 'GET',
+                        endpoint: '/users',
+                        pathParams: [],
+                        queryParams: [
+                            { id: 1, title: 'Page',  key: 'page', typeValue: ['string', 'number'], description: 'example description' },
+                            { id: 2, title: 'Per Page',  key: 'per_page', typeValue: ['string', 'number'], description: 'example description' },
+                        ],
+                        requiestBody: null,
+                        title: 'Get Users',
+                        description: 'this is testing description for example. Not more..',
+                        forRole: '*',
+                    },
+                ]
+            },
+        ]
+    },
+    {
+        id: 5,
+        name: "Genry",
+        lastname: "Smith",
+        surname: null,
+        role: 'moderator',
+        avatar: null,
+        phoneNumber: '9992231122',
+        email: 'smith@vip.com',
+        projects: [
+            {
+                id: 1,
+                name: 'first-project',
+                host: 'localhost',
+                port: 3001,
+                handshakeHash: '3fsw2-123as-23fas-1q2das',
+                createdAt: '2024-06-03T17:24:08.339+00:00',
+                updatedAt: '2024-06-03T18:14:08.339+00:00',
+                operations: [
+                    {
+                        id: 1,
+                        projecId: 1,
+                        method: 'GET',
+                        endpoint: '/users',
+                        pathParams: [],
+                        queryParams: [
+                            { id: 1, title: 'Page',  key: 'page', typeValue: ['string', 'number'], description: 'example description' },
+                            { id: 2, title: 'Per Page',  key: 'per_page', typeValue: ['string', 'number'], description: 'example description' },
+                        ],
+                        requiestBody: null,
+                        title: 'Get Users',
+                        description: 'this is testing description for example. Not more..',
+                        forRole: '*',
+                    },
+                ]
+            },
+        ]
+    },
+    {
+        id: 6,
+        name: "Grant",
+        lastname: "Black",
+        surname: null,
+        role: 'admin',
+        avatar: null,
+        phoneNumber: '9883312233',
+        email: 'black@vip.com',
+        projects: [],
+    },
+    {
+        id: 7,
+        name: "Kyle",
+        lastname: "Dodge",
+        surname: null,
+        role: 'moderator',
+        avatar: null,
+        phoneNumber: '9917723311',
+        email: 'dodge@vip.com',
+        projects: [],
+    },
+
 ]

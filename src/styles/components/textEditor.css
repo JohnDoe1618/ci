@@ -1,0 +1,14 @@
+
+:root {
+    --texteditor-toolbar-bg: rgb(244, 244, 244);
+    --texteditor-toolbar-fg: rgb(97, 96, 96);
+    --texteditor-toolbar-hover-fg: rgb(97, 96, 96);
+    --texteditor-toolbar-border-color: rgb(146, 146, 146);
+
+    /* toolbar */
+    --p-editor-toolbar-background: var(--texteditor-toolbar-bg) !important;
+    --p-editor-toolbar-item-color: var(--texteditor-toolbar-fg) !important;
+    --p-editor-toolbar-border-color: var(--texteditor-toolbar-border-color) !important;
+    --p-editor-toolbar-border-radius: 5px !important;
+    --p-editor-toolbar-item-hover-color: var( --texteditor-toolbar-hover-fg) !important;
+}

@@ -49,7 +49,8 @@
                 <label class="w-10 mr-5" for="project-description">
                     <h3 class="ci-text text-xl font-normal mb-2">> Description</h3>
                 </label>
-                <Textarea class="w-10" v-model.trim="creationForm.projectDescription" id="project-description" autoResize rows="5" cols="30" placeholder="Enter a description" />
+                <!-- <Textarea class="w-10" v-model.trim="creationForm.projectDescription" id="project-description" autoResize rows="5" cols="30" placeholder="Enter a description" /> -->
+                <textEditorComp class="w-10" v-model="creationForm.projectDescription"/>
 
                 <!-- Default Signature-->
                 <small class="w-10 mt-2 ml-5 flex align-items-center">
@@ -161,6 +162,7 @@
 import { useRouter } from 'vue-router';
 import useNewProject from '@/composables/newProjectComposables/newProjectComposable';
 import inputErrorSignatures from '@/components/projects/newProject/inputErrorSignatures.vue';
+import { watch } from 'vue';
 
 const router = useRouter();
 
@@ -179,6 +181,8 @@ const {
     validateProjectPort, errorsProjectPort,
     validateHandshakeToken, errorsHandshakeToken,
 } = useNewProject();
+
+watch(() => creationForm.projectDescription, (newValue) => console.log(newValue))
 
 </script>
 

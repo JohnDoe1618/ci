@@ -2,6 +2,12 @@ import ProjectsView from '@/views/projects/ProjectsView.vue';
 import NewProjectView from '@/views/projects/NewProjectView.vue';
 import ProjectView from '@/views/projects/ProjectView.vue';
 import ProjectLogin from '@/views/projects/ProjectLogin.vue';
+import DescriptionView from '@/views/projects/project/DescriptionView.vue';
+import StatisticsView from '@/views/projects/project/StatisticsView.vue';
+import OperationsView from '@/views/projects/project/OperationsView.vue';
+import InteracrionsView from '@/views/projects/project/InteracrionsView.vue';
+import ParticipantsView from '@/views/projects/project/ParticipantsView.vue';
+
 
 export default [
     {
@@ -21,6 +27,48 @@ export default [
         name: 'project',
         component: ProjectView,
         meta: { requiredAuth: true },
+        redirect: { name: 'description' },
+        children: [
+            {
+                path: 'about-project',
+                name: 'description',
+                component: DescriptionView,
+                meta: { requiredAuth: true },
+                props: true,
+            },
+            {
+                path: 'statistics',
+                name: 'statistics',
+                component: StatisticsView,
+                meta: { requiredAuth: true },
+                props: true,
+
+            },
+            {
+                path: 'operations',
+                name: 'operations',
+                component: OperationsView,
+                meta: { requiredAuth: true },
+                props: true,
+
+            },
+            {
+                path: 'interactions',
+                name: 'interactions',
+                component: InteracrionsView,
+                meta: { requiredAuth: true },
+                props: true,
+
+            },
+            {
+                path: 'participants',
+                name: 'participants',
+                component: ParticipantsView,
+                meta: { requiredAuth: true },
+                props: true,
+
+            },
+        ]
     },
     {
         path: '/projects/project-login',
