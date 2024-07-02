@@ -1,41 +1,30 @@
 <template>
-    <div class="ci-block w-full h-full">
-        DESCRIPTION PROJECT {{ props.projectData.id }}
-        <!-- <ol>
-            <li data-list="ordered" class="ql-align-center">
-                <span class="ql-ui" contenteditable="false">
-                </span>
-                    asdsa
-                <span style="background-color: rgb(255, 255, 102);">
-                    das
-                </span>
-                da
-                <u>
-                    sdasdasd
-                </u>
-            </li>
-        </ol> -->
-
-        <ol>
-            <li data-list="bullet" class="ql-align-center">
-                <span class="ql-ui" contenteditable="false">
-
-                </span>
-                hello world
-            </li>
-        </ol>
+    <div class="ci-block w-full h-full flex flex-column align-items-center">
+        <div class="ql-editor" ref="overlayDescription"></div>
     </div>
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
+import { ref, defineProps, watch, onMounted } from 'vue';
 
 const props = defineProps({
     projectData: {
         type: Object,
         required: true,
     },
-})
+});
+
+const overlayDescription = ref(null);
+
+
+watch(() => props.projectData, (newValue) => {
+    overlayDescription.value.innerHTML = newValue.description;
+});
+
+onMounted(() => {
+    overlayDescription.value.innerHTML = props.projectData.description;
+});
+
 
 </script>
 

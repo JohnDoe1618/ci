@@ -5,6 +5,8 @@
     --toggle-button-checked-content-bg: rgb(62, 62, 62);
     --btn-secondary-bg: rgb(255, 255, 255);
     --btn-secondary-color: rgb(102, 101, 101);
+    --btn-select-fg: white;
+    --btn-select-bg: rgba(50,50,50);
 
 
     --p-togglebutton-color: var(--block-fg) !important;
@@ -28,6 +30,11 @@
     color: var(--btn-fg) !important;
     border: 1px solid var(--btn-border-color);
     transition: all 0.2s ease !important;
+}
+
+.ci-btn--select {
+    color: var(--btn-select-fg) !important;
+    background-color: var(--btn-select-bg) !important;
 }
 
 .ci-btn:hover {

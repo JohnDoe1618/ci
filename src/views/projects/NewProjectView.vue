@@ -50,7 +50,9 @@
                     <h3 class="ci-text text-xl font-normal mb-2">> Description</h3>
                 </label>
                 <!-- <Textarea class="w-10" v-model.trim="creationForm.projectDescription" id="project-description" autoResize rows="5" cols="30" placeholder="Enter a description" /> -->
-                <textEditorComp class="w-10" v-model="creationForm.projectDescription"/>
+                <textEditorComp class="w-10" v-model="descr"/>
+                <h3>Output</h3>
+                <div class="ql-editor" v-html="descr"></div>
 
                 <!-- Default Signature-->
                 <small class="w-10 mt-2 ml-5 flex align-items-center">
@@ -162,7 +164,7 @@
 import { useRouter } from 'vue-router';
 import useNewProject from '@/composables/newProjectComposables/newProjectComposable';
 import inputErrorSignatures from '@/components/projects/newProject/inputErrorSignatures.vue';
-import { watch } from 'vue';
+import { ref, watch } from 'vue';
 
 const router = useRouter();
 
@@ -182,7 +184,11 @@ const {
     validateHandshakeToken, errorsHandshakeToken,
 } = useNewProject();
 
-watch(() => creationForm.projectDescription, (newValue) => console.log(newValue))
+watch(() => creationForm.projectDescription, (val) => {
+    console.log(val);
+})
+
+const descr = ref('<h1 class="ql-align-center">Second Project!!!</h1><h2 class="ql-align-center"><span style="background-color: rgb(240, 102, 102); color: rgb(255, 255, 255);">description example</span></h2><p class="ql-align-center"><a href="http://localhost:3333" rel="noopener noreferrer" target="_blank" style="background-color: rgb(102, 163, 224); color: rgb(255, 255, 255);">http://localhost:3333</a></p>')
 
 </script>
 
