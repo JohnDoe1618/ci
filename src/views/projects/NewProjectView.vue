@@ -53,25 +53,9 @@
                 <textEditorComp 
                 class="w-10" 
                 v-model="creationForm.projectDescription"
+                :initialContent="projectDescriptionExists"
                 :placeholder="'Enter a description'"
                 />
-                <button @click="handlerOutput">Output</button>
-                <h2>Output</h2>
-                <!-- <div class="ql-editor" v-html=html></div> -->
-                <div class="ql-code-block-container" spellcheck="false">
-                    <div class="ql-code-block" data-language="javascript">
-                        function handlerOutput() {
-                    </div>
-                    <div class="ql-code-block" data-language="javascript">
-                            console.log(creationForm.projectDescription);
-                    </div>
-                    <div class="ql-code-block" data-language="javascript">
-                            html.value = creationForm.projectDescription;
-                        </div>
-                        <div class="ql-code-block" data-language="javascript">
-                            }
-                        </div>
-                    </div>
                 <!-- Default Signature-->
                 <small class="w-10 mt-2 ml-5 flex align-items-center">
                     <i 
@@ -182,7 +166,6 @@
 import { useRouter } from 'vue-router';
 import useNewProject from '@/composables/newProjectComposables/newProjectComposable';
 import inputErrorSignatures from '@/components/projects/newProject/inputErrorSignatures.vue';
-import { ref, watch } from 'vue';
 
 const router = useRouter();
 
@@ -194,6 +177,7 @@ const {
     // Actions
     handlerReset,
     confirmCreationForm,
+    projectDescriptionExists,
 
     // validators
     validateProjectName, errorsProjectName,
@@ -201,13 +185,6 @@ const {
     validateProjectPort, errorsProjectPort,
     validateHandshakeToken, errorsHandshakeToken,
 } = useNewProject();
-
-const html = ref('');
-
-function handlerOutput() {
-    console.log(creationForm.projectDescription);
-    html.value = creationForm.projectDescription;
-}
 
 </script>
 

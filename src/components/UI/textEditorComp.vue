@@ -5,7 +5,7 @@
 </template>
   
 <script setup>
-import { onMounted, ref, defineProps, defineEmits } from 'vue';
+import { onMounted, ref, defineProps, defineEmits, watch } from 'vue';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 
@@ -63,13 +63,13 @@ const initializeQuill = () => {
             const formattedContent = content.split(regex).join('');
             emit('update:modelValue', formattedContent);
         });
-
-        // Загрузка начального HTML содержимого, если оно было передано через props
-        if (props.initialContent) {
-            pasteHtmlContent();
-        }
     }
 };
+
+// Если существующий контент приходит в редактор по пропсу то вставляем его в редактор
+watch(() => props.initialContent, () => {
+    pasteHtmlContent();
+})
 
 onMounted(() => {
     initializeQuill();
