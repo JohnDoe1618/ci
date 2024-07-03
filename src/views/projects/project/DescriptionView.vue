@@ -2,11 +2,13 @@
     <div class="ci-block w-full h-full flex flex-column align-items-center justify-content-center overflow-auto">
         <div class="descr-overlay w-full relative flex align-items-start justify-content-center">
             <div class="absolute flex flex-column align-content-center justify-content-center" style="top: 10px; right: 0;" >
+                <!-- toggle mode -->
                 <Button 
                 class="shadow-2 mb-1" 
                 @click="handlerSetMode"
                 :icon="(editMode === true)? 'pi pi-times' : 'pi pi-pencil'" 
                 />
+                <!-- save -->
                 <Button
                 v-show="editMode === true"
                 @click="handlerUpdateDescription"
@@ -27,7 +29,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps, watch, onMounted } from 'vue';
+import { ref, defineProps, defineEmits, watch, onMounted } from 'vue';
 
 const props = defineProps({
     projectData: {
@@ -35,6 +37,8 @@ const props = defineProps({
         required: true,
     },
 });
+
+const emit = defineEmits(['update:description']);
 
 const editMode = ref(false);
 const overlayDescription = ref(null);
@@ -55,7 +59,8 @@ function handlerSetMode() {
 }
 
 function handlerUpdateDescription() {
-
+    emit('update:description', editedDescription.value);
+    handlerSetMode();
 }
 
 onMounted(() => {

@@ -90,6 +90,7 @@
             <component
                 :is="Component"
                 :project-data="project"
+                @update:description="(value) => handlerUpdateDescription(value)"
             />
             </RouterView>
         </div>
@@ -121,6 +122,13 @@ const project = ref({
 
 // ==============================  DATA  ===============================
 const isShowProjectSettingDrawer = ref(false);
+
+
+// ==============================  METHODS  ===============================
+function handlerUpdateDescription(value){
+    // 1) Выполненеие api обновления описания проекта....
+    project.value.description = value;
+}
 
 // ==============================  LIFECYCLE HOOKS  ===============================
 onBeforeMount(async () => {
