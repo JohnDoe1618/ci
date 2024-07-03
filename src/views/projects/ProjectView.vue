@@ -85,7 +85,7 @@
             </template>
         </Toolbar>
 
-        <div class="ci-block mx-2 px-2 py-4">
+        <div class="ci-block mx-2" style="height: 86%;">
             <RouterView v-slot="{ Component }">
             <component
                 :is="Component"

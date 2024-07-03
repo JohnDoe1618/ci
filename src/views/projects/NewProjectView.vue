@@ -49,7 +49,6 @@
                 <label class="w-10 mr-5" for="project-description">
                     <h3 class="ci-text text-xl font-normal mb-2">> Description</h3>
                 </label>
-                <!-- <Textarea class="w-10" v-model.trim="creationForm.projectDescription" id="project-description" autoResize rows="5" cols="30" placeholder="Enter a description" /> -->
                 <textEditorComp 
                 class="w-10" 
                 v-model="creationForm.projectDescription"

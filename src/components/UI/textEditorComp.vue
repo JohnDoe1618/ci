@@ -1,6 +1,13 @@
 <template>
-    <div>
-        <div id="editor-container" ref="editor"></div>
+    <div class="relative shadow-2" style="border: 1px dashed var(--ui-border-color);">
+        <div class="relative" id="editor-container" ref="editor"></div>
+        <Button
+        v-if="props.showSave"
+        class="absolute" 
+        @click="handlerSetMode"
+        style="bottom: 1rem; right: 1rem;" 
+        icon="pi pi-save" 
+        />
     </div>
 </template>
   
@@ -16,6 +23,11 @@ const props = defineProps({
     },
     placeholder: {
         type: String,
+        required: false,
+    },
+    showSave: {
+        type: Boolean,
+        default: false,
         required: false,
     }
 });

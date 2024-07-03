@@ -28,6 +28,13 @@
     --btn-hover-fg: white;
     --btn-active-bg: #707070;
     --border-color-view: #0000004d;
+
+    /* ScorllBar */
+    --thumb-bg: rgba(49, 49, 49, 0.659);
+    --thumb-hover-bg: rgb(77, 77, 77);
+    --thumb-radius: 3px;
+    --scrollbar-width: 9px;
+    --track-bg: rgb(231, 231, 231);
 }
 
 * {
@@ -36,13 +43,26 @@
     box-sizing: border-box;
 }
 
+
+/* Ширина и цвет полосы скроллбара */
 ::-webkit-scrollbar {
-    width: 8px;
-    background-color: var(--block-bg) !important; /* цвет фона скроллбара */
-    border-radius: 0 !important;  /* радиус закругления углов */
+    width: var(--scrollbar-width);
 }
 
+/* Цвет заполнения полосы скроллбара */
 ::-webkit-scrollbar-thumb {
-    background-color: var(--scrollbar-thumb-color) !important; /* цвет ползунка */
-    border-radius: 2px; /* радиус закругления углов ползунка */
+    background-color: var(--thumb-bg) !important;
+    border-radius: var(--thumb-radius) !important;
 }
+
+/* Стиль и цвет фона при наведении курсора */
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--thumb-hover-bg) !important;
+    cursor: pointer;
+}
+
+/* Стиль и цвет трека (фон вокруг скроллбара) */
+::-webkit-scrollbar-track {
+    background-color: var(--track-bg) !important;
+}
+
