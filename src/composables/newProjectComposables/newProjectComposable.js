@@ -34,7 +34,7 @@ export default function useNewProject() {
     const creationForm = reactive({
         hostProtocol: 'http://',
         projectName: '',
-        projectDescription: '<h1 class="ql-align-center">Second Project!!!</h1><h2 class="ql-align-center"><span style="background-color: rgb(240, 102, 102); color: rgb(255, 255, 255);">description example</span></h2><p class="ql-align-center"><a href="http://localhost:3333" rel="noopener noreferrer" target="_blank" style="background-color: rgb(102, 163, 224); color: rgb(255, 255, 255);">http://localhost:3333</a></p>',
+        projectDescription: '',
         projectHost: '',
         projectPort: null,
         handshakeToken: '',

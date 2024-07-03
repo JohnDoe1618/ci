@@ -50,10 +50,28 @@
                     <h3 class="ci-text text-xl font-normal mb-2">> Description</h3>
                 </label>
                 <!-- <Textarea class="w-10" v-model.trim="creationForm.projectDescription" id="project-description" autoResize rows="5" cols="30" placeholder="Enter a description" /> -->
-                <textEditorComp class="w-10" v-model="descr"/>
-                <h3>Output</h3>
-                <div class="ql-editor" v-html="descr"></div>
-
+                <textEditorComp 
+                class="w-10" 
+                v-model="creationForm.projectDescription"
+                :placeholder="'Enter a description'"
+                />
+                <button @click="handlerOutput">Output</button>
+                <h2>Output</h2>
+                <!-- <div class="ql-editor" v-html=html></div> -->
+                <div class="ql-code-block-container" spellcheck="false">
+                    <div class="ql-code-block" data-language="javascript">
+                        function handlerOutput() {
+                    </div>
+                    <div class="ql-code-block" data-language="javascript">
+                            console.log(creationForm.projectDescription);
+                    </div>
+                    <div class="ql-code-block" data-language="javascript">
+                            html.value = creationForm.projectDescription;
+                        </div>
+                        <div class="ql-code-block" data-language="javascript">
+                            }
+                        </div>
+                    </div>
                 <!-- Default Signature-->
                 <small class="w-10 mt-2 ml-5 flex align-items-center">
                     <i 
@@ -184,11 +202,12 @@ const {
     validateHandshakeToken, errorsHandshakeToken,
 } = useNewProject();
 
-watch(() => creationForm.projectDescription, (val) => {
-    console.log(val);
-})
+const html = ref('');
 
-const descr = ref('<h1 class="ql-align-center">Second Project!!!</h1><h2 class="ql-align-center"><span style="background-color: rgb(240, 102, 102); color: rgb(255, 255, 255);">description example</span></h2><p class="ql-align-center"><a href="http://localhost:3333" rel="noopener noreferrer" target="_blank" style="background-color: rgb(102, 163, 224); color: rgb(255, 255, 255);">http://localhost:3333</a></p>')
+function handlerOutput() {
+    console.log(creationForm.projectDescription);
+    html.value = creationForm.projectDescription;
+}
 
 </script>
 

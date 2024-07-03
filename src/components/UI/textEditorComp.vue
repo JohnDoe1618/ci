@@ -1,74 +1,80 @@
-<!-- <template>
+<template>
     <div>
-        <Editor 
-        @update:modelValue="(value) => emit('update:modelValue', value)" 
-        :modelValue="props.modelValue" 
-        editorStyle="height: 320px" 
-        />
+        <div id="editor-container" ref="editor"></div>
     </div>
 </template>
-
+  
 <script setup>
-import { defineEmits, defineProps } from 'vue';
+import { onMounted, ref, defineProps, defineEmits } from 'vue';
+import Quill from 'quill';
+import 'quill/dist/quill.snow.css';
 
 const props = defineProps({
-    modelValue: {
+    initialContent: {
+        type: String,
+        required: false,
+    },
+    placeholder: {
         type: String,
         required: false,
     }
-})
-const emit = defineEmits(['update:modelValue']);
+});
+const emit = defineEmits(['update:modelValue'])
 
-</script>
+const editor = ref(null);
+let quillInstance = null;
 
-<style scoped>
-    
-</style> -->
-
-<template>
-    <div>
-      <div id="editor-container"></div>
-      <button @click="saveContent">Сохранить</button>
-      <button @click="insertContent">Insert</button>
-    </div>
-  </template>
-  
-  <script>
-  import Quill from 'quill';
-  import 'quill/dist/quill.snow.css';
-  
-  export default {
-    data() {
-        return {
-            quill: null,
-            template: '',
-        };
-    },
-    mounted() {
-        this.initializeQuill();
-    },
-    methods: {
-    initializeQuill() {
-        this.quill = new Quill('#editor-container', {
-            theme: 'snow',
-            modules: {
-                toolbar: true,
-            },
-            placeholder: 'Enter a description',
-            theme: 'snow',
-        });
-    },
-    saveContent() {
-        const text = this.quill.getText(0);
-        const html = this.quill.getSemanticHTML(0);
-        console.log(text);
-        console.log('html', html)
-    },
-    insertContent() {
-        this.quill.insertEmbed(0, 'html', '<h1 class="ql-align-center">Second Project!!!</h1><h2 class="ql-align-center"><span style="background-color: rgb(240, 102, 102); color: rgb(255, 255, 255);">description example</span></h2><p class="ql-align-center"><a href="http://localhost:3333" rel="noopener noreferrer" target="_blank" style="background-color: rgb(102, 163, 224); color: rgb(255, 255, 255);">http://localhost:3333</a></p>');
+// вставить существующий html-контент
+function pasteHtmlContent() {
+    if (quillInstance) {
+        quillInstance.clipboard.dangerouslyPasteHTML(props.initialContent);
     }
-  }
-}
+};
+
+// Инициализация Quill при монтировании компонента
+const initializeQuill = () => {
+    if (editor.value) {
+        quillInstance = new Quill(editor.value, {
+            theme: 'snow', // Тема редактора,
+            placeholder: props.placeholder,
+            modules: {
+                syntax: true,  
+                toolbar: [
+                    { 'header': [1, 2, 3, 4, 5, 6] }, 
+                    { 'font': [] }, 
+                    { 'size': ['small', false, 'large', 'huge'] },
+                    { 'color': [] }, { 'background': [] },
+                    'bold', 'italic', 'underline', 'strike', 'code-block',
+                    { 'align': [] },
+                    { 'list': 'bullet' }, { 'list': 'ordered' },
+                    { 'script': 'sub' }, { 'script': 'super' },
+                    { 'indent': '-1' }, { 'indent': '+1' },
+                    { 'direction': 'rtl' }, 'link', 'image', 'video', 'clean',
+                    
+                ],
+            }
+        });
+
+        // Слушатель события изменения контента
+        quillInstance.on('text-change', () => {
+            // Удаление тега select для итогового html контента (тег select накладывается когда происходит форматрование кода)
+            let content = quillInstance.root.innerHTML;
+            const regex = /<select\b[^>]*>[\s\S]*?<\/select>/g;
+            const formattedContent = content.split(regex).join('');
+            emit('update:modelValue', formattedContent);
+        });
+
+        // Загрузка начального HTML содержимого, если оно было передано через props
+        if (props.initialContent) {
+            pasteHtmlContent();
+        }
+    }
+};
+
+onMounted(() => {
+    initializeQuill();
+});
+
 </script>
 
 <style>
