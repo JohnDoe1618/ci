@@ -28,6 +28,9 @@ import Editor from 'primevue/editor';
 import ScrollPanel from 'primevue/scrollpanel';
 import Panel from 'primevue/panel';
 import SpeedDial from 'primevue/speeddial';
+import Chip from 'primevue/chip';
+import Dialog from 'primevue/dialog';
+
 
 export default [
     Drawer,
@@ -60,4 +63,6 @@ export default [
     ScrollPanel,
     Panel,
     SpeedDial,
+    Chip,
+    Dialog,
 ]

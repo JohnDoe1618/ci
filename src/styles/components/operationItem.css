@@ -1,0 +1,83 @@
+
+:root {
+    /* ==========  METHOD  ========== */
+    --operation-method-default-bg: rgba(128, 128, 128, 0.5);
+    --operation-method-default-fg: rgb(0, 0, 0);
+    --operation-method-radius: 3px;
+    --operation-method-shadow: 1px 1px 6px rgba(0,0,0, .2);
+    /* POST */
+    --operation-method-post-bg: rgba(255, 166, 0, 0.6);
+    /* GET */
+    --operation-method-get-bg: rgba(34, 212, 82, 0.6);
+    /* PUT */
+    --operation-method-put-bg: rgba(188, 67, 209, 0.6);
+    /* PATCH */
+    --operation-method-patch-bg: rgba(114, 87, 211, 0.6);
+    /* DELETE */
+    --operation-method-delete-bg: rgba(226, 69, 69, 0.6);
+    /* ==========  ENDPOINT  ========== */
+    --operation-endpoint-bg: rgb(89, 89, 89);
+    --operation-endpoint-fg: rgb(255, 255, 255);
+    --operation-endpoint-radius: 3px;
+    --operation-endpoint-shadow: 1px 1px 6px rgba(0,0,0, .2);
+    /* ==========  DESCRIPTION  ========== */
+    --operation-description-bg: rgb(224, 222, 222);
+    --operation-description-fg: rgb(46, 46, 46);
+    --operation-description-radius: 3px;
+}
+
+
+/* ==========  METHOD  ========== */
+.ci-operation-method {
+    background-color: var(--operation-method-default-bg) !important;
+    color: var(--operation-method-default-fg) !important;
+    padding: 0.1rem 0.5rem !important;
+    border-radius: var(--operation-method-radius) !important;
+    box-shadow: var(--operation-method-shadow) !important;
+    font-weight: 600 !important;
+    cursor: default;
+}
+
+/* POST */
+.ci-operation-method.post {
+    background-color: var(--operation-method-post-bg) !important;
+}
+
+/* GET */
+.ci-operation-method.get {
+    background-color: var(--operation-method-get-bg) !important;
+}
+
+/* PUT */
+.ci-operation-method.put {
+    background-color: var(--operation-method-put-bg) !important;
+}
+
+/* PATCH */
+.ci-operation-method.patch {
+    background-color: var(--operation-method-patch-bg) !important;
+}
+
+/* DELETE */
+.ci-operation-method.delete {
+    background-color: var(--operation-method-delete-bg) !important;
+}
+
+/* ==========  ENDPOINT  ========== */
+.ci-operation-endpoint {
+    color: var(--operation-endpoint-fg) !important;
+    background-color: var(--operation-endpoint-bg) !important;
+    padding: 0.08rem 0.7rem !important;
+    border-radius: var(--operation-endpoint-radius) !important;
+    font-weight: 600 !important;
+    box-shadow: var(--operation-endpoint-shadow) !important; 
+}
+
+/* ==========  DESCRIPTION  ========== */
+.ci-operation-description {
+    color: var(--operation-description-fg) !important;
+    background-color: var(--operation-description-bg) !important;
+    padding: 0.08rem 0.7rem !important;
+    border-radius: var(--operation-description-radius) !important;
+    font-size: 1.05rem !important;
+}

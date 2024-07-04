@@ -8,6 +8,7 @@
     --btn-secondary-hover-bg: rgb(218, 218, 218);
     --btn-select-fg: white;
     --btn-select-bg: rgba(50,50,50);
+    --btn-painted-color: white;
 
 
     --p-togglebutton-color: var(--block-fg) !important;
@@ -24,6 +25,11 @@
     --p-button-outlined-secondary-color: var(--btn-secondary-color) !important;
     --p-button-secondary-hover-color: var(--btn-secondary-hover-color) !important;
     --p-button-text-secondary-color: white!important;
+
+    /* DANGER */
+    --p-button-danger-color: var(--btn-painted-color) !important;
+    /* INFO */
+    --p-button-info-color: var(--btn-painted-color) !important;
 }
 
 .ci-btn {

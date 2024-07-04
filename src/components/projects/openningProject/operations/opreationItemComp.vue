@@ -10,29 +10,58 @@
         <!-- Content -->
         <template #default>
             <div class="ci-block">
+                <dialog-comp 
+                @close="isShowDeleteOperationForm = false"
+                :show="isShowDeleteOperationForm"
+                :title="'Are you sure you want to delete the operation?'"
+                >
+                    <div class="flex justify-content-center align-items-center gap-3">
+                        <Button 
+                        label="Yes" 
+                        icon="pi pi-trash" 
+                        iconPos="right"
+                        severity="danger"
+                        />
+                        <Button 
+                        label="No" 
+                        icon="pi pi-times" 
+                        iconPos="right" 
+                        severity="info"
+                        @click="isShowDeleteOperationForm = false"
+                        />
+                    </div>
+                </dialog-comp>
 
                 <!-- Description -->
                 <div>
                     <h2 class="operation-chunck-label text-xl ml-2 ci-text">Description:</h2>
-                    <div class="ml-4 my-2">{{ props.data.description }}</div>
+                    <div class="ml-4 my-2">
+                        <span class="ci-operation-description">{{ props.data.description }}</span>
+                    </div>
                 </div>
 
                 <!-- Method -->
                 <div class="operation-chunck-label mt-3">
                     <h2 class=" text-xl ml-2 ci-text">Method:</h2>
-                    <div class="ml-4 my-2">{{ props.data.method }}</div>
+                    <div class="ml-4 my-2">
+                        <span class="ci-operation-method" :class="props.data.method.toLowerCase()">{{ props.data.method }}</span>
+                    </div>
                 </div>
 
                 <!-- Endpoint -->
                 <div class="operation-chunck-label mt-3">
                     <h2 class=" text-xl ml-2 ci-text">Endpoint:</h2>
-                    <div class="ml-4 my-2">{{ props.data.endpoint }}</div>
+                    <div class="ml-4 my-2">
+                        <span class="ci-operation-endpoint">{{ props.data.endpoint }}</span>
+                    </div>
                 </div>
 
                 <!-- For Role -->
                 <div class="operation-chunck-label mt-3">
                     <h2 class=" text-xl ml-2 ci-text">For Role:</h2>
-                    <div class="ml-4 my-2">{{ props.data.forRole }}</div>
+                    <div class="ml-4 my-2">
+                        <Chip :label="props.data.forRole" icon="pi pi-id-card" />
+                    </div>
                 </div>
 
                 <!-- Query params -->
@@ -152,7 +181,8 @@ const props = defineProps({
 // =======================  DATA  ===========================
 const isCollapseSelf = ref(true);
 const selfId = ref(null);
-// Кнопки 
+const isShowDeleteOperationForm = ref(false);
+// Кнопки дополнительных взаимодействий с проектом
 const items = ref([
     {
         label: 'Update',
@@ -172,7 +202,7 @@ const items = ref([
         label: 'Delete',
         icon: 'pi pi-trash',
         command: () => {
-            console.log('test');
+            isShowDeleteOperationForm.value = true;
         }
     },
 ]);
