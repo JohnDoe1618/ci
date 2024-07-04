@@ -4,10 +4,11 @@ import ProjectView from '@/views/projects/ProjectView.vue';
 import ProjectLogin from '@/views/projects/ProjectLogin.vue';
 import DescriptionView from '@/views/projects/project/DescriptionView.vue';
 import StatisticsView from '@/views/projects/project/StatisticsView.vue';
-import OperationsView from '@/views/projects/project/OperationsView.vue';
 import InteracrionsView from '@/views/projects/project/InteracrionsView.vue';
 import ParticipantsView from '@/views/projects/project/ParticipantsView.vue';
-
+// Operations
+import OperationsView from '@/views/operations/OperationsView.vue';
+import OperationLaunchView from '@/views/operations/OperationLaunchView.vue';
 
 export default [
     {
@@ -50,20 +51,27 @@ export default [
                 component: OperationsView,
                 meta: { requiredAuth: true },
                 props: true,
-
             },
+            // LAUNCH OPERATION
             {
-                path: 'interactions',
-                name: 'interactions',
-                component: InteracrionsView,
+                path: 'operations/launch/:operationName/:operationId',
+                name: 'launch-operation',
+                component: OperationLaunchView,
                 meta: { requiredAuth: true },
                 props: true,
-
             },
             {
                 path: 'participants',
                 name: 'participants',
                 component: ParticipantsView,
+                meta: { requiredAuth: true },
+                props: true,
+
+            },
+            {
+                path: 'history',
+                name: 'interactions',
+                component: InteracrionsView,
                 meta: { requiredAuth: true },
                 props: true,
 

@@ -27,7 +27,7 @@ import AccordionContent from 'primevue/accordioncontent';
 import Editor from 'primevue/editor';
 import ScrollPanel from 'primevue/scrollpanel';
 import Panel from 'primevue/panel';
-
+import SpeedDial from 'primevue/speeddial';
 
 export default [
     Drawer,
@@ -59,4 +59,5 @@ export default [
     Editor,
     ScrollPanel,
     Panel,
+    SpeedDial,
 ]

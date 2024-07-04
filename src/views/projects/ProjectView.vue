@@ -30,6 +30,26 @@
         </div>
         <Toolbar class="ci-block mx-2 shadow-3">
             <template #start>
+                <!-- Launch -->
+                <Button 
+                class="ci-btn mr-2"
+                :class="($route.name === 'launch-operation')? 'ci-btn--select' : ''"
+                :disabled="$route.name !== 'launch-operation'"
+                label="Launch" 
+                icon="pi pi-play" 
+                iconPos="left" 
+                size="" />
+
+                <!-- Operations -->
+                <Button 
+                class="ci-btn mr-2"
+                :class="($route.name === 'operations')? 'ci-btn--select' : ''"
+                @click="$router.push({ name: 'operations' })" 
+                label="Operations" 
+                icon="pi pi-code" 
+                iconPos="left" 
+                size=""/>
+
                 <!-- Description -->
                 <Button 
                 class="ci-btn mr-2"
@@ -50,22 +70,12 @@
                 iconPos="left" 
                 size="" />
 
-                <!-- Operations -->
-                <Button 
-                class="ci-btn mr-2"
-                :class="($route.name === 'operations')? 'ci-btn--select' : ''"
-                @click="$router.push({ name: 'operations' })" 
-                label="Operations" 
-                icon="pi pi-code" 
-                iconPos="left" 
-                size=""/>
-
                 <!-- Interactions -->
                 <Button 
                 class="ci-btn mr-2"
                 :class="($route.name === 'interactions')? 'ci-btn--select' : ''"
                 @click="$router.push({ name: 'interactions' })" 
-                label="Interactions" 
+                label="History" 
                 icon="pi pi-history" 
                 iconPos="left" 
                 size=""/>

@@ -62,7 +62,7 @@
                     raised 
                     title="settings"/>
 
-                    <!-- Updatte Table -->
+                    <!-- Update Table -->
                     <Button 
                     class="ci-btn"
                     icon="pi pi-refresh" 

@@ -15,7 +15,7 @@
         </div>
 
         <!-- Отрисовка операций -->
-        <div class="w-11 ml-4 py-4 px-3 overflow-auto">
+        <div class="ml-4 py-4 px-3 overflow-auto" style="width: 95%;">
             <opreationItemComp 
             v-for="operation in operations" 
             class="operation-item" 
@@ -103,6 +103,6 @@ onMounted(() => {
 
 <style scoped>
 .operation-item + .operation-item {
-    margin-top: 0.3rem;
+    margin-top: 0.5rem;
 }
 </style>
