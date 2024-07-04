@@ -26,6 +26,7 @@ import AccordionHeader from 'primevue/accordionheader';
 import AccordionContent from 'primevue/accordioncontent';
 import Editor from 'primevue/editor';
 import ScrollPanel from 'primevue/scrollpanel';
+import Panel from 'primevue/panel';
 
 
 export default [
@@ -57,4 +58,5 @@ export default [
     AccordionContent,
     Editor,
     ScrollPanel,
+    Panel,
 ]

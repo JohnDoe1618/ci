@@ -1,0 +1,14 @@
+
+:root {
+    --panel-border-color: rgba(158, 158, 158, 0.8);
+    --panel-radius: 8px;
+
+    --p-panel-background: var(--block-bg) !important;
+    --p-panel-color: var(--block-fg) !important;
+    --p-panel-border-color: var(--panel-border-color) !important;
+    --p-panel-border-radius: var(--panel-radius) !important;
+
+    /* header */
+    --p-panel-header-background: var(--block-bg) !important;
+    --p-panel-header-color: var(--block-fg) !important;
+}

@@ -333,4 +333,26 @@ export const users = [
         projects: [],
     },
 
+];
+
+
+export const operations = [
+    {
+        id: 1,
+        projectId: 4,
+        method: 'POST',
+        endpoint: '/example/test/:id',
+        pathParams: { 
+            q: { type: 'string', default: '123', required: false }, 
+            is_check: {type: 'boolean', default: false, required: false}, 
+        },
+        queryParams: {
+            id: { type: 'number', default: undefined, required: true },
+        },
+        title: 'Tested Operation',
+        description: 'Tested Description so long so long so so far far far okay its end',
+        forRole: 'moderator',
+        createdAt: '2024-06-13T22:05:08.339+00:00',
+        updatedAt: '2024-06-13T22:07:38.339+00:00',
+    }
 ]

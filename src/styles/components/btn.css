@@ -5,6 +5,7 @@
     --toggle-button-checked-content-bg: rgb(62, 62, 62);
     --btn-secondary-bg: rgb(255, 255, 255);
     --btn-secondary-color: rgb(102, 101, 101);
+    --btn-secondary-hover-bg: rgb(218, 218, 218);
     --btn-select-fg: white;
     --btn-select-bg: rgba(50,50,50);
 
@@ -57,4 +58,16 @@
 /* SELECT BUTTON */
 .p-selectbutton {
     background-color: var(--block-bg) !important;
+}
+
+/* SECONDARY */
+.p-button-secondary {
+    background-color: var(--btn-secondary-bg) !important;
+    color: var(--btn-secondary-color) !important;
+    transition: all .4s ease;
+}
+.p-button-secondary:hover {
+    transition: all .4s ease;
+    background-color: var(--btn-secondary-hover-bg) !important;
+    color: var(--btn-secondary-color) !important;
 }
