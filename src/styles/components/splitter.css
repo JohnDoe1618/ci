@@ -1,0 +1,8 @@
+:root {
+    --splitter-gutter-color: rgba(173, 173, 173, 0.6);
+
+    --p-splitter-background: var(--block-bg) !important;
+    --p-splitter-color: var(--block-fg) !important;
+    --p-splitter-border-color: var(--block-border-color) !important;
+    --p-splitter-gutter-background: var(--splitter-gutter-color) !important;
+}

@@ -1,0 +1,5 @@
+:root {
+    --p-toolbar-background: var(--block-bg) !important;
+    --p-toolbar-color: var(--block-fg) !important;
+    --p-toolbar-border-color: var(--block-border-color) !important;
+}

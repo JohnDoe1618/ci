@@ -3,7 +3,7 @@ import { operations } from "./testdata";
 
 // Сервис для работы с операциями проекта
 export default class OperationService {
-    // Поулчение проектов
+    // Поулчение операций
     static async getOperations(projectId) {
         try {
             return operations.filter((operation) => operation.projectId == projectId);
@@ -13,14 +13,14 @@ export default class OperationService {
         }
     }
 
-    // Получение данных проекта по его ID
-    static async getProjectData(projectId) {
+    // Получение данных операции по её ID
+    static async getOperationById(operationId) {
         try {
-            const found = testdata.find((project) => project.id == projectId);
+            const found = operations.find((operation) => operation.id == operationId);
             return found;
         } catch (err) {
             console.error(err);
-            console.error(`services/operationService: getOperations  => ${err}`);
+            console.error(`services/operationService: getOperationById  => ${err}`);
         }
     }
 

@@ -12,6 +12,8 @@
 @import url(./operationItem.css);
 @import url(./chip.css);
 @import url(./dialog.css);
+@import url(./splitter.css);
+@import url(./toolbar.css);
 
 /* Стили которые могут применятся ко всем компонентам */
 :root {

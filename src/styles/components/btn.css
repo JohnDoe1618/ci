@@ -26,6 +26,8 @@
     --p-button-secondary-hover-color: var(--btn-secondary-hover-color) !important;
     --p-button-text-secondary-color: white!important;
 
+    /* SUCCESS */
+    --p-button-success-color: var(--btn-painted-color) !important;
     /* DANGER */
     --p-button-danger-color: var(--btn-painted-color) !important;
     /* INFO */
@@ -59,7 +61,6 @@
     color: var(--btn-success-color) !important;
     font-family: var(--font) !important;
 }
-
 
 /* SELECT BUTTON */
 .p-selectbutton {

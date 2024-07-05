@@ -28,7 +28,7 @@
 
    
         </div>
-        <Toolbar class="ci-block mx-2 shadow-3">
+        <Toolbar class="ci-block mx-2 shadow-2 z-5">
             <template #start>
                 <!-- Launch -->
                 <Button 
