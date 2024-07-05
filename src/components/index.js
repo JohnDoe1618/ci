@@ -30,6 +30,8 @@ import Panel from 'primevue/panel';
 import SpeedDial from 'primevue/speeddial';
 import Chip from 'primevue/chip';
 import Dialog from 'primevue/dialog';
+import Splitter from 'primevue/splitter';
+import SplitterPanel from 'primevue/splitterpanel';
 
 
 export default [
@@ -65,4 +67,6 @@ export default [
     SpeedDial,
     Chip,
     Dialog,
+    Splitter,
+    SplitterPanel,
 ]
