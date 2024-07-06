@@ -342,30 +342,35 @@ export const operations = [
         projectId: 4,
         method: 'POST',
         endpoint: '/example/test/:id',
-        pathParams: { 
-            q: { type: 'string', default: undefined, required: false }, 
-            is_check: {type: 'boolean', default: false, required: false}, 
-        },
-        queryParams: {
-            id: { type: 'number', default: undefined, required: true },
-        },
+        pathParams: [
+            { key: 'id', type: 'number', default: undefined, required: true },
+        ],
+        queryParams: [
+            { key: 'q', type: 'string', default: undefined, required: false }, 
+            { key: 'is_check', type: 'boolean', default: false, required: false}, 
+        ],
+        requestBody: [
+            { key: 'title', label: 'Title', type: 'string', default: undefined, required: true },
+            { key: 'description', label: 'Description', type: 'string', default: undefined, required: true },
+            { key: 'visible', label: 'Visisble', type: 'boolean', default: true, required: false },
+        ],
         title: 'Tested Operation',
         description: 'Tested Description so long so long so so far far far okay its end',
         forRole: 'admin',
         createdAt: '2024-06-13T22:05:08.339+00:00',
         updatedAt: '2024-06-13T22:07:38.339+00:00',
-    },
+    }, 
     {
         id: 1,
         projectId: 4,
         method: 'GET',
         endpoint: '/example/fetch/test/:user_id',
-        pathParams: { 
-            user_id: {type: 'number', default: undefined, required: true}, 
-        },
-        queryParams: {
-            forwarded: { type: 'boolean', default: false, required: false }, 
-        },
+        pathParams: [ 
+            { key: 'user_id', type: 'number', default: undefined, required: true}, 
+        ],
+        queryParams: [
+            { key: 'forwarded', type: 'boolean', default: false, required: false }, 
+        ],
         title: 'Get Tested Data',
         description: 'Its another description, since prior operation has been full shit',
         forRole: 'moderator',

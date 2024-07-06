@@ -69,7 +69,7 @@
                     <h2 class=" text-xl ml-2 ci-text">Query Params:</h2>
                     <DataTable 
                     class="mx-4 mt-2"
-                    :value="computeQueryParams" 
+                    :value="props.data.queryParams" 
                     :show-gridlines="true"
                     tableStyle="min-width: 30rem"
                     >
@@ -85,7 +85,7 @@
                     <h2 class=" text-xl ml-2 ci-text">Path Params:</h2>
                     <DataTable 
                     class="mx-4 mt-2"
-                    :value="computePathParams" 
+                    :value="props.data.pathParams" 
                     :show-gridlines="true"
                     tableStyle="min-width: 30rem"
                     >
@@ -124,13 +124,7 @@
                 label="Launch" 
                 icon="pi pi-play" 
                 iconPos="right" 
-                @click="router.push({ 
-                    name: 'launch-operation', 
-                    params: { 
-                        operationName: PatternService.replaceStringByKebab(props.data.title), 
-                        operationId: props.data.id 
-                    } 
-                })"
+                @click="handlerOperationLaunch"
                 />
             </div>
         </template>
@@ -141,8 +135,10 @@
 import { ref, defineEmits, defineProps, onMounted, watch, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import PatternService from '@/services/patternService';
+import { useOperationsStore } from '@/stores/operationsStore';
 
 const router = useRouter();
+const operationsStore = useOperationsStore();
 
 const props = defineProps({
     isCollapseIds: {
@@ -214,38 +210,18 @@ function handlerCollapsed(value) {
     emit('update:collapsed', { isCollapse: value, id: selfId.value });
 }
 
+function handlerOperationLaunch() {
+    operationsStore.runningOperation = props.data;  // Запись объекта операции при переходе на страницу её запуска
+    router.push({ 
+        name: 'launch-operation', 
+        params: { 
+            operationName: PatternService.replaceStringByKebab(props.data.title), 
+            operationId: props.data.id
+        } 
+    });
+}
+
 // =======================  COMPUTED  ===========================
-
-// вычисление массива параметров путей на основе объекта парметров путей 
-const computePathParams = computed(() => {
-    const entries = Object.entries(props.data.pathParams);
-    let readyData = [];
-    entries.forEach(([key, value]) => {
-        readyData.push({ 
-            key: key ?? '-', 
-            type: value.type ?? '-',
-            default: value.default ?? '-',
-            required: value.required ?? '-', 
-        });
-    });
-    return readyData;
-});
-
-// вычисление массива параметров запроса на основе объекта парметров запроса 
-const computeQueryParams = computed(() => {
-    const entries = Object.entries(props.data.queryParams);
-    let readyData = [];
-    entries.forEach(([key, value]) => {
-        readyData.push({ 
-            key: key ?? '-', 
-            type: value.type ?? '-',
-            default: value.default ?? '-',
-            required: value.required ?? '-', 
-        });
-    });
-    return readyData;
-});
-
 // вычисление даты и времени для отображения их в Created At
 const computeTemplateCreatedAt = computed(() => {
     return PatternService.formattedDateTime(props.data.createdAt, 'HH:mm  DD/MM/YYYY', '+03:00');

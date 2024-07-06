@@ -14,10 +14,11 @@
 @import url(./dialog.css);
 @import url(./splitter.css);
 @import url(./toolbar.css);
+@import url(./selectInput.css);
 
 /* Стили которые могут применятся ко всем компонентам */
 :root {
-    --p-select-option-selected-color: var(--block-fg) !important;
+
 
 }
 
@@ -45,9 +46,6 @@
     cursor: default;
 }
 
-.p-select-option-check-icon {
-    color: var(--block-fg) !important;
-}
 
 .p-floatlabel {
     font-family: var(--font) !important;
