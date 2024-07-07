@@ -5,7 +5,7 @@
         @close="isShowProjectSettingDrawer = false"
         />
         <div class="ci-block flex align-items-center my-3 mx-4">
-            <h1 class="ci-text text-4xl">Second Project</h1>
+            <h1 class="ci-text text-4xl">{{ project.name }}</h1>
             <Button class="ci-btn ml-2" icon="pi pi-pencil" text/>
 
             <!-- Settings project -->

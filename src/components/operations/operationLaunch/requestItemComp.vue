@@ -1,73 +1,70 @@
 <template>
-    <InputGroup class="mt-2 px-5" :class="(invalidData)? 'invalid-data' : ''">
-        <!-- Data Type -->
-        <InputGroupAddon class="p-0" style="width: 3.5rem;">
-            <!-- Number Type -->
-            <Numeric
-            v-if="props.data.type === 'number'" 
-            class="type-numeric p-0 flex align-items-center" 
-            :size="26"
-            />
-            <!-- String Type -->
-            <Alphabetical 
-            v-if="props.data.type === 'string'" 
-            class="type-string p-0 flex align-items-center" 
-            :size="29"
-            />
-            <!-- Boolean Type -->
-            <span v-else-if="props.data.type === 'boolean'" class="type-bool">bool</span>
-        </InputGroupAddon>
-
-        <!-- Param Name -->
-        <InputGroupAddon>
-            <span class="param-name">
-                {{ props.data.key }}
-            </span>
-            
-        </InputGroupAddon>
-
-        <Select 
-        v-if="props.data.type === 'boolean'"
-        class="ci-text"
-        v-model="booleanData"
-        @update:modelValue="handlerEmitValue"
-        :options="['true', 'false']" 
-        :placeholder="props.data.key" 
-        :invalid="invalidData"
-        checkmark
-        :highlightOnSelect="false" 
-        />
-        <InputText 
-        v-else 
-        @update:modelValue="handlerEmitValue"
-        :modelValue="textData"
-        :invalid="invalidData"
-        :placeholder="props.data.key" 
-        />
-
-        <!-- Required -->
-        <InputGroupAddon>
-            <span 
-            class="is-necessary" 
-            :class="(props.data.required === true)? 'required' : ''"
-            >
-                <HexagramOutline 
-                v-if="props.data.required === true" 
-                class="flex align-items-center"
-                :size="17"
-                v-tooltip.right="'required'"
+    <div class="flex flex-column mt-3">
+        <h2 class="ci-text text-lg ml-3 mb-0">{{ props.data.label }}</h2>
+        <InputGroup class="mt-1 px-5">
+            <!-- Data Type -->
+            <InputGroupAddon class="p-0" style="width: 3.5rem;">
+                <!-- Number Type -->
+                <Numeric
+                v-if="props.data.type === 'number'" 
+                class="type-numeric p-0 flex align-items-center" 
+                :size="26"
                 />
-                <Help 
-                v-else
-                class="flex align-items-center" 
-                :size="17"
-                v-tooltip.right="'not required'"
+                <!-- String Type -->
+                <Alphabetical 
+                v-else-if="props.data.type === 'string'" 
+                class="type-string p-0 flex align-items-center" 
+                :size="29"
                 />
-            </span>
-            
-        </InputGroupAddon>
-
-    </InputGroup>
+                <!-- Boolean Type -->
+                <span 
+                v-else-if="props.data.type === 'boolean'" 
+                class="type-bool">bool</span>
+            </InputGroupAddon>
+    
+            <!-- Boolean select -->
+            <Select 
+            v-if="props.data.type === 'boolean'"
+            class="ci-text"
+            v-model="booleanData"
+            @update:modelValue="handlerEmitValue"
+            :options="['true', 'false']" 
+            :invalid="invalidData"
+            :placeholder="props.data.key" 
+            checkmark
+            :highlightOnSelect="false" 
+            />
+            <InputText 
+            v-else 
+            @update:modelValue="handlerEmitValue"
+            :modelValue="textData"
+            :invalid="invalidData"
+            :placeholder="props.data.key" 
+            />
+    
+            <!-- Required -->
+            <InputGroupAddon>
+                <span 
+                class="is-necessary" 
+                :class="(props.data.required === true)? 'required' : ''"
+                >
+                    <HexagramOutline 
+                    v-if="props.data.required === true" 
+                    class="flex align-items-center"
+                    :size="17"
+                    v-tooltip.right="'required'"
+                    />
+                    <Help 
+                    v-else
+                    class="flex align-items-center" 
+                    :size="17"
+                    v-tooltip.right="'not required'"
+                    />
+                </span>
+            </InputGroupAddon>
+    
+        </InputGroup>
+    </div>
 </template>
 
 <script setup>
@@ -75,7 +72,7 @@ import Numeric from 'vue-material-design-icons/Numeric.vue';
 import Alphabetical from 'vue-material-design-icons/Alphabetical.vue';
 import HexagramOutline from 'vue-material-design-icons/Hexagram.vue';
 import Help from 'vue-material-design-icons/Help.vue';
-import { defineProps, defineEmits, ref, onMounted, watch } from 'vue';
+import { defineProps, defineEmits, ref, onMounted } from 'vue';
 
 const props = defineProps({
     data: {
@@ -83,12 +80,13 @@ const props = defineProps({
         required: false,
         default(rawProp) {
             return {
+                title: null,
                 key: null,
                 type: null,
                 default: null,
                 required: false,
             }
-        },
+        }
     },
     initialValue: {
         type: Object,
@@ -100,7 +98,7 @@ const props = defineProps({
                 type: null,
             }
         }
-    },
+    }
 });
 const emit = defineEmits(['updateValue', 'initEntries']);
 
@@ -147,23 +145,11 @@ onMounted(() => {
     initDefaultValue();
 })
 
+
+
 </script>
 
 <style scoped>
-.param-name {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: max-content;
-    max-width: 5.4rem;
-    overflow: auto;
-    font-size: 1rem;
-    font-weight: 600;
-    font-family: monospace;
-}
-.param-name::-webkit-scrollbar {
-    height: 4px;
-}
 .type-numeric {
     color: var(--type-numeric-color) !important;
 }
@@ -184,9 +170,5 @@ onMounted(() => {
 
 .is-necessary.required {
     color: var(--required-color) !important;
-}
-.invalid-data {
-    background-color: rgba(225, 70, 70, 0.297);
-    border-radius: var(--block-radius);
 }
 </style>

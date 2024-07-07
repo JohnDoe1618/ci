@@ -352,7 +352,7 @@ export const operations = [
         requestBody: [
             { key: 'title', label: 'Title', type: 'string', default: undefined, required: true },
             { key: 'description', label: 'Description', type: 'string', default: undefined, required: true },
-            { key: 'visible', label: 'Visisble', type: 'boolean', default: true, required: false },
+            { key: 'visible', label: 'Visible', type: 'boolean', default: true, required: false },
         ],
         title: 'Tested Operation',
         description: 'Tested Description so long so long so so far far far okay its end',
@@ -361,7 +361,7 @@ export const operations = [
         updatedAt: '2024-06-13T22:07:38.339+00:00',
     }, 
     {
-        id: 1,
+        id: 2,
         projectId: 4,
         method: 'GET',
         endpoint: '/example/fetch/test/:user_id',
@@ -371,6 +371,7 @@ export const operations = [
         queryParams: [
             { key: 'forwarded', type: 'boolean', default: false, required: false }, 
         ],
+        requestBody: null,
         title: 'Get Tested Data',
         description: 'Its another description, since prior operation has been full shit',
         forRole: 'moderator',

@@ -67,7 +67,8 @@
                 <!-- Query params -->
                 <div class="operation-chunck-label mt-3">
                     <h2 class=" text-xl ml-2 ci-text">Query Params:</h2>
-                    <DataTable 
+                    <DataTable
+                    v-if="props.data.queryParams"
                     class="mx-4 mt-2"
                     :value="props.data.queryParams" 
                     :show-gridlines="true"
@@ -78,12 +79,14 @@
                         <Column field="default" header="By default" style="width: 25%"></Column>
                         <Column field="required" header="Required" style="width: 25%"></Column>
                     </DataTable>
+                    <span v-else class="ci-text text-lg ml-4">None</span>
                 </div>
 
                 <!-- Path params -->
                 <div class="operation-chunck-label mt-3">
                     <h2 class=" text-xl ml-2 ci-text">Path Params:</h2>
-                    <DataTable 
+                    <DataTable
+                    v-if="props.data.pathParams"
                     class="mx-4 mt-2"
                     :value="props.data.pathParams" 
                     :show-gridlines="true"
@@ -94,6 +97,25 @@
                         <Column field="default" header="By default" style="width: 25%"></Column>
                         <Column field="required" header="Required" style="width: 25%"></Column>
                     </DataTable>
+                    <span v-else class="ci-text text-lg ml-4">None</span>
+                </div>
+
+                <!-- Request Body -->
+                <div class="operation-chunck-label mt-3">
+                    <h2 class="text-xl ml-2 ci-text">Request Body:</h2>
+                    <DataTable
+                    v-if="props.data.requestBody"
+                    class="mx-4 mt-2"
+                    :value="props.data.requestBody" 
+                    :show-gridlines="true"
+                    tableStyle="min-width: 30rem"
+                    >
+                        <Column field="key" header="Key" style="width: 25%"></Column>
+                        <Column field="type" header="Type" style="width: 25%"></Column>
+                        <Column field="default" header="By default" style="width: 25%"></Column>
+                        <Column field="required" header="Required" style="width: 25%"></Column>
+                    </DataTable>
+                    <span v-else class="ci-text text-lg ml-4">None</span>
                 </div>
 
                 <!-- Created At -->
