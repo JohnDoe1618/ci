@@ -40,7 +40,7 @@
 
 <script setup>
 import { ref, defineProps, reactive, nextTick, onMounted, watch } from 'vue';
-import opreationItemComp from '@/components/projects/openningProject/operations/opreationItemComp.vue';
+import opreationItemComp from '@/components/operations/operationList/opreationItemComp.vue';
 import OperationService from '@/services/operationService';
 
 const isShowNotAOperations = ref(false);

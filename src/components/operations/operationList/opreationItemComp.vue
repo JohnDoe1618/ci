@@ -1,4 +1,17 @@
 <template>
+  <!-- ___          ___               ____'     
+'|\¯¯¯¯\      /'¯¯¯'/|°    ____\¯¯¯¯\'   
+'|:'\      '\   /      '/:'|'   /¯¯¯¯''/'\      ;\  
+ '\::'\      \/      /::/'  '/      ;'/:'|:'|      ;|°
+    \:|            '|:'/    |      ;'|::/\'|      ;'| 
+     /      /\      '\     |      ;'|/   '|      ;'| 
+   /      '/:|:'\      '\"  |      ;'|    '|      ;'| 
+ /'_'__'/:::|:::\'__'_'\*|\      ;\  '/       '/| 
+ |¯¯¯¯|:'/  \::|¯¯¯¯| |:'\       \/____/:'| 
+ |____|/     '\|____| '\::\____\¯¯¯'|::/' 
+  ¯¯¯¯         ¯¯¯¯'   \:|¯¯¯¯|___'|/'   
+   '                          \|____|¯¯¯‘     
+  ___       ___         ¯¯¯¯'            -->
     <Panel class="overflow-hidden shadow-2" :toggleable="true" :collapsed="isCollapseSelf" @update:collapsed="handlerCollapsed">
         <!-- Header -->
         <template #header>
@@ -66,58 +79,73 @@
 
                 <!-- Query params -->
                 <div class="operation-chunck-label mt-3">
-                    <h2 class=" text-xl ml-2 ci-text">Query Params:</h2>
-                    <DataTable
-                    v-if="props.data.queryParams"
-                    class="mx-4 mt-2"
-                    :value="props.data.queryParams" 
-                    :show-gridlines="true"
-                    tableStyle="min-width: 30rem"
-                    >
-                        <Column field="key" header="Key" style="width: 25%"></Column>
-                        <Column field="type" header="Type" style="width: 25%"></Column>
-                        <Column field="default" header="By default" style="width: 25%"></Column>
-                        <Column field="required" header="Required" style="width: 25%"></Column>
-                    </DataTable>
-                    <span v-else class="ci-text text-lg ml-4">None</span>
+                    <Panel class="overflow-hidden" :toggleable="true" :collapsed="true">
+                        <template #header>
+                            <h2 class=" text-xl ci-text">Query Params:</h2>
+                        </template>
+                        <template #default>
+                            <DataTable
+                            v-if="props.data.queryParams"
+                            class="mx-4 mt-2"
+                            :value="props.data.queryParams" 
+                            :show-gridlines="true"
+                            tableStyle="min-width: 30rem"
+                            >
+                                <Column field="key" header="Key" style="width: 25%"></Column>
+                                <Column field="type" header="Type" style="width: 25%"></Column>
+                                <Column field="default" header="By default" style="width: 25%"></Column>
+                                <Column field="required" header="Required" style="width: 25%"></Column>
+                            </DataTable>
+                            <span v-else class="ci-text text-lg ml-4">None</span>
+                        </template>
+                    </Panel>
                 </div>
 
                 <!-- Path params -->
                 <div class="operation-chunck-label mt-3">
-                    <h2 class=" text-xl ml-2 ci-text">Path Params:</h2>
-                    <DataTable
-                    v-if="props.data.pathParams"
-                    class="mx-4 mt-2"
-                    :value="props.data.pathParams" 
-                    :show-gridlines="true"
-                    tableStyle="min-width: 30rem"
-                    >
-                        <Column field="key" header="Key" style="width: 25%"></Column>
-                        <Column field="type" header="Type" style="width: 25%"></Column>
-                        <Column field="default" header="By default" style="width: 25%"></Column>
-                        <Column field="required" header="Required" style="width: 25%"></Column>
-                    </DataTable>
-                    <span v-else class="ci-text text-lg ml-4">None</span>
+                    <Panel class="overflow-hidden" :toggleable="true" :collapsed="true">
+                        <template #header><h2 class=" text-xl ml-2 ci-text">Path Params:</h2></template>
+                        <template #default>
+                            <DataTable
+                            v-if="props.data.pathParams"
+                            class="mx-4 mt-2"
+                            :value="props.data.pathParams" 
+                            :show-gridlines="true"
+                            tableStyle="min-width: 30rem"
+                            >
+                                <Column field="key" header="Key" style="width: 25%"></Column>
+                                <Column field="type" header="Type" style="width: 25%"></Column>
+                                <Column field="default" header="By default" style="width: 25%"></Column>
+                                <Column field="required" header="Required" style="width: 25%"></Column>
+                            </DataTable>
+                            <span v-else class="ci-text text-lg ml-4">None</span>
+                        </template>
+                    </Panel>
+                    
                 </div>
 
                 <!-- Request Body -->
                 <div class="operation-chunck-label mt-3">
-                    <h2 class="text-xl ml-2 ci-text">Request Body:</h2>
-                    <DataTable
-                    v-if="props.data.requestBody"
-                    class="mx-4 mt-2"
-                    :value="props.data.requestBody" 
-                    :show-gridlines="true"
-                    tableStyle="min-width: 30rem"
-                    >
-                        <Column field="key" header="Key" style="width: 25%"></Column>
-                        <Column field="type" header="Type" style="width: 25%"></Column>
-                        <Column field="default" header="By default" style="width: 25%"></Column>
-                        <Column field="required" header="Required" style="width: 25%"></Column>
-                    </DataTable>
-                    <span v-else class="ci-text text-lg ml-4">None</span>
+                    <Panel class="overflow-hidden" :toggleable="true" :collapsed="true">
+                        <template #header><h2 class="text-xl ml-2 ci-text">Request Body:</h2></template>
+                        <template #default>
+                            <DataTable
+                            v-if="props.data.requestBody"
+                            class="mx-4 mt-2"
+                            :value="props.data.requestBody" 
+                            :show-gridlines="true"
+                            tableStyle="min-width: 30rem"
+                            >
+                                <Column field="key" header="Key" style="width: 25%"></Column>
+                                <Column field="type" header="Type" style="width: 25%"></Column>
+                                <Column field="default" header="By default" style="width: 25%"></Column>
+                                <Column field="required" header="Required" style="width: 25%"></Column>
+                            </DataTable>
+                            <span v-else class="ci-text text-lg ml-4">None</span>
+                        </template>
+                    </Panel>
                 </div>
-
+                
                 <!-- Created At -->
                 <div class="operation-chunck-label mt-3 mr-4 flex align-items-center justify-content-end">
                     <h2 class=" text-lg font-italic font-normal ml-2 ci-text">Created At:</h2>
@@ -129,7 +157,6 @@
                     <h2 class=" text-lg font-italic font-normal ml-2 ci-text">Last update:</h2>
                     <div class="ml-4 my-2 text-md font-italic font-light">{{ computeTemplateUpdatedAt }}</div>
                 </div>
-
             </div>
         </template>
 
@@ -158,6 +185,7 @@ import { ref, defineEmits, defineProps, onMounted, watch, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import PatternService from '@/services/patternService';
 import { useOperationsStore } from '@/stores/operationsStore';
+import gsap from 'gsap';
 
 const router = useRouter();
 const operationsStore = useOperationsStore();
@@ -195,11 +223,11 @@ const props = defineProps({
     }
 });
 
-
 // =======================  DATA  ===========================
 const isCollapseSelf = ref(true);
 const selfId = ref(null);
 const isShowDeleteOperationForm = ref(false);
+const isCollapsedQueryBlock = ref(true);
 // Кнопки дополнительных взаимодействий с проектом
 const items = ref([
     {
@@ -226,7 +254,6 @@ const items = ref([
 ]);
 
 // =======================  METHODS  ===========================
-
 function handlerCollapsed(value) {
     isCollapseSelf.value = value;
     emit('update:collapsed', { isCollapse: value, id: selfId.value });
@@ -241,6 +268,11 @@ function handlerOperationLaunch() {
             operationId: props.data.id
         } 
     });
+}
+
+// Скрыть/Развернуть блок параметров запроса
+function expandRcollapseQueries() {
+    gsap.to('.queries-table', { duration: 0.4, height: '50px' })
 }
 
 // =======================  COMPUTED  ===========================
@@ -278,5 +310,8 @@ const emit = defineEmits(['update:collapsed']);
 <style scoped>
 .operation-chunck-label {
     letter-spacing: .05rem;
+}
+.queries-table {
+    height: 0px;
 }
 </style>

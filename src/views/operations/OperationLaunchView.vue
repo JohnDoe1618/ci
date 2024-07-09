@@ -1,6 +1,19 @@
 <template >
     <div class="ci-block relative w-full h-full flex px-2 py-3">
+        <Toast />
         <Splitter class="shadow-3 w-full h-full">
+<!--
+            .----------------.  .-----------------. .----------------.  .----------------.  .----------------. 
+            | .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |
+            | |     _____    | || | ____  _____  | || |   ______     | || | _____  _____ | || |  _________   | |
+            | |    |_   _|   | || ||_   \|_   _| | || |  |_   __ \   | || ||_   _||_   _|| || | |  _   _  |  | |
+            | |      | |     | || |  |   \ | |   | || |    | |__) |  | || |  | |    | |  | || | |_/ | | \_|  | |
+            | |      | |     | || |  | |\ \| |   | || |    |  ___/   | || |  | '    ' |  | || |     | |      | |
+            | |     _| |_    | || | _| |_\   |_  | || |   _| |_      | || |   \ `--' /   | || |    _| |_     | |
+            | |    |_____|   | || ||_____|\____| | || |  |_____|     | || |    `.__.'    | || |   |_____|    | |
+            | |              | || |              | || |              | || |              | || |              | |
+            | '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |
+            '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  -->
             <SplitterPanel class="flex items-center justify-center" :size="40" :minSize="35">
                 <div class="w-full h-full pt-2 p-1">
                     <!-- Toolbar -->
@@ -22,14 +35,20 @@
                             />
                         </template>
                     </Toolbar>
+                    <span 
+                    class="ci-operation-method mt-1 mx-2 px-2 shadow-2 flex justify-content-end"
+                    :class="operationData?.method?.toLowerCase()"
+                    >{{ operationData?.method }}</span>
 
                     <!-- Path Params -->
-                    <h1 class="text-xl mt-3 ml-2">Path Params:</h1>
+                    <h1 class="text-xl mt-1 ml-2">Path Params:</h1>
                     <paramInputComp
                     v-if="pathParams && pathParams?.length"
                     v-for="item in pathParams"
                     @updateValue="handlerUpdatePathParams"
+                    @validationError="handlerValidateError"
                     :initialValue="pathParamsData"
+                    :validate="requestValidation"
                     :key="item.key"
                     :data="item"
                     />
@@ -41,7 +60,9 @@
                     v-if="queryParams && queryParams?.length"
                     v-for="item in queryParams"
                     @updateValue="handlerUpdateQueryParams"
+                    @validationError="handlerValidateError"
                     :initialValue="queryParamsData"
+                    :validate="requestValidation"
                     :key="item.key"
                     :data="item"
                     />
@@ -53,36 +74,61 @@
                     v-if="requestBodyItems && requestBodyItems?.length"
                     v-for="item in requestBodyItems"
                     @updateValue="handlerUpdateRequestBody"
+                    @validationError="handlerValidateError"
                     :initialValue="requestBodyData"
+                    :validate="requestValidation"
                     :key="item.key"
                     :data="item"
                     />
                     <h2 v-else class="ci-text ml-4 text-lg">None</h2>
 
                 </div>
+            </SplitterPanel><!--  ################################################################################################-->
+<!--         .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------. 
+            | .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |
+            | |     ____     | || | _____  _____ | || |  _________   | || |   ______     | || | _____  _____ | || |  _________   | |
+            | |   .'    `.   | || ||_   _||_   _|| || | |  _   _  |  | || |  |_   __ \   | || ||_   _||_   _|| || | |  _   _  |  | |
+            | |  /  .--.  \  | || |  | |    | |  | || | |_/ | | \_|  | || |    | |__) |  | || |  | |    | |  | || | |_/ | | \_|  | |
+            | |  | |    | |  | || |  | '    ' |  | || |     | |      | || |    |  ___/   | || |  | '    ' |  | || |     | |      | |
+            | |  \  `--'  /  | || |   \ `--' /   | || |    _| |_     | || |   _| |_      | || |   \ `--' /   | || |    _| |_     | |
+            | |   `.____.'   | || |    `.__.'    | || |   |_____|    | || |  |_____|     | || |    `.__.'    | || |   |_____|    | |
+            | |              | || |              | || |              | || |              | || |              | || |              | |
+            | '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |
+            '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  -->
+            <SplitterPanel class="flex items-center justify-center" :size="60" :minSize="35">
+                <outputLaunchPanelComp />
             </SplitterPanel>
-            <SplitterPanel class="flex items-center justify-center" :size="60" :minSize="35"> Panel 2 </SplitterPanel>
         </Splitter>
     </div>
 </template>
 
 <script setup>
-import paramInputComp from '@/components/operations/operationLaunch/paramInputComp.vue';
-import requestItemComp from '@/components/operations/operationLaunch/requestItemComp.vue';
+import paramInputComp from '@/components/operations/operationLaunch/inputPanel/paramInputComp.vue';
+import requestItemComp from '@/components/operations/operationLaunch/inputPanel/requestItemComp.vue';
+import outputLaunchPanelComp from '@/components/operations/operationLaunch/outputPanel/outputLaunchPanelComp.vue';
 import OperationService from '@/services/operationService';
 import { useOperationsStore } from '@/stores/operationsStore';
-import { ref, defineProps, onBeforeMount, computed, reactive } from 'vue';
+import { useToast } from 'primevue/usetoast';
+import { ref, defineProps, onBeforeMount, reactive, nextTick } from 'vue';
 import { useRoute } from 'vue-router';
 
+// ===========================  COMPOSABLES  =================================
 const operationsStore =  useOperationsStore();
 const route = useRoute();
+const toast = useToast();
 
+// ===========================  PROPS  =================================
 const props = defineProps({
     projectData: {
         type: Object,
         required: true,
     },
 });
+
+// ===========================  DATA  =================================
+const requestValidation = ref(false);
+const errorState = ref([]);
+const isNotValideForm = ref(false);
 
 const operationData = ref(null);     // объект операции
 const queryParams = ref([]);         // парметры запроса
@@ -93,6 +139,7 @@ const requestBodyData = reactive({});
 const pathParamsData = reactive({});
 const queryParamsData = reactive({});
 
+// ===========================  METHODS  =================================
 // Извлечение объекта операции
 async function extractOperationData() {
     try {
@@ -107,9 +154,43 @@ async function extractOperationData() {
     }
 }
 
+// Обработчик возникновения ошибок полей формы
+function handlerValidateError({ isError, key }) {
+    if(isError === true && !errorState.value.includes(key)) {
+        errorState.value.push(key);
+    }
+    if(isError === false) {
+        errorState.value = errorState.value.filter((entry) => entry !== key);
+    }
+    if(errorState.value.length > 0) isNotValideForm.value = true;
+    else isNotValideForm.value = false;
+    // console.log(errorState.value, isNotValideForm.value);
+}
+
+// Запуск уведомления об ошибке
+function errorToastRun() {
+    toast.add({ 
+        severity: 'error', 
+        summary: 'Error', 
+        detail: 'check the correctness of the entered data', 
+        life: 3000 
+    });
+}
+
 // Обработчик запуска операции
-function handlerOperationLaunch() {
-    // ////
+async function handlerOperationLaunch() {
+    try {
+        requestValidation.value = true;
+        await nextTick();
+        if(isNotValideForm.value === true) {
+            return errorToastRun();
+        }
+    } catch (err) {
+        console.error('views/operations/OperationLaunchView.vue: handlerOperationLaunch', err);
+    } finally {
+        requestValidation.value = false;
+    }
+
 }
 
 // Обновление данных полей в localStorage
@@ -161,6 +242,8 @@ function handlerUpdateQueryParams({ key, value }) {
     updateFormInStorage(props.projectData.id, operationData.value?.id);
 }
 
+
+// ===========================  LIFECYCLE HOOKS  =================================
 onBeforeMount(async() => {
     try {
         await extractOperationData(); // получение операции

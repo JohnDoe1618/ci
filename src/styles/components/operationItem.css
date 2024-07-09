@@ -37,7 +37,7 @@
 .ci-operation-method {
     background-color: var(--operation-method-default-bg) !important;
     color: var(--operation-method-default-fg) !important;
-    padding: 0.1rem 0.5rem !important;
+    padding: 0.1rem 0.5rem;
     border-radius: var(--operation-method-radius) !important;
     box-shadow: var(--operation-method-shadow) !important;
     font-weight: 600 !important;

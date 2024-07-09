@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-column mt-3">
         <h2 class="ci-text text-lg ml-3 mb-0">{{ props.data.label }}</h2>
-        <InputGroup class="mt-1 px-5">
+        <InputGroup class="mt-1 px-5" :class="(invalidData)? 'invalid-data' : ''">
             <!-- Data Type -->
             <InputGroupAddon class="p-0" style="width: 3.5rem;">
                 <!-- Number Type -->
@@ -72,7 +72,7 @@ import Numeric from 'vue-material-design-icons/Numeric.vue';
 import Alphabetical from 'vue-material-design-icons/Alphabetical.vue';
 import HexagramOutline from 'vue-material-design-icons/Hexagram.vue';
 import Help from 'vue-material-design-icons/Help.vue';
-import { defineProps, defineEmits, ref, onMounted } from 'vue';
+import { defineProps, defineEmits, ref, watch, onMounted } from 'vue';
 
 const props = defineProps({
     data: {
@@ -98,9 +98,14 @@ const props = defineProps({
                 type: null,
             }
         }
+    },
+    validate: {
+        type: Boolean,
+        required: false,
+        default: false,
     }
 });
-const emit = defineEmits(['updateValue', 'initEntries']);
+const emit = defineEmits(['updateValue', 'initEntries', 'validationError']);
 
 const booleanData = ref(null);
 const textData = ref(null);
@@ -108,38 +113,69 @@ const invalidData = ref(false);
 
 // Обработчик для вводимых данных
 function handlerEmitValue(value) {
-    invalidData.value = false;
+   invalidData.value = false;
     if(props.data.type === 'number') {
         if(value.length > 0) {
             textData.value = value;
-            console.log(value);
-            if(+value !== +value) return invalidData.value = true;
+            if(+value !== +value) {
+                emit('validationError', {isError: true, key: props.data.key});
+                return invalidData.value = true;
+            }
             value = +value;
+            emit('validationError', {isError: false, key: props.data.key});
             return emit('updateValue', { key: props.data.key, value });
         } else {
-            console.log('else', value.length);
             textData.value = value;
+            emit('validationError', {isError: false, key: props.data.key});
             return emit('updateValue', { key: props.data.key, value: undefined });
         }
     }
     if(value.length <= 0) {
         textData.value = value;
+        emit('validationError', {isError: false, key: props.data.key});
         return emit('updateValue', { key: props.data.key, value: undefined });
     }
     if(!!value) {
         textData.value = value;
+        emit('validationError', {isError: false, key: props.data.key});
         emit('updateValue', { key: props.data.key, value });
     }
 }
 
+// Валидация поля
+function validateField() {
+    if(props.data.required === true) {
+        // Если тип данных boolean то проверяется соотв. переменная
+        if(props.data.type === 'boolean') {
+            if(booleanData.value === null || !booleanData.value?.length) {
+                emit('validationError', {isError: true, key: props.data.key});
+                return invalidData.value = true;
+            }
+        }
+        // Если тип данных не booolean
+        if(!textData.value) {
+            emit('validationError', {isError: true, key: props.data.key});
+            return invalidData.value = true;
+        }
+        emit('validationError', {isError: false, key: props.data.key});
+    }
+}
+
+// Инициализация значений по умолчанию, если например они пришли из localStorage
 function initDefaultValue() {
     Object.entries(props.initialValue).forEach(([key, value]) => {
         if(props.data.key !== key) return;
-        console.log(value);
         if(props.data.type === 'boolean') return booleanData.value = value;
         if(props.data.type === 'string' || props.data.type === 'number') return textData.value = value;
     });
 }
+
+// отслеживание запроса на валидацию поля
+watch(() => props.validate, (isValidate) => {
+    if(isValidate === true) {
+        validateField();
+    }
+})
 
 onMounted(() => {
     initDefaultValue();
@@ -150,6 +186,14 @@ onMounted(() => {
 </script>
 
 <style scoped>
+@keyframes ripple-error {
+    50% {
+        background-color: rgba(225, 70, 70, 0.45);
+    }
+    100% {
+        background-color: rgba(225, 70, 70, 0.3);
+    }
+}
 .type-numeric {
     color: var(--type-numeric-color) !important;
 }
@@ -171,4 +215,12 @@ onMounted(() => {
 .is-necessary.required {
     color: var(--required-color) !important;
 }
+.invalid-data {
+    background-color: rgba(225, 70, 70, 0.3);
+    border-radius: var(--block-radius);
+    animation-name: ripple-error;
+    animation-duration: 0.2s;
+    animation-iteration-count: 3;
+}
+
 </style>

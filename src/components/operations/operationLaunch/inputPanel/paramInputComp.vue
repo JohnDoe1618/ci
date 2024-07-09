@@ -101,8 +101,13 @@ const props = defineProps({
             }
         }
     },
+    validate: {
+        type: Boolean,
+        required: false,
+        default: false,
+    }
 });
-const emit = defineEmits(['updateValue', 'initEntries']);
+const emit = defineEmits(['updateValue', 'initEntries', 'validationError']);
 
 const booleanData = ref(null);
 const textData = ref(null);
@@ -114,34 +119,65 @@ function handlerEmitValue(value) {
     if(props.data.type === 'number') {
         if(value.length > 0) {
             textData.value = value;
-            console.log(value);
-            if(+value !== +value) return invalidData.value = true;
+            if(+value !== +value) {
+                emit('validationError', {isError: true, key: props.data.key});
+                return invalidData.value = true;
+            }
             value = +value;
+            emit('validationError', {isError: false, key: props.data.key});
             return emit('updateValue', { key: props.data.key, value });
         } else {
-            console.log('else', value.length);
             textData.value = value;
+            emit('validationError', {isError: false, key: props.data.key});
             return emit('updateValue', { key: props.data.key, value: undefined });
         }
     }
     if(value.length <= 0) {
         textData.value = value;
+        emit('validationError', {isError: false, key: props.data.key});
         return emit('updateValue', { key: props.data.key, value: undefined });
     }
     if(!!value) {
         textData.value = value;
+        emit('validationError', {isError: false, key: props.data.key});
         emit('updateValue', { key: props.data.key, value });
     }
 }
 
+// Валидация поля
+function validateField() {
+    if(props.data.required === true) {
+        // Если тип данных boolean то проверяется соотв. переменная
+        if(props.data.type === 'boolean') {
+            if(booleanData.value === null || !booleanData.value?.length) {
+                emit('validationError', {isError: true, key: props.data.key});
+                return invalidData.value = true;
+            }
+        }
+        // Если тип данных не booolean
+        if(!textData.value) {
+            emit('validationError', {isError: true, key: props.data.key});
+            return invalidData.value = true;
+        }
+        emit('validationError', {isError: false, key: props.data.key});
+    }
+}
+
+// Инициализация значений по умолчанию, если например они пришли из localStorage
 function initDefaultValue() {
     Object.entries(props.initialValue).forEach(([key, value]) => {
         if(props.data.key !== key) return;
-        console.log(value);
         if(props.data.type === 'boolean') return booleanData.value = value;
         if(props.data.type === 'string' || props.data.type === 'number') return textData.value = value;
     });
 }
+
+// отслеживание запроса на валидацию поля
+watch(() => props.validate, (isValidate) => {
+    if(isValidate === true) {
+        validateField();
+    }
+})
 
 onMounted(() => {
     initDefaultValue();
@@ -150,6 +186,14 @@ onMounted(() => {
 </script>
 
 <style scoped>
+@keyframes ripple-error {
+    50% {
+        background-color: rgba(225, 70, 70, 0.4);
+    }
+    100% {
+        background-color: rgba(225, 70, 70, 0.3);
+    }
+}
 .param-name {
     display: flex;
     align-items: center;
@@ -186,7 +230,10 @@ onMounted(() => {
     color: var(--required-color) !important;
 }
 .invalid-data {
-    background-color: rgba(225, 70, 70, 0.297);
+    background-color: rgba(225, 70, 70, 0.3);
     border-radius: var(--block-radius);
+    animation-name: ripple-error;
+    animation-duration: 0.2s;
+    animation-iteration-count: 3;
 }
 </style>
