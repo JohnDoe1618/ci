@@ -1,0 +1,7 @@
+
+:root {
+    --p-dialog-background: var(--block-bg) !important;
+    --p-dialog-border-color: var(--ui-border-color) !important;
+    --p-dialog-color: var(--block-fg) !important;
+    --p-dialog-border-radius: var(--block-radius) !important;
+}

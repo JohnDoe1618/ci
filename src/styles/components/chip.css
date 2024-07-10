@@ -1,0 +1,13 @@
+
+:root {
+
+    --chip-radius: 16px;
+    --chip-bg: rgba(209, 208, 208, 0.7);
+    --chip-fg: rgb(57, 57, 57);
+
+    --p-chip-border-radius: var(--chip-radius) !important;
+    --p-chip-background: var(--chip-bg) !important;
+    --p-chip-color: var(--chip-fg) !important;
+    --p-chip-padding-y: 0.4rem !important;
+    --p-chip-icon-color: var(--chip-fg) !important;
+}

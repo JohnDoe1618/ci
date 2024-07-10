@@ -5,6 +5,11 @@
     --toggle-button-checked-content-bg: rgb(62, 62, 62);
     --btn-secondary-bg: rgb(255, 255, 255);
     --btn-secondary-color: rgb(102, 101, 101);
+    --btn-secondary-hover-bg: rgb(218, 218, 218);
+    --btn-select-fg: white;
+    --btn-select-bg: rgba(50,50,50);
+    --btn-select-hover-bg: rgb(77, 77, 77);
+    --btn-painted-color: white;
 
 
     --p-togglebutton-color: var(--block-fg) !important;
@@ -21,14 +26,44 @@
     --p-button-outlined-secondary-color: var(--btn-secondary-color) !important;
     --p-button-secondary-hover-color: var(--btn-secondary-hover-color) !important;
     --p-button-text-secondary-color: white!important;
+
+    /* TEXT */
+    --btn-text-bg: var(--block-bg);
+    --btn-text-fg: var(--block-fg);
+    --btn-text-border-color: none;
+    --btn-text-hover-bg: rgba(213, 213, 213, 0.348);
+    --btn-text-active-bg: rgba(213, 213, 213, 0.716);
+
+    /* SUCCESS */
+    --p-button-success-color: var(--btn-painted-color) !important;
+    /* DANGER */
+    --p-button-danger-color: var(--btn-painted-color) !important;
+    /* INFO */
+    --p-button-info-color: var(--btn-painted-color) !important;
 }
 
+/* DEFAULT BUTTON */
 .ci-btn {
     background-color: var(--btn-bg);
-    color: var(--btn-fg);
+    color: var(--btn-fg) !important;
     border: 1px solid var(--btn-border-color);
     transition: all 0.2s ease !important;
 }
+
+.ci-btn--select {
+    color: var(--btn-select-fg) !important;
+    background-color: var(--btn-select-bg) !important;
+}
+.ci-btn--select:hover {
+    background-color: var(--btn-select-hover-bg) !important;
+}
+.ci-btn-text.ci-btn--select {
+    color: var(--btn-select-fg) !important;
+} 
+.ci-btn-text.ci-btn--select:hover {
+    color: var(--btn-select-fg) !important;
+    background-color: var(--btn-select-hover-bg) !important;
+} 
 
 .ci-btn:hover {
     background-color: var(--btn-hover-bg) !important;
@@ -41,13 +76,42 @@
     border: 1px solid rgb(136, 136, 136) !important;
 }
 
+/* =================================================== */
+/* TEXT BUTTON */
+.ci-btn-text {
+    background-color: var(--btn-text-bg);
+    color: var(--btn-text-fg) !important;
+    border: 1px solid var(--btn-text-border-color);
+    transition: all 0.2s ease !important;
+}
+.ci-btn-text:hover {
+    background-color: var(--btn-text-hover-bg) !important;
+    color: var(--btn-text-hover-fg) !important;
+    transition: all 0.2s ease !important;
+}
+.ci-btn-text:active {
+    background-color: var(--btn-text-active-bg) !important;
+    transition: all 0.1s ease !important;
+}
+/* =================================================== */
 .btn-success {
     color: var(--btn-success-color) !important;
     font-family: var(--font) !important;
 }
 
-
 /* SELECT BUTTON */
 .p-selectbutton {
     background-color: var(--block-bg) !important;
+}
+
+/* SECONDARY */
+.p-button-secondary {
+    background-color: var(--btn-secondary-bg) !important;
+    color: var(--btn-secondary-color) !important;
+    transition: all .4s ease;
+}
+.p-button-secondary:hover {
+    transition: all .4s ease;
+    background-color: var(--btn-secondary-hover-bg) !important;
+    color: var(--btn-secondary-color) !important;
 }

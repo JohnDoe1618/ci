@@ -1,13 +1,15 @@
 import { defineStore } from "pinia";
+import { ref } from "vue";
 
 export const useProjectsStore = defineStore('projectsStore', () => {
 
+    const isAuthForCurrentProject = ref(true);
 
 
     return {
-
+        isAuthForCurrentProject,
     }
-})
+});
 
 // ПРИМЕР СУЩНОСТЕЙ ПРОЕКТОВ ОПЕРАЦИЙ И ВЗАИМОДЕЙСТВИЙ
 
@@ -44,6 +46,4 @@ export const useProjectsStore = defineStore('projectsStore', () => {
         table.integer('user_id').unsigned().references('users.id');
         table.timestamp('created_at');
     }
-
-
  */

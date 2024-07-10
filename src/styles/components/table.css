@@ -7,9 +7,10 @@
     --table-cell-hover-color: white;
     --table-cell-body-border-color: rgb(141, 140, 140);
     --table-header-cell-hover-color-bg: rgb(51, 51, 51);
+    --table-row-selected-bg: rgb(182, 182, 182);
+    --table-row-selected-bg-hover: rgba(165, 165, 165, 0.826);
     --paginator-nav-btn-bg: rgb(122, 122, 122);
     --paginator-focus-border-color: rgb(87, 87, 87);
-
 
 
     --p-paginator-border-radius: none !important;
@@ -23,6 +24,8 @@
     --p-datatable-header-cell-hover-color: var(--table-cell-hover-color) !important;
     --p-datatable-header-cell-focus-ring-color: var(--ui-focus-color) !important;
     --p-datatable-sort-icon-hover-color: var(--table-cell-hover-color) !important;
+    --p-datatable-row-selected-background: var(--table-row-selected-bg) !important;
+    --p-datatable-row-hover-background: var(--table-row-selected-bg-hover) !important;
     
 
     /* ROW */

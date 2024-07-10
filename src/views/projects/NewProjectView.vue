@@ -49,8 +49,12 @@
                 <label class="w-10 mr-5" for="project-description">
                     <h3 class="ci-text text-xl font-normal mb-2">> Description</h3>
                 </label>
-                <Textarea class="w-10" v-model.trim="creationForm.projectDescription" id="project-description" autoResize rows="5" cols="30" placeholder="Enter a description" />
-
+                <textEditorComp 
+                class="w-10" 
+                v-model="creationForm.projectDescription"
+                :initialContent="projectDescriptionExists"
+                :placeholder="'Enter a description'"
+                />
                 <!-- Default Signature-->
                 <small class="w-10 mt-2 ml-5 flex align-items-center">
                     <i 
@@ -172,6 +176,7 @@ const {
     // Actions
     handlerReset,
     confirmCreationForm,
+    projectDescriptionExists,
 
     // validators
     validateProjectName, errorsProjectName,

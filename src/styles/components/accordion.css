@@ -1,0 +1,16 @@
+
+:root {
+    /* header */
+    --p-accordion-header-background: var(--ui-bg) !important;
+    --p-accordion-header-hover-background: var( --ui-bg-hover) !important;
+    --p-accordion-header-active-hover-background: var( --ui-bg-hover) !important;
+    --p-accordion-header-active-background: var(--ui-bg-active) !important;
+    --p-accordion-header-padding: 0.7rem 1.3rem !important;
+    --p-accordion-header-border-radius: none !important;
+    --p-accordion-header-active-color: var( --ui-fg-active) !important;
+    --p-accordion-header-hover-color: var(--block-hover-fg) !important;
+    --p-accordion-header-color: var(--block-fg) !important;
+    --p-accordion-panel-border-color: var(--ui-border-color) !important;
+    --p-accordion-header-last-bottom-border-radius: 1px !important;
+    --p-accordion-header-first-top-border-radius: 1px !important;
+}

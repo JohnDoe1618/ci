@@ -14,12 +14,8 @@ import { onMounted } from "vue";
 onMounted(() => {
     // document.documentElement.classList = 'theme-dark';    
     document.documentElement.classList = 'theme-light';    
-
-
 })
-
 </script>
-
 
 <style scoped>
 .app {

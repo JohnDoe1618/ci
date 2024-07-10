@@ -1,0 +1,13 @@
+
+
+:root {
+    --p-select-option-selected-color: var(--block-fg) !important;
+}
+
+.p-select-option {
+    font-family: var(--font) !important;
+}
+
+.p-select-option-check-icon {
+    color: var(--block-fg) !important;
+}

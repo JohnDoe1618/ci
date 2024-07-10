@@ -283,6 +283,7 @@ export default function useErrorCreationForm(unacceptableSymbols, availableLengt
 
     });
 
+    // ==========================  HANDSHAKE TOKEN  =========================
     const errorsHandshakeToken = reactive({
         // ---------------  EMPTY  ---------------
         // Пустое значение
@@ -311,6 +312,58 @@ export default function useErrorCreationForm(unacceptableSymbols, availableLengt
             ) return true;
             else return false;
         }
+    });
+
+    // ==========================  PASSWORD  =========================
+    const errorsPassword = reactive({
+        // ---------------  EMPTY  ---------------
+        // Пустое значение
+        empty: {
+            _visible: false,
+            msg: 'Password is a required field',
+            // > getter
+            get visible() {
+                return this._visible;
+            },
+            // > setter
+            set visible(value) {
+                if(value !== this._visible) {
+                    this._visible = value; 
+                }
+            },
+        },
+        // ---------------  LENGTH  ---------------
+        // Недостаточная длина
+        lgth: {
+            _visible: false,
+            msg: `The length of the pasword cannot be less than ${availableLength.password} characters`,
+            // > getter
+            get visible() {
+                return this._visible;
+            },
+            // > setter
+            set visible(value) {
+                if(value !== this._visible) {
+                    this._visible = value; 
+                    if(value === true) {
+                        errorsPassword.empty.visible = false;
+                    }
+                }
+            },
+        },
+        // Сбросить состояние ошибок
+        resetErrors () {
+            this.empty.visible = false;
+            this.lgth.visible = false;
+        },
+        // Проверка на существование хотя-бы одной ошибки
+        hasError() {
+            if(
+                this.empty.visible === true ||
+                this.lgth.visible === true
+            ) return true;
+            else return false;
+        }
     })
 
 
@@ -319,5 +372,6 @@ export default function useErrorCreationForm(unacceptableSymbols, availableLengt
         errorsProjectHost,
         errorsProjectPort,
         errorsHandshakeToken,
+        errorsPassword,
     }
 }

@@ -6,15 +6,31 @@
 @import url(./input.css);
 @import url(./toast.css);
 @import url(./confirmPopup.css);
+@import url(./accordion.css);
+@import url(./textEditor.css);
+@import url(./panel.css);
+@import url(./operationItem.css);
+@import url(./chip.css);
+@import url(./dialog.css);
+@import url(./splitter.css);
+@import url(./toolbar.css);
+@import url(./selectInput.css);
 
 /* Стили которые могут применятся ко всем компонентам */
 :root {
-    --p-select-option-selected-color: var(--block-fg) !important;
+
 
 }
 
 .ci-block {
     background-color: var(--block-bg) !important;
+    color: var(--block-fg) !important;
+    font-family: var(--font) !important;
+    transition: all var(--duration-color) ease !important;
+}
+
+.ci-block-2 {
+    background-color: var(--block-bg-2) !important;
     color: var(--block-fg) !important;
     font-family: var(--font) !important;
     transition: all var(--duration-color) ease !important;
@@ -27,11 +43,9 @@
 .ci-text {
     font-family: var(--font);
     color: var(--block-fg);
+    cursor: default;
 }
 
-.p-select-option-check-icon {
-    color: var(--block-fg) !important;
-}
 
 .p-floatlabel {
     font-family: var(--font) !important;
