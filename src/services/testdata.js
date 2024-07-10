@@ -378,4 +378,43 @@ export const operations = [
         createdAt: '2024-06-14T10:55:08.339+00:00',
         updatedAt: '2024-06-14T12:12:38.339+00:00',
     }
-]
+];
+
+export const operationPostResult = {
+    meta: {
+        status: 200,
+        url: 'root/example/12?something=12',
+    },
+    data: {
+        id: 321,
+        data: {
+            label: 'Example Label',
+            description: 'Its very big description!',
+            weight: 255,
+            height: 512,
+            volume: 8.236
+        },
+        commands: ['great', 'logs', 'upper', 'letstake', 'version'],
+        colors: ['#c678dd', '#e06c75', '#d19a66', '#56b6c2'],
+        signature: 'Bw-512__<341>',
+        vendor: 'asdfg3-fght54-sdv5h4-erbcvnt',
+        type: null,
+        client_id: null,
+        ref: null,
+        is_visible: true,
+        created_at: '2024-06-21T12:54:08.339+00:00',
+        updated_at: '2024-06-21T12:54:08.339+00:00',
+        deleted_at: null,
+        flags: [
+            {id: 1, mark: 'white', disabled: false},
+            {id: 2, mark: 'red', disabled: true},
+            {id: 3, mark: 'yellow', disabled: false},
+            {id: 4, mark: 'green', disabled: false},
+        ],
+        entries: [
+            ['key-0', { timestamp: 1720562301671 }], 
+            ['key-1', { timestamp: 1720562301792 }], 
+            ['key-2', { timestamp: 1720562308372 }],
+        ]
+    }
+}

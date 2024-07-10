@@ -96,7 +96,10 @@
             | '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |
             '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  -->
             <SplitterPanel class="flex items-center justify-center" :size="60" :minSize="35">
-                <outputLaunchPanelComp />
+                <outputLaunchPanelComp 
+                :result="operationResult" 
+                :is-load-data="loadingLaunchOperation"
+                />
             </SplitterPanel>
         </Splitter>
     </div>
@@ -138,6 +141,10 @@ const requestBodyItems = ref([])     // элементы тела запроса
 const requestBodyData = reactive({});
 const pathParamsData = reactive({});
 const queryParamsData = reactive({});
+
+// <--------------- operation results --------------->
+const operationResult = ref(null);
+const loadingLaunchOperation = ref(false);
 
 // ===========================  METHODS  =================================
 // Извлечение объекта операции
@@ -185,6 +192,16 @@ async function handlerOperationLaunch() {
         if(isNotValideForm.value === true) {
             return errorToastRun();
         }
+        // Запуск операции...
+        try {
+            loadingLaunchOperation.value = true;
+            operationResult.value = await OperationService.launchOperation();
+        } catch (err) {
+            console.error(err);
+        } finally {
+            loadingLaunchOperation.value = false;
+        }
+
     } catch (err) {
         console.error('views/operations/OperationLaunchView.vue: handlerOperationLaunch', err);
     } finally {

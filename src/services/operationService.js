@@ -1,4 +1,4 @@
-import { operations } from "./testdata";
+import { operations, operationPostResult } from "./testdata";
 
 
 // Сервис для работы с операциями проекта
@@ -24,13 +24,17 @@ export default class OperationService {
         }
     }
 
-    // Авторизация в проекте
-    static async loginProject() {
+    // Запуск операции, ожидание данных
+    static async launchOperation() {
         try {
-            return true;
+            return new Promise((res, rej) => {
+                setTimeout(() => {
+                    res(operationPostResult);
+                }, 2000)
+            })
         } catch (err) {
             console.error(err);
-            console.error(`services/operationService: getOperations  => ${err}`);
+            console.error(`services/operationService: getOperationById  => ${err}`);
         }
     }
 }

@@ -5,6 +5,7 @@ import PanelMenu from 'primevue/panelmenu';
 import ToggleSwitch from 'primevue/toggleswitch';
 import Checkbox from 'primevue/checkbox';
 import Terminal from 'primevue/terminal';
+import TreeTable from 'primevue/treetable';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Select from 'primevue/select';
@@ -32,6 +33,7 @@ import Chip from 'primevue/chip';
 import Dialog from 'primevue/dialog';
 import Splitter from 'primevue/splitter';
 import SplitterPanel from 'primevue/splitterpanel';
+import ProgressSpinner from 'primevue/progressspinner';
 
 
 export default [
@@ -43,6 +45,7 @@ export default [
     Checkbox,
     Terminal,
     DataTable,
+    TreeTable,
     Column,
     Select,
     FloatLabel,
@@ -69,4 +72,5 @@ export default [
     Dialog,
     Splitter,
     SplitterPanel,
+    ProgressSpinner,
 ]
