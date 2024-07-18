@@ -77,29 +77,7 @@
                     </div>
                 </div>
 
-                <!-- Query params -->
-                <div class="operation-chunck-label mt-3">
-                    <Panel class="overflow-hidden" :toggleable="true" :collapsed="true">
-                        <template #header>
-                            <h2 class=" text-xl ci-text">Query Params:</h2>
-                        </template>
-                        <template #default>
-                            <DataTable
-                            v-if="props.data.queryParams"
-                            class="mx-4 mt-2"
-                            :value="props.data.queryParams" 
-                            :show-gridlines="true"
-                            tableStyle="min-width: 30rem"
-                            >
-                                <Column field="key" header="Key" style="width: 25%"></Column>
-                                <Column field="type" header="Type" style="width: 25%"></Column>
-                                <Column field="default" header="By default" style="width: 25%"></Column>
-                                <Column field="required" header="Required" style="width: 25%"></Column>
-                            </DataTable>
-                            <span v-else class="ci-text text-lg ml-4">None</span>
-                        </template>
-                    </Panel>
-                </div>
+
 
                 <!-- Path params -->
                 <div class="operation-chunck-label mt-3">
@@ -121,7 +99,30 @@
                             <span v-else class="ci-text text-lg ml-4">None</span>
                         </template>
                     </Panel>
-                    
+                </div>
+
+                <!-- Query params -->
+                <div class="operation-chunck-label mt-3">
+                    <Panel class="overflow-hidden" :toggleable="true" :collapsed="true">
+                        <template #header>
+                            <h2 class=" text-xl ml-2 ci-text">Query Params:</h2>
+                        </template>
+                        <template #default>
+                            <DataTable
+                            v-if="props.data.queryParams"
+                            class="mx-4 mt-2"
+                            :value="props.data.queryParams" 
+                            :show-gridlines="true"
+                            tableStyle="min-width: 30rem"
+                            >
+                                <Column field="key" header="Key" style="width: 25%"></Column>
+                                <Column field="type" header="Type" style="width: 25%"></Column>
+                                <Column field="default" header="By default" style="width: 25%"></Column>
+                                <Column field="required" header="Required" style="width: 25%"></Column>
+                            </DataTable>
+                            <span v-else class="ci-text text-lg ml-4">None</span>
+                        </template>
+                    </Panel>
                 </div>
 
                 <!-- Request Body -->

@@ -7,11 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-
     "actual": "npm run ci:check-status && npm run ci:pull && npm run ci:install && npm run ci:build",
-
     "build:cus": "npm run ci:check-status && npm run ci:pull && npm run ci:install && npm run ci:stop && npm run ci:build && npm run ci:start",
-    
     "ci:check-status": "git status",
     "ci:pull": "git pull",
     "ci:install": "npm install",
@@ -25,6 +22,7 @@
     "@primevue/themes": "^4.0.0-rc.2",
     "gsap": "^3.12.5",
     "highlight": "^0.2.4",
+    "highlight.js": "^11.10.0",
     "moment": "^2.30.1",
     "pinia": "^2.1.7",
     "primeflex": "^3.3.1",

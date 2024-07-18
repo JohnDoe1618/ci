@@ -13,9 +13,27 @@
             icon="pi pi-plus" 
             />
         </div>
+        <!-- Диалоговое окно с формой создания операции -->
+        <dialog-comp 
+        :show="isShowCreationForm" 
+        :title="'Add operation'"
+        @close="handlerCloseCreationForm"
+        >
+            <creationFormComp />
+        </dialog-comp>
 
         <!-- Отрисовка операций -->
-        <div class="ml-4 py-4 px-3 overflow-auto" style="width: 95%;">
+        <div class="ml-4 pb-4 px-3 overflow-auto" style="width: 95%;">
+            <div class="w-full flex align-items-center justify-content-end">
+                <!-- Добавить операцию -->
+                <Button
+                class="my-2 shadow-2"
+                icon="pi pi-plus" 
+                size="small"
+                label="Add"
+                @click="handlerOpenCreationForm"
+                />
+            </div>
             <opreationItemComp 
             v-for="operation in operations" 
             class="operation-item" 
@@ -41,6 +59,7 @@
 <script setup>
 import { ref, defineProps, reactive, nextTick, onMounted, watch } from 'vue';
 import opreationItemComp from '@/components/operations/operationList/opreationItemComp.vue';
+import creationFormComp from '@/components/operations/operationList/creationFormComp.vue';
 import OperationService from '@/services/operationService';
 
 const isShowNotAOperations = ref(false);
@@ -53,12 +72,22 @@ const props = defineProps({
 });
 
 // ==========================  DATA  ====================================
-const isShowCollapseBtn = ref(false);
+const isShowCollapseBtn = ref(false);             // отображение кнопки, которая сворачивает все развернутые операции 
+const isShowCreationForm = ref(true);            // отображение формы создания операции
 const reqCollapse = ref(false);                   // запрос на свертывание элементов
 let isCollapsedIds = reactive([]);                // ID развернутых элементов
 let operations = ref([]);           
 
 // ==========================  METHODS  ====================================
+// Обработчик открытия формы создания операции для проекта
+function handlerOpenCreationForm() {
+    isShowCreationForm.value = true;
+}
+// Обработчик закрытия формы создания операции для проекта
+function handlerCloseCreationForm() {
+    isShowCreationForm.value = false;
+}
+
 // Свернуть все элементы
 async function collapseItems() {
     isShowCollapseBtn.value = false;

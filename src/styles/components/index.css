@@ -15,11 +15,28 @@
 @import url(./splitter.css);
 @import url(./toolbar.css);
 @import url(./selectInput.css);
+@import url(./tableTree.css);
 
 /* Стили которые могут применятся ко всем компонентам */
 :root {
 
 
+}
+
+.p-dialog-content {
+    padding: 0 !important;
+}
+.p-dialog-header {
+    padding: 0.4rem 1.5rem !important;
+    border-bottom: 1px solid var(--block-border-color);
+}
+
+.params-form .p-datatable-footer {
+    padding: 0 !important;
+    background: var(--block-bg) !important;
+}
+.params-form .p-datatable-tbody > tr > td {
+    padding: 0 !important;
 }
 
 .ci-block {

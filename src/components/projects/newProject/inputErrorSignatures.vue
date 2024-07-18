@@ -4,7 +4,7 @@
         <small v-if="props.emptyErr.visible" :class="`w-full mt-2 ml-${props.indentLeft} flex align-items-center`">
             <i 
             class="pi pi-exclamation-circle mr-2"
-            style="font-size: 1rem; color: red;" 
+            style="font-size: 1rem; color: red;"
             ></i>
             <span style="color: red;">{{ props.emptyErr.msg }}</span>
         </small>
