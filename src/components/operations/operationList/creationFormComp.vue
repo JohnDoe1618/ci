@@ -103,6 +103,12 @@
             </label>
             <paramsFormComp />
         </div>
+        <div class="chunk-form w-12">
+            <label class="w-10 mr-5 flex align-items-center" for="operation-description">
+                <h3 class="ci-text text-xl font-normal mb-2">> Query Params</h3>
+            </label>
+            <paramsFormComp />
+        </div>
 
     </div>
 </template>

@@ -164,6 +164,23 @@
                 </div>
             </template>
         </Column>
+        <!-- Колонка для удаления параметра из таблицы -->
+        <Column field="action", header="X" style="font-family: monospace">
+            <template #body="{ data, index }">
+                <div class="flex align-items-center justify-content-center">
+                    <!-- Для удаления текущего параметра -->
+                    <Button 
+                    class="p-0 w-2rem" 
+                    icon="pi pi-trash" 
+                    size="small" 
+                    title="remove"
+                    text
+                    severity="danger"
+                    @click="() => handlerRemoveParams(index)"
+                    />
+                </div>
+            </template>
+        </Column>
          <!--___ ___   ___ _____ ___ ___ 
             | __/ _ \ / _ \_   _| __| _ \
             | _| (_) | (_) || | | _||   /
@@ -298,6 +315,11 @@ function handlerAppendParam() {
         console.error(err);
     }
 };
+
+// Обработчик удаления параметра из таблицы
+function handlerRemoveParams(index) {
+    params.value = params.value.filter((_, paramIndex) => index !== paramIndex);
+}
 
 const computeValueDefaultCol = computed(() => {
     return function (data) {
