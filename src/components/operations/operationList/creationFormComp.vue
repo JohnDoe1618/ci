@@ -82,11 +82,7 @@
             <label class="w-10 mr-5 flex align-items-center" for="operation-description">
                 <h3 class="ci-text text-xl font-normal mb-2">> Description</h3>
             </label>
-            <InputText 
-            id="operation-description"
-            class="w-10"
-            placeholder="Operation Description"
-            />
+            <Textarea id="operation-description" class="w-10" rows="2" cols="30" placeholder="Operation Description" />
             <!-- Подпись для инпута Operation Description -->
             <inputErrorSignatures 
             :default-signature="'A simple summary of the operation'"
@@ -103,11 +99,39 @@
             </label>
             <paramsFormComp />
         </div>
+       <!--                    _        
+             __ _ _  _ ___ _ _(_)___ ___
+            / _` | || / -_) '_| / -_|_-<
+            \__, |\_,_\___|_| |_\___/__/
+               |_|-->
         <div class="chunk-form w-12">
             <label class="w-10 mr-5 flex align-items-center" for="operation-description">
                 <h3 class="ci-text text-xl font-normal mb-2">> Query Params</h3>
             </label>
             <paramsFormComp />
+        </div>
+          <!-- ___            __ _                             _     
+              | _ \    ___   / _` |   _  _     ___     ___    | |_   
+              |   /   / -_)  \__, |  | +| |   / -_)   (_-<    |  _|  
+              |_|_\   \___|   __|_|   \_,_|   \___|   /__/_   _\__|  
+            _|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""| 
+            "`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'-->
+        <div class="chunk-form w-12">
+            <label class="w-10 mr-5 flex align-items-center" for="operation-description">
+                <h3 class="ci-text text-xl font-normal mb-2">> Request Body</h3>
+            </label>
+            <paramsFormComp />
+        </div>
+
+        <div class="chunk-form w-11 mt-4 mb-2">
+            <Button
+            class="ml-auto shadow-2"
+            icon="pi pi-check" 
+            label="Create"
+            size="small"
+            :icon-pos="'left'"
+            @click="handlerAppendParam"
+            />
         </div>
 
     </div>

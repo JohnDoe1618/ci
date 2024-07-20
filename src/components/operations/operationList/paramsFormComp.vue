@@ -17,6 +17,7 @@
         <template #empty>
             <div class="w-full h-full flex align-items-center justify-content-center">
                 <Button
+                class="my-1"
                 icon="pi pi-plus" 
                 size="small"
                 @click="handlerAppendParam"
