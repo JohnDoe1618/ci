@@ -418,3 +418,31 @@ export const operationPostResult = {
         ]
     }
 }
+
+export const operationResultGet = [
+    {"id":1,"data":{"label":"label-621-1","isActive":false}},
+    {"id":2,"data":{"label":"label-863-2","isActive":false}},
+    {"id":3,"data":{"label":"label-670-3","isActive":true}},
+    {"id":4,"data":{"label":"label-233-4","isActive":true}},
+    {"id":5,"data":{"label":"label-979-5","isActive":true}},
+    {"id":6,"data":{"label":"label-70-6","isActive":false}},
+    {"id":7,"data":{"label":"label-926-7","isActive":false}},
+    {"id":8,"data":{"label":"label-299-8","isActive":true}},
+    {"id":9,"data":{"label":"label-387-9","isActive":false}},
+    {"id":10,"data":{"label":"label-884-10","isActive":false}},
+    {"id":11,"data":{"label":"label-648-11","isActive":true}},
+    {"id":12,"data":{"label":"label-937-12","isActive":false}},
+    {"id":13,"data":{"label":"label-300-13","isActive":false}},
+    {"id":14,"data":{"label":"label-943-14","isActive":false}},
+    {"id":15,"data":{"label":"label-12-15","isActive":false}},
+    {"id":16,"data":{"label":"label-412-16","isActive":true}},
+    {"id":17,"data":{"label":"label-614-17","isActive":false}},
+    {"id":18,"data":{"label":"label-118-18","isActive":false}},
+    {"id":19,"data":{"label":"label-365-19","isActive":true}},
+    {"id":20,"data":{"label":"label-266-20","isActive":false}},
+    {"id":21,"data":{"label":"label-668-21","isActive":false}},
+    {"id":22,"data":{"label":"label-209-22","isActive":false}},
+    {"id":23,"data":{"label":"label-302-23","isActive":true}},
+    {"id":24,"data":{"label":"label-498-24","isActive":false}},
+    {"id":25,"data":{"label":"label-392-25","isActive":true}}
+];

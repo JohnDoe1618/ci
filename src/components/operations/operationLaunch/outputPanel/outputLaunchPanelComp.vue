@@ -27,14 +27,20 @@
                 <ci-spinner></ci-spinner>
             </span>
             
-            <treeLaunchPanel :result="props.result"/>
+            <treeLaunchPanel v-if=false :result="props.result"/>
+            <tableDataComp v-else-if="false" :result="props.result"/>
+            <codeDataComp :data="operationResultGet" v-else/>
+            
         </div>
     </div>
 </template>
 
 <script setup>
+import { operationResultGet } from '@/services/testdata';
 import { ref, defineProps } from 'vue';
 import treeLaunchPanel from '@/components/operations/operationLaunch/outputPanel/treeTableDataComp.vue';
+import tableDataComp from '@/components/operations/operationLaunch/outputPanel/tableDataComp.vue';
+import codeDataComp from '@/components/operations/operationLaunch/outputPanel/codeDataComp.vue';
 
 // ########################################  { PROPS }  #########################################
 const props = defineProps({
@@ -51,7 +57,7 @@ const props = defineProps({
 })
 
 // ########################################  { DATA }  #########################################
-const selectedModeView = ref('tree')   // table | code | tree
+const selectedModeView = ref('code')   // table | code | tree
 </script>
 
 <style scoped>

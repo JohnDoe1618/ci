@@ -364,7 +364,7 @@ export default function useErrorCreationForm(unacceptableSymbols, availableLengt
             ) return true;
             else return false;
         }
-    })
+    });
 
 
     return {

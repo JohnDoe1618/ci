@@ -1,7 +1,7 @@
 <template>
     <div class="ci-block relative w-full h-full flex">
         <div 
-        v-if="isShowNotAOperations"
+        v-if="isShowNotOperations"
         class="absolute top-0 right-0 bottom-0 left-0 flex align-items-center justify-content-center flex-column z-5"
         >
             <h1 class="text-3xl mb-2">
@@ -13,9 +13,27 @@
             icon="pi pi-plus" 
             />
         </div>
+        <!-- Диалоговое окно с формой создания операции -->
+        <dialog-comp 
+        :show="isShowCreationForm" 
+        :title="'Add operation'"
+        @close="handlerCloseCreationForm"
+        >
+            <creationFormComp />
+        </dialog-comp>
 
         <!-- Отрисовка операций -->
-        <div class="ml-4 py-4 px-3 overflow-auto" style="width: 95%;">
+        <div class="ml-4 pb-4 px-3 overflow-auto" style="width: 95%;">
+            <div class="w-full flex align-items-center justify-content-end">
+                <!-- Добавить операцию -->
+                <Button
+                class="my-2 shadow-2"
+                icon="pi pi-plus" 
+                size="small"
+                label="Add"
+                @click="handlerOpenCreationForm"
+                />
+            </div>
             <opreationItemComp 
             v-for="operation in operations" 
             class="operation-item" 
@@ -41,10 +59,10 @@
 <script setup>
 import { ref, defineProps, reactive, nextTick, onMounted, watch } from 'vue';
 import opreationItemComp from '@/components/operations/operationList/opreationItemComp.vue';
+import creationFormComp from '@/components/operations/operationList/creationFormComp.vue';
 import OperationService from '@/services/operationService';
 
-const isShowNotAOperations = ref(false);
-
+// ###############################  PROPS  ###############################
 const props = defineProps({
     projectData: {
         type: Object,
@@ -52,13 +70,24 @@ const props = defineProps({
     },
 });
 
-// ==========================  DATA  ====================================
-const isShowCollapseBtn = ref(false);
+// ###############################  DATA  ###############################
+const isShowNotOperations = ref(false);
+const isShowCollapseBtn = ref(false);             // отображение кнопки, которая сворачивает все развернутые операции 
+const isShowCreationForm = ref(false);            // отображение формы создания операции
 const reqCollapse = ref(false);                   // запрос на свертывание элементов
 let isCollapsedIds = reactive([]);                // ID развернутых элементов
 let operations = ref([]);           
 
-// ==========================  METHODS  ====================================
+// ###############################  METHODS  ###############################
+// Обработчик открытия формы создания операции для проекта
+function handlerOpenCreationForm() {
+    isShowCreationForm.value = true;
+}
+// Обработчик закрытия формы создания операции для проекта
+function handlerCloseCreationForm() {
+    isShowCreationForm.value = false;
+}
+
 // Свернуть все элементы
 async function collapseItems() {
     isShowCollapseBtn.value = false;
@@ -84,17 +113,18 @@ function handlerUpdateCollapsed({ isCollapse, id }) {
     }
 }
 
+// Получение операций с сервера
 async function getOperations() {
     const data = await OperationService.getOperations(props.projectData.id);
     operations.value = data;
 }
 
-// ==========================  WATCH  ====================================
+// ###############################  WATCH  ###############################
 watch(() => props.projectData, (_) => {
     getOperations();
 })
 
-// ==========================  LIFECYCLE HOOKS  ====================================
+// ###############################  LIFECYCLE HOOKS  ###############################
 onMounted(() => {
     getOperations();
 })

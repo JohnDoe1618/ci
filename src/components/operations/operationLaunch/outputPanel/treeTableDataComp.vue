@@ -1,5 +1,15 @@
 <template>
-    <TreeTable :value="nodes" scrollable scrollHeight="70vh" tableStyle="min-width: 50rem">
+    <TreeTable 
+    :value="nodes" 
+    scrollable 
+    scrollHeight="70vh" 
+    tableStyle="min-width: 50rem"
+    :columnResizeMode="true"
+    :loading="false"
+    :rowHover="true"
+    :showGridlines="true"
+    :size="'large'"
+    >
         <Column field="key" header="Key" expander style="width: 33%"></Column>
         <Column field="value" header="Value" style="width: 33%"></Column>
         <Column field="type" header="Type" style="width: 33%"></Column>

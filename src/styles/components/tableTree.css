@@ -1,0 +1,27 @@
+
+
+:root {
+    --treetable-header-bg: white;
+    --treetable-header-hover-bg: rgb(37, 37, 37);
+    --treetable-header-fg: black;
+    --treetable-row-bg: white;
+    --treetable-row-fg: var(--block-fg);
+    --treetable-row-hover-bg: rgba(46, 46, 46, 0.134);
+    --treetable-row-hover-fg: rgb(47, 47, 47);
+
+
+    --p-treetable-header-border-color: red !important;
+    --p-treetable-header-color: red !important;
+    --p-treetable-header-cell-selected-background: red !important;
+    --p-treetable-header-cell-selected-color: rgb(255, 0, 0) !important;
+    --p-treetable-header-cell-hover-color: rgb(255, 0, 0) !important;
+    --p-treetable-row-selected-background: red !important;
+    --p-treetable-header-cell-border-color: rgb(82, 82, 82) !important;
+    --p-treetable-header-cell-background: var(--treetable-header-bg) !important;
+    --p-treetable-header-cell-hover-background: var(--treetable-header-hover-bg) !important;
+    --p-treetable-header-cell-color: var(--tree-table-header-fg) !important;
+    --p-treetable-row-background: var(--treetable-row-bg) !important;
+    --p-treetable-row-color: var(--treetable-row-fg) !important;
+    --p-treetable-row-hover-background: var(--treetable-row-hover-bg) !important;
+    --p-treetable-row-hover-color: var(--treetable-row-hover-fg) !important;
+}

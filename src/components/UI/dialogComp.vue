@@ -1,15 +1,16 @@
 <template>
     <Dialog
+    class="overflow-hidden"
     :visible="props.show"
     @update:visible="(e) => (e === false)? emit('close') : 0"
     modal 
-    :style="{ minWidth: '25rem' }"
+    :style="{ minWidth: '25rem', width: 'max-content' }"
     :closable="true"
     >
         <template #header>
             <h1 class="ci-text text-2xl mr-4 font-normal">{{ props.title }}</h1>
         </template>
-        <div class="ci-block">
+        <div class="ci-block w-max overflow-hidden">
             <slot></slot>
         </div>
     </Dialog>
