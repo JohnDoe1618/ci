@@ -1,5 +1,6 @@
 <template>
     <div class="op-form-overlay">
+        <Toast />
            <!-- ,--.  ,--.                          
                 |  ,'.|  | ,--,--.,--,--,--. ,---.  
                 |  |' '  |' ,-.  ||        || .-. : 
@@ -13,14 +14,15 @@
             id="operation-name"
             class="w-10"
             placeholder="Operation Name"
+            v-model="formData.operationName"
             />
             <!-- Сообщения об ошибках для инпута Operation Name -->
             <inputErrorSignatures 
             :default-signature="'The name of the operation describes its purpose'"
-            :empty-err="{ visible: false, msg: 'Empty' }"
-            :length-err="{ visible: false, msg: 'Length' }"
-            :incorrect-err="{ visible: false, msg: 'Incorrect' }"
-            :spec-chars-err="{ visible: false, msg: 'Spec' }"
+            :empty-err="{ visible: errorsOperationName.empty.visible, msg: errorsOperationName.empty.msg }"
+            :length-err="{ visible: errorsOperationName.lgth.visible, msg: errorsOperationName.lgth.msg }"
+            :incorrect-err="{ visible: errorsOperationName.incorrect.visible, msg: errorsOperationName.incorrect.msg }"
+            :spec-chars-err="{ visible: errorsOperationName.specialSymbols.visible, msg: errorsOperationName.specialSymbols.msg }"
             />
         </div>
        <!--   ,--.   ,--.         ,--.  ,--.               ,--. 
@@ -35,17 +37,15 @@
             <Select 
             class="w-10" 
             id="operation-method"
-            v-model="selectedMethod" 
+            v-model="formData.selectedMethod" 
+            @change="isMethodErr = false"
             :options="methods" 
             placeholder="Select a method" 
             />
             <!-- Сообщения об ошибках для селект-инпута Operation Method -->
             <inputErrorSignatures 
             :default-signature="'HTTP-method is required to perform a remote operation'"
-            :empty-err="{ visible: false, msg: 'Empty' }"
-            :length-err="{ visible: false, msg: 'Length' }"
-            :incorrect-err="{ visible: false, msg: 'Incorrect' }"
-            :spec-chars-err="{ visible: false, msg: 'Spec' }"
+            :empty-err="{ visible: isMethodErr, msg: 'Method is a required field' }"
             />
         </div>
        <!--   ,------.           ,--.              ,--.          ,--.   
@@ -62,14 +62,12 @@
             id="operation-endpoint"
             class="w-10"
             placeholder="Operation Endpoint"
+            v-model="formData.operationEndpoint"
             />
             <!-- Сообщения об ошибках для инпута Operation Endpoint -->
             <inputErrorSignatures 
             :default-signature="'Endpoint is the address of the resource on which the operation is performed'"
-            :empty-err="{ visible: false, msg: 'Empty' }"
-            :length-err="{ visible: false, msg: 'Length' }"
-            :incorrect-err="{ visible: false, msg: 'Incorrect' }"
-            :spec-chars-err="{ visible: false, msg: 'Spec' }"
+            :empty-err="{ visible: errorsOperationEndpoint.empty.visible, msg: errorsOperationEndpoint.empty.msg }"
             />
         </div>
             <!------.                             ,--.         ,--.  ,--.                
@@ -95,9 +93,12 @@
             `--'      `--`--'  `--'  `--' `--' `----'`---->  
         <div class="chunk-form w-12">
             <label class="w-10 mr-5 flex align-items-center" for="operation-description">
-                <h3 class="ci-text text-xl font-normal mb-2">> Path Params</h3>
+                <h3 class="ci-text text-xl font-normal mb-2">> Path Params {{ formData.pathParams.length }}</h3>
             </label>
-            <paramsFormComp />
+            <paramsFormComp 
+            @update="(params) => updatePathParams(params)"
+            :error="isPathParamsError"
+            />
         </div>
        <!--                    _        
              __ _ _  _ ___ _ _(_)___ ___
@@ -106,9 +107,12 @@
                |_|-->
         <div class="chunk-form w-12">
             <label class="w-10 mr-5 flex align-items-center" for="operation-description">
-                <h3 class="ci-text text-xl font-normal mb-2">> Query Params</h3>
+                <h3 class="ci-text text-xl font-normal mb-2">> Query Params {{ formData.queryParams.length }}</h3>
             </label>
-            <paramsFormComp />
+            <paramsFormComp 
+            @update="(params) => updateQueryParams(params)"
+            :error="isQueryParamsError"
+            />
         </div>
           <!-- ___            __ _                             _     
               | _ \    ___   / _` |   _  _     ___     ___    | |_   
@@ -118,11 +122,15 @@
             "`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'-->
         <div class="chunk-form w-12">
             <label class="w-10 mr-5 flex align-items-center" for="operation-description">
-                <h3 class="ci-text text-xl font-normal mb-2">> Request Body</h3>
+                <h3 class="ci-text text-xl font-normal mb-2">> Request Body {{ formData.requestBodyParams.length }}</h3>
             </label>
-            <paramsFormComp />
+            <paramsFormComp 
+            @update="(params) => updateRequestBody(params)"
+            :error="isRequestBodyParamsError"
+            />
         </div>
 
+        <!-- КНОПКА ПОДТВЕРЖДЕНИЯ ФОРМЫ -->
         <div class="chunk-form w-11 mt-4 mb-2">
             <Button
             class="ml-auto shadow-2"
@@ -130,7 +138,7 @@
             label="Create"
             size="small"
             :icon-pos="'left'"
-            @click="handlerAppendParam"
+            @click="handlerConfirmForm"
             />
         </div>
 
@@ -140,12 +148,25 @@
 <script setup>
 import inputErrorSignatures from '@/components/projects/newProject/inputErrorSignatures.vue';
 import paramsFormComp from '@/components/operations/operationList/paramsFormComp.vue';
-import { ref } from 'vue';
-
-const selectedMethod = ref(null);
-
-const methods = ref(['GET','POST','PUT','DELETE','PATCH',]);
-
+import useCreationOperationMain from '@/composables/newOperationComposables/createOperationMain';
+// ###############################  COMPOSABLES  ###############################
+const {  
+    // Data
+    methods,
+    isMethodErr,
+    isPathParamsError,
+    isQueryParamsError,
+    isRequestBodyParamsError,
+    formData,
+    // Methods
+    handlerConfirmForm,
+    updatePathParams,
+    updateQueryParams,
+    updateRequestBody,
+    // Composables
+    errorsOperationEndpoint, 
+    errorsOperationName, 
+} = useCreationOperationMain();
 </script>
 
 <style scoped>

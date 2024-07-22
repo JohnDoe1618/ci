@@ -4,7 +4,7 @@
 <template>
     <DataTable
     class="params-form w-10"
-    :value="params" 
+    :value="params"
     :show-gridlines="true"
     tableStyle="min-width: 30rem"
     >
@@ -188,6 +188,7 @@
             |_| \___/ \___/ |_| |___|_|_\-->
         <template #footer>
             <div v-if="params.length" class="w-full h-max flex align-items-center justify-content-end">
+                <span v-show="props.error && params.length" class="mr-auto" style="color: red;"><strong>Key</strong> and <strong>Type</strong> is a required fields</span>
                 <Button
                 class="text-xs mt-1"
                 icon="pi pi-plus" 
@@ -200,142 +201,58 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
-
-const isShowKeyInput = ref({ show: false, index: null });
-const isErrorKeyInput = ref(false);
-const isShowTypeSelect = ref({ show: false, index: null });
-const isShowByDefaultInput = ref({ show: false, index: null });
-const isShowDefaultBooleanSelect = ref({ show: false, index: null });
-const isShowRequiredSelect = ref({ show: false, index: null });
-const params = ref([
-    // { key: 'id', type: 'number', default: 0, required: true }
-]);
-const keyName = ref(null);
-const byDefault = ref(null);
-const byDefaultBool = ref(false);
-const selectedType = ref(null);
-const requiredValue = ref(false);
-const types = ref([ 'string', 'number', 'boolean', 'array', 'object' ]);
-
-// Обработчик добавления ключа
-function handlerAppendKey(data) {
-    if(!!keyName.value) {
-        data.key = keyName.value;
-        keyName.value = null; 
-        isShowKeyInput.value.show = false;
-        isShowKeyInput.value.index = null;
-    } else {
-        isErrorKeyInput.value = true;
-        setTimeout(() => {
-            isErrorKeyInput.value = false;
-        }, 2000)
+import { defineEmits, defineProps } from 'vue';
+import { useParamsForm } from '@/composables/newOperationComposables/paramsForm';
+// ###############################  PROPS  ###############################
+const props = defineProps({
+    initialParams: {
+        type: Array,
+        required: false,
+        default: () => [],
+    },
+    error: {
+        type: Boolean,
+        required: false,
+        default: false,
     }
-}
-// Обработчик добавления значения по умолчанию
-function handlerAppendByDefault(data) {
-    data.default = byDefault.value;
-    byDefault.value = null; 
-    isShowByDefaultInput.value.show = false;
-    isShowByDefaultInput.value.index = null;
-}
+});
 
-// Обработчик добавления boolean значения как значение по умолчанию для параметра
-function handlerChangeDefaultBool(data, value) {
-    data.default = value;
-    isShowDefaultBooleanSelect.value.show = false;
-    isShowDefaultBooleanSelect.value.index = null;
-    byDefaultBool.value = false;
-}
+// ###############################  EMITS  ###############################
+const emit = defineEmits(['update']);
 
-// Обработчик открытия инпута для редактирования ключа
-function openInputKey(key, index) {
-    isShowKeyInput.value.show = true;
-    isShowKeyInput.value.index = index; 
-    keyName.value = key;
-}
+const {
+    // Data
+    isShowKeyInput,
+    isErrorKeyInput,
+    isShowTypeSelect,
+    isShowByDefaultInput,
+    isShowDefaultBooleanSelect,
+    isShowRequiredSelect,
+    params,
+    keyName,
+    byDefault,
+    byDefaultBool,
+    selectedType,
+    requiredValue,
+    types,
+    
+    // Methods
+    handlerAppendParam,
+    handlerAppendKey,
+    handlerAppendByDefault,
+    handlerChangeDefaultBool,
+    handlerChangeType,
+    handlerChangeRequired,
+    openInputKey,
+    openInputByDefault,
+    openInputType,
+    openSelectRequired,
+    handlerRemoveParams,
 
-// Обработчик открытия инпута для редактирования значения по умолчанию
-function openInputByDefault(value, type, index) {
-    // Если тип данных параметра выбран как boolean, для значения по умолчанию открывается не обычный инпут а селект в котором true/false
-    if(type === 'boolean') {
-        isShowDefaultBooleanSelect.value.show = true;
-        isShowDefaultBooleanSelect.value.index = index;
-        byDefaultBool.value = value;
-        return
-    }
-    isShowByDefaultInput.value.show = true;
-    isShowByDefaultInput.value.index = index;
-    byDefault.value = value;
-}
+    // Computed
+    computeValueDefaultCol,
+} = useParamsForm(emit);
 
-// Обработчик открытия инпута для редактирования типа параметра
-function openInputType(value, index) {
-    isShowTypeSelect.value.show = true;
-    isShowTypeSelect.value.index = index;
-    selectedType.value = value;
-}
-
-// Обработчик изменения типа данных. Для того чтобы сбросить значение по умолчанию
-function handlerChangeType(data, type) {
-    // обнуление колонки для значения по умолчанию
-    byDefault.value = null;
-    data.default = null;
-    data.type = type;
-    if(type === 'boolean') data.default = false;
-    isShowDefaultBooleanSelect.value.show = false;
-    isShowDefaultBooleanSelect.value.index = null;
-    isShowByDefaultInput.value.show = false;
-    isShowByDefaultInput.value.index = null;
-    isShowTypeSelect.value.show = false;
-    isShowTypeSelect.value.index = null;
-}
-
-// Обработчик изменения опциональности параметра
-function handlerChangeRequired(data, value) {
-    data.required = value;
-    requiredValue.value = false;
-    isShowRequiredSelect.value.show = false;
-    isShowRequiredSelect.value.index = null;
-}
-function openSelectRequired(isRequired, index) {
-    requiredValue.value = isRequired;
-    isShowRequiredSelect.value.show = true;
-    isShowRequiredSelect.value.index = index;
-} 
-
-// Обработчик добавления нового параметра в таблицу параметров
-function handlerAppendParam() {
-    try {
-        params.value.push({ key: null, type: null, default: null, required: false });
-        isShowTypeSelect.value.show = true;
-        isShowTypeSelect.value.index = params.value.length - 1;
-        isShowKeyInput.value.show = true;
-        isShowKeyInput.value.index = params.value.length - 1;
-    } catch (err) {
-        console.error(err);
-    }
-};
-
-// Обработчик удаления параметра из таблицы
-function handlerRemoveParams(index) {
-    params.value = params.value.filter((_, paramIndex) => index !== paramIndex);
-}
-
-const computeValueDefaultCol = computed(() => {
-    return function (data) {
-        if(data.type === 'boolean') {
-            return data.default;
-        }
-        else {
-            if(data.default?.length) {
-                return data.default
-            } else {
-                return '-'
-            }
-        }
-    }
-})
 
 </script>
 

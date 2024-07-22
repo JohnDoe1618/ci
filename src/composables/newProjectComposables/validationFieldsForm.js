@@ -3,7 +3,7 @@ import useErrorCreationForm from "./errorCreationForm"
 // Composable для валидации полей формы создания проекта
 export default function useValidationFieldsForm() {
 
-    const unacceptableSymbols = '!@#$%^&*|/?()=+<';
+    const unacceptableSymbols = '!@#$%^&*|/?()=+<>.,';
     const availableLength = {
         default: 3,
         port: 4,
@@ -157,7 +157,6 @@ export default function useValidationFieldsForm() {
             console.error('Ошибка validateHandshakeToken: ', err);
             throw err;
         }
-
     }
 
     return {
