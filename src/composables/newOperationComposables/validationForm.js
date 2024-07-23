@@ -3,14 +3,17 @@ import useErrorsCreationForm from "./errorsCreationForm";
 export default function useValidationForm() {
     const availableLength = { default: 4 };
     const unacceptableSymbols = '!@#$%^&*|/?()=+<>.,';
+    const unacceptableSymbolsEndpoint = '!@#$%^&*|?()=+<>.,'
 
     const { errorsOperationEndpoint, errorsOperationName } = useErrorsCreationForm(availableLength, unacceptableSymbols);
 
     // Функция проверяет наличие недопустимых спец. символов в строке
-    function hasSpecChars(value) {
+    function hasSpecChars(value, rejectSymbols) {
         try {
             if(value && typeof value === 'string') {
-                let specCharsArr = unacceptableSymbols.split('');
+                let specCharsArr;
+                if(rejectSymbols) specCharsArr = rejectSymbols.split('');
+                else specCharsArr = unacceptableSymbols.split('');
                 const result = specCharsArr.some((char) => {
                     if(value.includes(char)) return true;
                 });
@@ -60,14 +63,19 @@ export default function useValidationForm() {
     // Валидация эндпоинта операции
     function validateProjectEndpoint(value, isResetValidation, callback) {
         try {
-            // ERROR:[empty]
-            if(!value) {
-                if(callback) callback(true);
-                return errorsOperationEndpoint.empty.visible = true;
-            } else errorsOperationEndpoint.empty.visible = false;
-            if(!value.length && isResetValidation === true) {
+            // // ERROR:[empty]
+            // if(!value) {
+            //     if(callback) callback(true);
+            //     return errorsOperationEndpoint.empty.visible = true;
+            // } else errorsOperationEndpoint.empty.visible = false;
+            if(value && !value.length && isResetValidation === true) {
                 return errorsOperationEndpoint.resetErrors();
             }
+            // ERROR:[Special Symbols]
+            if(hasSpecChars(value, unacceptableSymbolsEndpoint)) {
+                if(callback) callback(true);
+                return errorsOperationEndpoint.specialSymbols.visible = true;
+            } else errorsOperationEndpoint.specialSymbols.visible = false;
             if(callback) return callback(false);
         } catch (err) {
             console.error('composables/newOperationComposables/validationForm: validateProjectEndpoint =>', err);

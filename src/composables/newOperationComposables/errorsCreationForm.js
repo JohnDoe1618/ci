@@ -126,18 +126,41 @@ export default function useErrorsCreationForm(availableLength, unacceptableSymbo
             // > setter
             set visible(value) {
                 if(value !== this._visible) {
-                    this._visible = value; 
+                    this._visible = value;
+                    if(value === true) {
+                        errorsOperationEndpoint.specialSymbols.visible = false;
+                    }
                 }
             },
         },
-
+        // ---------------  SPECIAL SYMBOLS  ---------------
+        // Недопустимые спецсимволы
+        specialSymbols: {
+            _visible: false,
+            msg: `the operation endpoint cannot contain special characters: ${unacceptableSymbols}`,
+            
+            // > getter
+            get visible() {
+                return this._visible;
+            },
+            // > setter
+            set visible(value) {
+                if(value !== this._visible) {
+                    this._visible = value; 
+                    if(value === true) {
+                        errorsOperationEndpoint.empty.visible = false;
+                    }
+                }
+            },
+        },
         // Сбросить состояние ошибок
         resetErrors () {
             this.empty.visible = false;
+            this.specialSymbols.visible = false;
         },
         // Проверка на существование хотя-бы одной ошибки
         hasError() {
-            if(this.empty.visible === true) return true;
+            if(this.empty.visible === true || this.specialSymbols.visible === true) return true;
             else return false;
         }
 

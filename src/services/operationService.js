@@ -34,7 +34,26 @@ export default class OperationService {
             })
         } catch (err) {
             console.error(err);
-            console.error(`services/operationService: getOperationById  => ${err}`);
+            console.error(`services/operationService: launchOperation  => ${err}`);
+        }
+    }
+
+    // Создание новой операции на проекте
+    static async createNewOperation(operationData) {
+        try {
+            return new Promise((res, rej) => {
+                setTimeout(() => {
+                    const currentDate = new Date().toISOString();
+                    operationData.id = operations.at(-1).id + 1;
+                    operationData.createdAt = currentDate;
+                    operationData.updatedAt = currentDate;
+                    operations.push(operationData);
+                    res(operationData);
+                }, 2000);
+            });
+        } catch (err) {
+            console.error(err);
+            console.error(`services/operationService: createNewOperation  => ${err}`);
         }
     }
 }

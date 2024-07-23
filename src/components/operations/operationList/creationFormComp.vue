@@ -14,7 +14,7 @@
             id="operation-name"
             class="w-10"
             placeholder="Operation Name"
-            v-model="formData.operationName"
+            v-model.trim="formData.operationName"
             />
             <!-- Сообщения об ошибках для инпута Operation Name -->
             <inputErrorSignatures 
@@ -56,18 +56,21 @@
                                      `--'                               -->
         <div class="chunk-form w-12">
             <label class="w-10 mr-5 flex align-items-center" for="operation-endpoint">
-                <h3 class="ci-text text-xl font-normal mb-2">> Endpoint <span style="color: red;">*</span></h3>
+                <h3 class="ci-text text-xl font-normal mb-2">> Endpoint</h3>
             </label>
-            <InputText 
-            id="operation-endpoint"
-            class="w-10"
-            placeholder="Operation Endpoint"
-            v-model="formData.operationEndpoint"
-            />
+            <InputGroup class="w-10">
+                <InputGroupAddon><strong>/</strong></InputGroupAddon>
+                <InputText 
+                id="operation-endpoint"
+                placeholder="Operation Endpoint"
+                v-model.trim="formData.operationEndpoint" 
+                />
+            </InputGroup>
             <!-- Сообщения об ошибках для инпута Operation Endpoint -->
             <inputErrorSignatures 
             :default-signature="'Endpoint is the address of the resource on which the operation is performed'"
             :empty-err="{ visible: errorsOperationEndpoint.empty.visible, msg: errorsOperationEndpoint.empty.msg }"
+            :spec-chars-err="{ visible: errorsOperationEndpoint.specialSymbols.visible, msg: errorsOperationEndpoint.specialSymbols.msg }"
             />
         </div>
             <!------.                             ,--.         ,--.  ,--.                
@@ -80,7 +83,14 @@
             <label class="w-10 mr-5 flex align-items-center" for="operation-description">
                 <h3 class="ci-text text-xl font-normal mb-2">> Description</h3>
             </label>
-            <Textarea id="operation-description" class="w-10" rows="2" cols="30" placeholder="Operation Description" />
+            <Textarea 
+            id="operation-description" 
+            class="w-10" 
+            rows="2" 
+            cols="30" 
+            placeholder="Operation Description" 
+            v-model.trim="formData.operationDescription"
+            />
             <!-- Подпись для инпута Operation Description -->
             <inputErrorSignatures 
             :default-signature="'A simple summary of the operation'"
@@ -138,6 +148,7 @@
             label="Create"
             size="small"
             :icon-pos="'left'"
+            :loading="isLoadRequest"
             @click="handlerConfirmForm"
             />
         </div>
@@ -149,9 +160,25 @@
 import inputErrorSignatures from '@/components/projects/newProject/inputErrorSignatures.vue';
 import paramsFormComp from '@/components/operations/operationList/paramsFormComp.vue';
 import useCreationOperationMain from '@/composables/newOperationComposables/createOperationMain';
+import { defineProps, defineEmits } from 'vue';
+// ###############################  PROPS  ###############################
+const props = defineProps({
+    projectId: {
+        type: Number,
+        required: false,
+        default: null,
+    }
+});
+
+
+// ###############################  EMITS  ###############################
+const emit = defineEmits(['close', 'appendOperation']);
+
+
 // ###############################  COMPOSABLES  ###############################
 const {  
     // Data
+    isLoadRequest,
     methods,
     isMethodErr,
     isPathParamsError,
@@ -166,7 +193,7 @@ const {
     // Composables
     errorsOperationEndpoint, 
     errorsOperationName, 
-} = useCreationOperationMain();
+} = useCreationOperationMain(props.projectId, emit);
 </script>
 
 <style scoped>

@@ -4,8 +4,9 @@ import { throttling } from '@/utils/optimization/throttling';
 
 // Главный компосабл для управления компонентом ФОРМЫ СОЗДАНИЯ НОВОЙ ОПЕРАЦИИ для проекта 
 import useValidationForm from "./validationForm"
+import OperationService from '@/services/operationService';
 
-export default function useCreationOperationMain() {
+export default function useCreationOperationMain(projectId, emit) {
 
     // ###############################  COMPOSABLES  ###############################
     const { 
@@ -19,6 +20,7 @@ export default function useCreationOperationMain() {
 
 
     // ###############################  DATA  ###############################
+    const isLoadRequest = ref(false);
     const methods = ref(['GET','POST','PUT','DELETE','PATCH',]);
     const isMethodErr = ref(false);
     const isPathParamsError = ref(false);
@@ -28,6 +30,7 @@ export default function useCreationOperationMain() {
         operationName: null,
         operationEndpoint: null,
         selectedMethod: null,
+        operationDescription: null,
         pathParams: [],
         queryParams: [],
         requestBodyParams: [],
@@ -76,15 +79,32 @@ export default function useCreationOperationMain() {
     }
 
     // Обработчик подтверждения формы
-    function handlerConfirmForm() {
+    async function handlerConfirmForm() {
         try {
+            isLoadRequest.value = true;
             // Валидция формы
             const isHasError = validateForm();
             if(isHasError === true) return void toast.add({ severity: 'error', summary: 'Error', detail: 'Сheck the entered data', life: 3000 });
-
-            console.log('СОБАЧЬИ ПОТРОХА');
+            // Собираем объект тела запроса для создания новой операции проекта
+            const requestData = {
+                projectId: projectId,
+                method: formData.selectedMethod,
+                endpoint: '/' + (formData.operationEndpoint ?? ''),
+                pathParams: formData.pathParams,
+                queryParams: formData.queryParams,
+                requestBody: formData.requestBodyParams,
+                title: formData.operationName,
+                description: formData.operationDescription,
+                forRole: '*',
+            }
+            // Запрос на создание новой операции
+            const result = await OperationService.createNewOperation(requestData);
+            emit('appendOperation', result);
+            emit('close');
         } catch (err) {
             console.error('/handlerConfirmForm', err);
+        } finally {
+            isLoadRequest.value = false;
         }
     }
 
@@ -121,6 +141,7 @@ export default function useCreationOperationMain() {
 
     return {
         // Data
+        isLoadRequest,
         methods,
         isMethodErr,
         isPathParamsError,

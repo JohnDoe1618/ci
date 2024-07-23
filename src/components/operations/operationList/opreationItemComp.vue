@@ -49,7 +49,8 @@
                 <div>
                     <h2 class="operation-chunck-label text-xl ml-2 ci-text">Description:</h2>
                     <div class="ml-4 my-2">
-                        <span class="ci-operation-description">{{ props.data.description }}</span>
+                        <span v-if="!!props.data.description" class="ci-operation-description">{{ props.data.description }}</span>
+                        <span v-else class="ci-operation-description"><strong>None</strong></span>
                     </div>
                 </div>
 
@@ -85,7 +86,7 @@
                         <template #header><h2 class=" text-xl ml-2 ci-text">Path Params:</h2></template>
                         <template #default>
                             <DataTable
-                            v-if="props.data.pathParams"
+                            v-if="props.data.pathParams?.length"
                             class="mx-4 mt-2"
                             :value="props.data.pathParams" 
                             :show-gridlines="true"
@@ -109,7 +110,7 @@
                         </template>
                         <template #default>
                             <DataTable
-                            v-if="props.data.queryParams"
+                            v-if="props.data.queryParams?.length"
                             class="mx-4 mt-2"
                             :value="props.data.queryParams" 
                             :show-gridlines="true"
@@ -131,7 +132,7 @@
                         <template #header><h2 class="text-xl ml-2 ci-text">Request Body:</h2></template>
                         <template #default>
                             <DataTable
-                            v-if="props.data.requestBody"
+                            v-if="props.data.requestBody?.length"
                             class="mx-4 mt-2"
                             :value="props.data.requestBody" 
                             :show-gridlines="true"

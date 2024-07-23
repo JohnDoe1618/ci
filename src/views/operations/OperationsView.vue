@@ -1,5 +1,6 @@
 <template>
     <div class="ci-block relative w-full h-full flex">
+        <Toast />
         <div 
         v-if="isShowNotOperations"
         class="absolute top-0 right-0 bottom-0 left-0 flex align-items-center justify-content-center flex-column z-5"
@@ -19,7 +20,11 @@
         :title="'Add operation'"
         @close="handlerCloseCreationForm"
         >
-            <creationFormComp />
+            <creationFormComp 
+            :project-id="props.projectData?.id"
+            @append-operation="(operation) => handlerAppendOperation(operation)"
+            @close="isShowCreationForm = false"
+            />
         </dialog-comp>
 
         <!-- Отрисовка операций -->
@@ -61,6 +66,11 @@ import { ref, defineProps, reactive, nextTick, onMounted, watch } from 'vue';
 import opreationItemComp from '@/components/operations/operationList/opreationItemComp.vue';
 import creationFormComp from '@/components/operations/operationList/creationFormComp.vue';
 import OperationService from '@/services/operationService';
+import { useToast } from 'primevue/usetoast';
+
+// ###############################  COMPOSABLES  ###############################
+const toast = useToast();
+
 
 // ###############################  PROPS  ###############################
 const props = defineProps({
@@ -112,6 +122,12 @@ function handlerUpdateCollapsed({ isCollapse, id }) {
         removeCollapsedId(id)
     }
 }
+
+// Обработчик добавления новой операции в массив операций
+function handlerAppendOperation(operation) {
+    operations.value.push(operation);
+    toast.add({ severity: 'success', summary: 'Success', detail: 'A new operation has been created', life: 3000 });
+};
 
 // Получение операций с сервера
 async function getOperations() {
