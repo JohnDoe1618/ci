@@ -1,7 +1,8 @@
 import { ref, computed } from 'vue';
 
-// Компосабл для формы создания/редактирования параметров таких как параметры пути, параметры запроса и т.п 
+// Компосабл для формы создания/редактирования параметров таких как параметры пути, параметры запроса и т.п (выглядит как ебаная таблица)
 export function useParamsForm(emit) {
+    
     // ###############################  DATA  ###############################
     const isShowKeyInput = ref({ show: false, index: null });
     const isErrorKeyInput = ref(false);
@@ -37,7 +38,7 @@ export function useParamsForm(emit) {
     function handlerAppendKey(data) {
         if(!!keyName.value) {
             data.key = keyName.value;
-            keyName.value = null; 
+            keyName.value = null;
             emit('update', params.value);
             isShowKeyInput.value.show = false;
             isShowKeyInput.value.index = null;

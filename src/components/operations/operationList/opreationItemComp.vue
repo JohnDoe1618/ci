@@ -1,17 +1,13 @@
 <template>
-  <!-- ___          ___               ____'     
-'|\¯¯¯¯\      /'¯¯¯'/|°    ____\¯¯¯¯\'   
-'|:'\      '\   /      '/:'|'   /¯¯¯¯''/'\      ;\  
- '\::'\      \/      /::/'  '/      ;'/:'|:'|      ;|°
-    \:|            '|:'/    |      ;'|::/\'|      ;'| 
-     /      /\      '\     |      ;'|/   '|      ;'| 
-   /      '/:|:'\      '\"  |      ;'|    '|      ;'| 
- /'_'__'/:::|:::\'__'_'\*|\      ;\  '/       '/| 
- |¯¯¯¯|:'/  \::|¯¯¯¯| |:'\       \/____/:'| 
- |____|/     '\|____| '\::\____\¯¯¯'|::/' 
-  ¯¯¯¯         ¯¯¯¯'   \:|¯¯¯¯|___'|/'   
-   '                          \|____|¯¯¯‘     
-  ___       ___         ¯¯¯¯'            -->
+    <!-- 
+   ____     _____     _____   ______       ____     ________    _____     ____        __      _       _____   ________    _____     __    __    
+  / __ \   (  __ \   / ___/  (   __ \     (    )   (___  ___)  (_   _)   / __ \      /  \    / )     (_   _) (___  ___)  / ___/     \ \  / /    
+ / /  \ \   ) )_) ) ( (__     ) (__) )    / /\ \       ) )       | |    / /  \ \    / /\ \  / /        | |       ) )    ( (__       () \/ ()    
+( ()  () ) (  ___/   ) __)   (    __/    ( (__) )     ( (        | |   ( ()  () )   ) ) ) ) ) )        | |      ( (      ) __)      / _  _ \    
+( ()  () )  ) )     ( (       ) \ \  _    )    (       ) )       | |   ( ()  () )  ( ( ( ( ( (         | |       ) )    ( (        / / \/ \ \   
+ \ \__/ /  ( (       \ \___  ( ( \ \_))  /  /\  \     ( (       _| |__  \ \__/ /   / /  \ \/ /        _| |__    ( (      \ \___   /_/      \_\  
+  \____/   /__\       \____\  )_) \__/  /__(  )__\    /__\     /_____(   \____/   (_/    \__/        /_____(    /__\      \____\ (/          \) 
+     -->
     <Panel class="overflow-hidden shadow-2" :toggleable="true" :collapsed="isCollapseSelf" @update:collapsed="handlerCollapsed">
         <!-- Header -->
         <template #header>
@@ -187,11 +183,12 @@ import { ref, defineEmits, defineProps, onMounted, watch, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import PatternService from '@/services/patternService';
 import { useOperationsStore } from '@/stores/operationsStore';
-import gsap from 'gsap';
 
+// ###############################  COMPOSABLES  ###############################
 const router = useRouter();
 const operationsStore = useOperationsStore();
 
+// ###############################  PROPS  ###############################
 const props = defineProps({
     isCollapseIds: {
         type: Array,
@@ -225,11 +222,15 @@ const props = defineProps({
     }
 });
 
-// =======================  DATA  ===========================
+// ###############################  EMITS  ###############################
+const emit = defineEmits(['update:collapsed', 'openEditForm']);
+
+
+
+// ###############################  DATA  ###############################
 const isCollapseSelf = ref(true);
 const selfId = ref(null);
 const isShowDeleteOperationForm = ref(false);
-const isCollapsedQueryBlock = ref(true);
 // Кнопки дополнительных взаимодействий с проектом
 const items = ref([
     {
@@ -242,9 +243,7 @@ const items = ref([
     {
         label: 'Edit',
         icon: 'pi pi-pencil',
-        command: () => {
-            console.log('test');
-        }
+        command: () => emit('openEditForm', props.data),
     },
     {
         label: 'Delete',
@@ -255,7 +254,7 @@ const items = ref([
     },
 ]);
 
-// =======================  METHODS  ===========================
+// ###############################  METHODS  ###############################
 function handlerCollapsed(value) {
     isCollapseSelf.value = value;
     emit('update:collapsed', { isCollapse: value, id: selfId.value });
@@ -272,12 +271,7 @@ function handlerOperationLaunch() {
     });
 }
 
-// Скрыть/Развернуть блок параметров запроса
-function expandRcollapseQueries() {
-    gsap.to('.queries-table', { duration: 0.4, height: '50px' })
-}
-
-// =======================  COMPUTED  ===========================
+// ###############################  COMPUTED  ###############################
 // вычисление даты и времени для отображения их в Created At
 const computeTemplateCreatedAt = computed(() => {
     return PatternService.formattedDateTime(props.data.createdAt, 'HH:mm  DD/MM/YYYY', '+03:00');
@@ -289,7 +283,7 @@ const computeTemplateUpdatedAt = computed(() => {
 });
 
 
-// =======================  WATCH  ===========================
+// ###############################  WATCH  ###############################
 watch(() => props.reqCollapse, (newValue) => {
     if(newValue === true) {
         if(props.isCollapseIds.includes(selfId.value)) {
@@ -299,13 +293,12 @@ watch(() => props.reqCollapse, (newValue) => {
 });
 
 
-// =======================  LIFECYCLE HOOKS  ===========================
+// ###############################  LIFECYCLE HOOKS  ###############################
 onMounted(() => {
     // Идентифицируем текущий компонент уникальным ID для скрытия его в списке таких компонентов
     selfId.value = Date.now() + '';
 });
 
-const emit = defineEmits(['update:collapsed']);
 
 </script>
 

@@ -56,4 +56,25 @@ export default class OperationService {
             console.error(`services/operationService: createNewOperation  => ${err}`);
         }
     }
+
+    // Редактирование существующей операции на проекте
+    static async editOperationById(operationId, operationData) {
+        try {
+            return new Promise((res, rej) => {
+                setTimeout(() => {
+                    const currentDate = new Date().toISOString();
+                    operationData.updatedAt = currentDate;
+                    operations.forEach((operation) => {
+                        if(operation.id === operationId) {
+                            operation = { ...operation, ...operationData };
+                            res(operation);
+                        }
+                    })
+                }, 2000);
+            });
+        } catch (err) {
+            console.error(err);
+            console.error(`services/operationService: editOperationById  => ${err}`);
+        }
+    }
 }

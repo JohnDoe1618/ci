@@ -18,12 +18,14 @@
         <dialog-comp 
         :show="isShowCreationForm" 
         :title="'Add operation'"
-        @close="handlerCloseCreationForm"
+        @close="handlerCloseForm"
         >
+            <!-- Форма для создания и редактирования операций -->
             <creationFormComp 
             :project-id="props.projectData?.id"
+            :edit-operation-data="editOperationData"
             @append-operation="(operation) => handlerAppendOperation(operation)"
-            @close="isShowCreationForm = false"
+            @close="handlerCloseForm"
             />
         </dialog-comp>
 
@@ -43,6 +45,8 @@
             v-for="operation in operations" 
             class="operation-item" 
             @update:collapsed="handlerUpdateCollapsed"
+            @open-edit-form="(operation) => handlerOpenEditForm(operation)"
+            
             :is-collapse-ids="isCollapsedIds"
             :req-collapse="reqCollapse"
             :data="operation"
@@ -84,6 +88,7 @@ const props = defineProps({
 const isShowNotOperations = ref(false);
 const isShowCollapseBtn = ref(false);             // отображение кнопки, которая сворачивает все развернутые операции 
 const isShowCreationForm = ref(false);            // отображение формы создания операции
+const editOperationData = ref(null);              // данные операции для редактирования
 const reqCollapse = ref(false);                   // запрос на свертывание элементов
 let isCollapsedIds = reactive([]);                // ID развернутых элементов
 let operations = ref([]);           
@@ -93,11 +98,6 @@ let operations = ref([]);
 function handlerOpenCreationForm() {
     isShowCreationForm.value = true;
 }
-// Обработчик закрытия формы создания операции для проекта
-function handlerCloseCreationForm() {
-    isShowCreationForm.value = false;
-}
-
 // Свернуть все элементы
 async function collapseItems() {
     isShowCollapseBtn.value = false;
@@ -123,6 +123,12 @@ function handlerUpdateCollapsed({ isCollapse, id }) {
     }
 }
 
+// Обработчик открытия формы редактирования операции
+function handlerOpenEditForm(operation) {
+    isShowCreationForm.value = true;
+    editOperationData.value = operation;
+}
+
 // Обработчик добавления новой операции в массив операций
 function handlerAppendOperation(operation) {
     operations.value.push(operation);
@@ -133,6 +139,12 @@ function handlerAppendOperation(operation) {
 async function getOperations() {
     const data = await OperationService.getOperations(props.projectData.id);
     operations.value = data;
+}
+
+// Обработчик закрытия формы создания/редактирования операции
+function handlerCloseForm() {
+    editOperationData.value = null;
+    isShowCreationForm.value = false;
 }
 
 // ###############################  WATCH  ###############################
