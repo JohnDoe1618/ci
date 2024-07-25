@@ -187,9 +187,23 @@
             | _| (_) | (_) || | | _||   /
             |_| \___/ \___/ |_| |___|_|_\-->
         <template #footer>
-            <div v-if="params.length" class="w-full h-max flex align-items-center justify-content-end">
+            <div v-if="params.length || props.editMode" class="w-full h-max flex align-items-center justify-content-end">
+                <!-- Всплывающая форма подтверждения при попытке сбросить изменения в параметрах  -->
+                <ConfirmPopup></ConfirmPopup>
                 <span v-show="props.error && params.length" class="mr-auto" style="color: red;"><strong>Key</strong> and <strong>Type</strong> is a required fields</span>
+                <!-- Сбросить изменения параметров до исходных значений (ДЛЯ РЕЖИМА РЕДАКТИРОВАНИЯ) -->
                 <Button
+                v-show="props.isResetToInitalState"
+                v-tooltip="'Reset Changes'"
+                class="text-xs mt-1 mr-1"
+                icon="pi pi-undo" 
+                size="small"
+                severity="warn"
+                @click="handlerConfirmResetState($event)"
+                />
+                <!-- Добавить параметр -->
+                <Button
+                v-show="params.length"
                 class="text-xs mt-1"
                 icon="pi pi-plus" 
                 size="small"
@@ -203,12 +217,23 @@
 <script setup>
 import { defineEmits, defineProps } from 'vue';
 import { useParamsForm } from '@/composables/newOperationComposables/paramsForm';
+import useEditParamsForm from '@/composables/newOperationComposables/editParamsForm';
 // ###############################  PROPS  ###############################
 const props = defineProps({
+    editMode: {
+        type: Boolean,
+        required: false,
+        default: false,
+    },
     initialParams: {
         type: Array,
         required: false,
         default: () => [],
+    },
+    isResetToInitalState: {
+        type: Boolean,
+        required: false,
+        default: false,
     },
     error: {
         type: Boolean,
@@ -218,8 +243,9 @@ const props = defineProps({
 });
 
 // ###############################  EMITS  ###############################
-const emit = defineEmits(['update']);
+const emit = defineEmits(['update', 'resetChanges']);
 
+// ###############################  COMPOSABLES  ###############################
 const {
     // Data
     isShowKeyInput,
@@ -253,7 +279,7 @@ const {
     computeValueDefaultCol,
 } = useParamsForm(emit);
 
-
+const { handlerConfirmResetState } = useEditParamsForm(props, emit, params);
 </script>
 
 <style scoped>

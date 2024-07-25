@@ -40,6 +40,11 @@
     --p-button-danger-color: var(--btn-painted-color) !important;
     /* INFO */
     --p-button-info-color: var(--btn-painted-color) !important;
+    /* WARN */
+    --p-button-warn-background: rgb(244, 187, 82) !important;
+    --p-button-warn-color: var(--btn-painted-color) !important;
+    --p-button-warn-border-color: rgb(244, 187, 82) !important;
+    --p-button-warn-hover-color: rgb(147, 147, 147) !important;
 }
 
 /* DEFAULT BUTTON */

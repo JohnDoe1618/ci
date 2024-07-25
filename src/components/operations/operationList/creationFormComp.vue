@@ -9,12 +9,24 @@
         <div class="chunk-form w-12">
             <label class="w-10 mr-5 flex align-items-center" for="operation-name">
                 <h3 class="ci-text text-xl font-normal mb-2">> Name <span style="color: red;">*</span></h3>
+                <!-- Кнопка Сбросить Изменения -->
+                <Button
+                v-show="computedVisibleResetBasicKey('title')"
+                v-tooltip="'Reset'"
+                class="ml-auto mb-1 shadow-1"
+                icon="pi pi-undo" 
+                size="small"
+                text
+                severity="warn"
+                @click="() => handlerResetChangedKey('title')"
+                />
             </label>
             <InputText 
-            id="operation-name"
             class="w-10"
+            id="operation-name"
             placeholder="Operation Name"
             v-model.trim="formData.operationName"
+            @input="(event) => handlerRecEditedBasicFields('title', event.target.value)"
             />
             <!-- Сообщения об ошибках для инпута Operation Name -->
             <inputErrorSignatures 
@@ -33,12 +45,23 @@
         <div class="chunk-form w-12">
             <label class="w-10 mr-5 flex align-items-center" for="operation-method">
                 <h3 class="ci-text text-xl font-normal mb-2">> Method <span style="color: red;">*</span></h3>
+                <!-- Кнопка Сбросить Изменения -->
+                <Button
+                v-show="computedVisibleResetBasicKey('method')"
+                v-tooltip="'Reset'"
+                class="ml-auto mb-1 shadow-1"
+                icon="pi pi-undo" 
+                size="small"
+                text
+                severity="warn"
+                @click="() => handlerResetChangedKey('method')"
+                />
             </label>
             <Select 
             class="w-10" 
             id="operation-method"
             v-model="formData.selectedMethod" 
-            @change="isMethodErr = false"
+            @change="handlerChangeMethod"
             :options="methods" 
             placeholder="Select a method" 
             />
@@ -57,13 +80,25 @@
         <div class="chunk-form w-12">
             <label class="w-10 mr-5 flex align-items-center" for="operation-endpoint">
                 <h3 class="ci-text text-xl font-normal mb-2">> Endpoint</h3>
+                <!-- Кнопка Сбросить Изменения -->
+                <Button
+                v-show="computedVisibleResetBasicKey('endpoint')"
+                v-tooltip="'Reset'"
+                class="ml-auto mb-1 shadow-1"
+                icon="pi pi-undo" 
+                size="small"
+                text
+                severity="warn"
+                @click="() => handlerResetChangedKey('endpoint')"
+                />
             </label>
             <InputGroup class="w-10">
                 <InputGroupAddon><strong>/</strong></InputGroupAddon>
                 <InputText 
                 id="operation-endpoint"
                 placeholder="Operation Endpoint"
-                v-model.trim="formData.operationEndpoint" 
+                v-model.trim="formData.operationEndpoint"
+                @input="(event) => handlerRecEditedBasicFields('endpoint', event.target.value)"
                 />
             </InputGroup>
             <!-- Сообщения об ошибках для инпута Operation Endpoint -->
@@ -82,6 +117,17 @@
         <div class="chunk-form w-12">
             <label class="w-10 mr-5 flex align-items-center" for="operation-description">
                 <h3 class="ci-text text-xl font-normal mb-2">> Description</h3>
+                <!-- Кнопка Сбросить Изменения -->
+                <Button
+                v-show="computedVisibleResetBasicKey('description')"
+                v-tooltip="'Reset'"
+                class="ml-auto mb-1 shadow-1"
+                icon="pi pi-undo" 
+                size="small"
+                text
+                severity="warn"
+                @click="() => handlerResetChangedKey('description')"
+                />
             </label>
             <Textarea 
             id="operation-description" 
@@ -90,6 +136,7 @@
             cols="30" 
             placeholder="Operation Description" 
             v-model.trim="formData.operationDescription"
+            @input="(event) => handlerRecEditedBasicFields('description', event.target.value)"
             />
             <!-- Подпись для инпута Operation Description -->
             <inputErrorSignatures 
@@ -107,6 +154,10 @@
             </label>
             <paramsFormComp 
             @update="(params) => updatePathParams(params)"
+            @reset-changes="() => handlerResetParamsChanges('pathParams')"
+            :is-reset-to-inital-state="!!editedFieldsForm['pathParams']"
+            :edit-mode="isActiveEditMode"
+            :initial-params="formData.pathParams"
             :error="isPathParamsError"
             />
         </div>
@@ -121,6 +172,10 @@
             </label>
             <paramsFormComp 
             @update="(params) => updateQueryParams(params)"
+            @reset-changes="() => handlerResetParamsChanges('queryParams')"
+            :is-reset-to-inital-state="!!editedFieldsForm['queryParams']"
+            :edit-mode="isActiveEditMode"
+            :initial-params="formData.queryParams"
             :error="isQueryParamsError"
             />
         </div>
@@ -136,6 +191,10 @@
             </label>
             <paramsFormComp 
             @update="(params) => updateRequestBody(params)"
+            @reset-changes="() => handlerResetParamsChanges('requestBody')"
+            :is-reset-to-inital-state="!!editedFieldsForm['requestBody']"
+            :edit-mode="isActiveEditMode"
+            :initial-params="formData.requestBodyParams"
             :error="isRequestBodyParamsError"
             />
         </div>
@@ -145,7 +204,8 @@
             <Button
             class="ml-auto shadow-2"
             icon="pi pi-check" 
-            label="Create"
+            :label="(!props.editOperationData)? 'Create' : 'Confirm'"
+            :disabled="props.editOperationData && !Object.keys(editedFieldsForm).length"
             size="small"
             :icon-pos="'left'"
             :loading="isLoadRequest"
@@ -163,6 +223,11 @@ import useCreationOperationMain from '@/composables/newOperationComposables/crea
 import { defineProps, defineEmits } from 'vue';
 // ###############################  PROPS  ###############################
 const props = defineProps({
+    editOperationData: {
+        type: Object,
+        required: false,
+        default: null,
+    },
     projectId: {
         type: Number,
         required: false,
@@ -178,6 +243,8 @@ const emit = defineEmits(['close', 'appendOperation']);
 // ###############################  COMPOSABLES  ###############################
 const {  
     // Data
+    isActiveEditMode,
+    editedFieldsForm,
     isLoadRequest,
     methods,
     isMethodErr,
@@ -190,10 +257,16 @@ const {
     updatePathParams,
     updateQueryParams,
     updateRequestBody,
+    handlerChangeMethod,
+    handlerRecEditedBasicFields,
+    handlerResetParamsChanges,
+    handlerResetChangedKey,
+    // Computed
+    computedVisibleResetBasicKey,
     // Composables
     errorsOperationEndpoint, 
     errorsOperationName, 
-} = useCreationOperationMain(props.projectId, emit);
+} = useCreationOperationMain(props.projectId, props.editOperationData, emit);
 </script>
 
 <style scoped>
