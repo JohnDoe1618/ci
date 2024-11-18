@@ -49,6 +49,6 @@ router.beforeEach((to, from, next) => {
         console.log(store.isShowNavdrawer);
     }
     next();
-})
+});
 
 export default router;

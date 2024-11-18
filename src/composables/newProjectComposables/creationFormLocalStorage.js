@@ -25,8 +25,6 @@ export default function useHandlerFormLocalStorage() {
         localStorage.removeItem('creation_form');
     }
 
- 
-
     return {
         recordCreationFormToStorage,
         filledCreationFormOfStorage,
