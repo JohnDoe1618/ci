@@ -17,6 +17,7 @@
     "ci:start": "pm2 start ecosystem.config.cjs --env production"
   },
   "dependencies": {
+    "@jamescoyle/vue-icon": "^0.1.2",
     "@mdi/font": "^7.4.47",
     "@mdi/js": "^7.4.47",
     "@primevue/themes": "^4.0.0-rc.2",
